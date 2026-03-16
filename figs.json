@@ -7,6 +7,7 @@
     "kulmakindlus": "jah",
     "varvus": "kollakas-pruunikas",
     "breba": "",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -17,6 +18,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-violetne",
     "breba": "",
+    "riik": "USA",
     "saadavus": "jah"
   },
   {
@@ -27,6 +29,7 @@
     "kulmakindlus": "",
     "varvus": "rohekas-pruunikas",
     "breba": "",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -37,6 +40,7 @@
     "kulmakindlus": "ei",
     "varvus": "rohekas-violetne",
     "breba": "jah",
+    "riik": "Hispaania",
     "saadavus": "jah"
   },
   {
@@ -47,6 +51,7 @@
     "kulmakindlus": "",
     "varvus": "kollane",
     "breba": "",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -57,6 +62,7 @@
     "kulmakindlus": "ei",
     "varvus": "hallikas-violetne",
     "breba": "jah",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -67,6 +73,7 @@
     "kulmakindlus": "",
     "varvus": "",
     "breba": "",
+    "riik": "USA",
     "saadavus": "jah"
   },
   {
@@ -77,6 +84,7 @@
     "kulmakindlus": "jah",
     "varvus": "kollane",
     "breba": "",
+    "riik": "Iraan",
     "saadavus": "jah"
   },
   {
@@ -87,6 +95,7 @@
     "kulmakindlus": "",
     "varvus": "roheline",
     "breba": "mõningane",
+    "riik": "",
     "saadavus": "jah"
   },
   {
@@ -97,6 +106,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-pruunikas",
     "breba": "",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -107,6 +117,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-violetne",
     "breba": "",
+    "riik": "Malta",
     "saadavus": "jah"
   },
   {
@@ -117,6 +128,7 @@
     "kulmakindlus": "jah",
     "varvus": "roheline",
     "breba": "jah",
+    "riik": "Bulgaaria",
     "saadavus": "ei"
   },
   {
@@ -127,6 +139,7 @@
     "kulmakindlus": "jah",
     "varvus": "roheline",
     "breba": "",
+    "riik": "Bulgaaria",
     "saadavus": "ei"
   },
   {
@@ -137,6 +150,7 @@
     "kulmakindlus": "",
     "varvus": "pruun",
     "breba": "jah",
+    "riik": "Itaalia",
     "saadavus": "jah"
   },
   {
@@ -147,6 +161,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-pruunikas",
     "breba": "jah",
+    "riik": "USA",
     "saadavus": "jah"
   },
   {
@@ -157,6 +172,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-punakas",
     "breba": "jah",
+    "riik": "",
     "saadavus": "jah"
   },
   {
@@ -167,6 +183,7 @@
     "kulmakindlus": "jah",
     "varvus": "",
     "breba": "",
+    "riik": "Liibanon",
     "saadavus": "jah"
   },
   {
@@ -177,6 +194,7 @@
     "kulmakindlus": "jah",
     "varvus": "rohekas-violetne",
     "breba": "",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   },
   {
@@ -187,6 +205,7 @@
     "kulmakindlus": "jah",
     "varvus": "violetne",
     "breba": "jah",
+    "riik": "Prantsusmaa",
     "saadavus": "jah"
   }
 ]
