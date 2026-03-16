@@ -1,35 +1,120 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="et">
 <head>
+
 <meta charset="UTF-8">
-<title>Viigimarja sordid</title>
+<title>Viigipuu sordid</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f3f6f2;
+padding:40px;
+}
+
+table{
+border-collapse:collapse;
+width:100%;
+background:white;
+}
+
+th, td{
+border:1px solid #ddd;
+padding:8px;
+text-align:left;
+}
+
+th{
+background:#e9eee7;
+cursor:pointer;
+}
+
+th:hover{
+background:#dfe6da;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Viigimarjade kataloog</h1>
+<h1>Viigipuu sordid</h1>
 
 <table id="figTable">
 
 <thead>
+
 <tr>
-<th>Sort</th>
-<th>Varasus</th>
-<th>Maitsev</th>
-<th>Suurus</th>
-<th>Külmakindlus</th>
-<th>Värvus</th>
-<th>Breba</th>
-<th>Saadavus</th>
+<th onclick="sortTable(0)">Sort</th>
+<th onclick="sortTable(1)">Varasus</th>
+<th onclick="sortTable(2)">Maitsev</th>
+<th onclick="sortTable(3)">Suurus</th>
+<th onclick="sortTable(4)">Külmakindlus</th>
+<th onclick="sortTable(5)">Värvus</th>
+<th onclick="sortTable(6)">Breba</th>
+<th onclick="sortTable(7)">Saadavus</th>
 </tr>
+
 </thead>
 
 <tbody id="figBody"></tbody>
 
 </table>
 
-<script src="catalog.js"></script>
+<script>
+
+let figsData=[]
+
+fetch("figs.json")
+.then(res=>res.json())
+.then(data=>{
+
+figsData=data
+
+const body=document.getElementById("figBody")
+
+data.forEach(fig=>{
+
+const row=document.createElement("tr")
+
+row.innerHTML=`
+<td>${fig.name}</td>
+<td>${fig.varasus}</td>
+<td>${fig.maitsev}</td>
+<td>${fig.suurus}</td>
+<td>${fig.kulmakindlus}</td>
+<td>${fig.varvus}</td>
+<td>${fig.breba}</td>
+<td>${fig.saadavus}</td>
+`
+
+body.appendChild(row)
+
+})
+
+})
+
+function sortTable(n){
+
+const table=document.getElementById("figTable")
+let rows=Array.from(table.rows).slice(1)
+
+rows.sort((a,b)=>{
+
+let x=a.cells[n].innerText.toLowerCase()
+let y=b.cells[n].innerText.toLowerCase()
+
+return x.localeCompare(y)
+
+})
+
+rows.forEach(row=>table.appendChild(row))
+
+}
+
+</script>
 
 </body>
 </html>
