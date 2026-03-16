@@ -98,7 +98,7 @@ body.appendChild(row)
 
 })
 
-  const orderVarasus = {
+const orderVarasus = {
 "kõige varasem":1,
 "varane":2,
 "":3,
@@ -143,10 +143,18 @@ let rows=Array.from(table.rows).slice(1)
 
 rows.sort((a,b)=>{
 
-let x=a.cells[n].innerText.toLowerCase()
-let y=b.cells[n].innerText.toLowerCase()
+let x=a.cells[n].innerText.toLowerCase().trim()
+let y=b.cells[n].innerText.toLowerCase().trim()
 
-return x.localeCompare(y)
+if(n===0) return x.localeCompare(y)                     // Sort
+if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
+if(n===2) return (orderMaitsev[x]||99)-(orderMaitsev[y]||99)
+if(n===3) return (orderSuurus[x]||99)-(orderSuurus[y]||99)
+if(n===4) return (orderKulm[x]||99)-(orderKulm[y]||99)
+if(n===5) return x.localeCompare(y)                     // Värvus
+if(n===6) return (orderBreba[x]||99)-(orderBreba[y]||99)
+if(n===7) return x.localeCompare(y)                     // Riik
+if(n===8) return (orderSaadavus[x]||99)-(orderSaadavus[y]||99)
 
 })
 
