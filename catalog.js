@@ -17,6 +17,7 @@ row.innerHTML = `
 <td>${fig.varvus}</td>
 <td>${fig.breba}</td>
 <td>${fig.saadavus}</td>
+<td>${fig.riik}</td>
 `
 
 body.appendChild(row)
