@@ -1,0 +1,192 @@
+[
+  {
+    "name": "Campaniere",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "kollakas-pruunikas",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Chicago Hardy",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Cotentin",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "rohekas-pruunikas",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "De Tres Esplets",
+    "varasus": "kõige varasem",
+    "maitsev": "erakordselt",
+    "suurus": "keskmine",
+    "kulmakindlus": "ei",
+    "varvus": "rohekas-violetne",
+    "breba": "jah",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Figue Jaune",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Grise de Saint Jean",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "ei",
+    "varvus": "hallikas-violetne",
+    "breba": "jah",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Improved Celeste",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Iranian Candy",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "kollane",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "JH Adriatic",
+    "varasus": "hiline",
+    "maitsev": "erakordselt",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "roheline",
+    "breba": "mõningane",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Longue d'Août",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-pruunikas",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Malta Black",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Michurinska Green",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "roheline",
+    "breba": "jah",
+    "saadavus": "ei"
+  },
+  {
+    "name": "Michurinska-10",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "roheline",
+    "breba": "",
+    "saadavus": "ei"
+  },
+  {
+    "name": "Moro di Caneva",
+    "varasus": "varane",
+    "maitsev": "jah",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "pruun",
+    "breba": "jah",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Olympian",
+    "varasus": "hiline",
+    "maitsev": "jah",
+    "suurus": "suur",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-pruunikas",
+    "breba": "jah",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Pellegrino",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-punakas",
+    "breba": "jah",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Red Lebanese BV",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Ronde de Bordeaux",
+    "varasus": "kõige varane",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "saadavus": "jah"
+  },
+  {
+    "name": "Violette de Bordeaux (LMF)",
+    "varasus": "hiline",
+    "maitsev": "jah",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "violetne",
+    "breba": "jah",
+    "saadavus": "jah"
+  }
+]
