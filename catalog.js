@@ -42,3 +42,15 @@ figsData = data
 renderTable(figsData)
 
 })
+
+document.addEventListener("keydown", function(e){
+
+if(e.key === "ArrowRight"){
+nextSlide()
+}
+
+if(e.key === "ArrowLeft"){
+prevSlide()
+}
+
+})
