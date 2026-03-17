@@ -243,9 +243,18 @@ fetch("figs.json")
 .then(res=>res.json())
 .then(data=>{
 
-figs=data.filter(f=>f.image)
+figs = data.filter(f => f.image)
+
+/* find Pellegrino index */
+const pellegrinoIndex = figs.findIndex(f => f.name === "Pellegrino")
+
+if(pellegrinoIndex !== -1){
+current = pellegrinoIndex
+}
 
 showSlide()
+
+})
 
 })
 
