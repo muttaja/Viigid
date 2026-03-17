@@ -60,7 +60,7 @@
 "varvus":"kollakas-pruunikas",
 "breba":"",
 "riik":"Prantsusmaa",
-"image":"",
+"image":"../images/campaniere.jpg",
 "kandnud":"jah",
 "saadavus":"jah"
 },
@@ -86,7 +86,7 @@
 "varvus":"rohekas-pruunikas",
 "breba":"",
 "riik":"Prantsusmaa",
-"image":"../images/cotentin.jpg",
+"image":"../images/cotentin_1.jpg",
 "kandnud":"jah",
 "saadavus":"jah"
 },
@@ -138,7 +138,7 @@
 "varvus":"kollane",
 "breba":"",
 "riik":"Prantsusmaa",
-"image":"",
+"image":"../images/figue_jaune.jpg",
 "kandnud":"jah",
 "saadavus":"jah"
 },
@@ -164,7 +164,7 @@
 "varvus":"",
 "breba":"",
 "riik":"USA",
-"image":"",
+"image":"../images/improved_celeste.jpg",
 "kandnud":"jah",
 "saadavus":"jah"
 },
@@ -268,7 +268,7 @@
 "varvus":"",
 "breba":"",
 "riik":"Bulgaaria",
-"image":"",
+"image":"../images/michurinska_10.jpg",
 "kandnud":"jah",
 "saadavus":"ei"
 },
@@ -320,7 +320,7 @@
 "varvus":"rohekas-pruunikas",
 "breba":"jah",
 "riik":"USA",
-"image":"",
+"image":"../images/olympian.jpg",
 "kandnud":"jah",
 "saadavus":"jah"
 },
