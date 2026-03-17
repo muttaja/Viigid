@@ -129,7 +129,7 @@ document.getElementById("kandnudBtn").onclick = () => {
 filterKandnud = !filterKandnud
 
 document.getElementById("kandnudBtn").innerText =
-"Kandnud: " + (filterKandnud ? "ON" : "OFF")
+"Kandnud: " + (filterKandnud ? "jah, ainult kandnud sordid" : "kõik sordid")
 
 renderTable(figsData)
 
@@ -140,7 +140,7 @@ document.getElementById("saadavusBtn").onclick = () => {
 filterSaadavus = !filterSaadavus
 
 document.getElementById("saadavusBtn").innerText =
-"Saadaval: " + (filterSaadavus ? "ON" : "OFF")
+"Saadaval: " + (filterSaadavus ? "saadaval sordid" : "kõik sordid")
 
 renderTable(figsData)
 
