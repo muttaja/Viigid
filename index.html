@@ -4,17 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Ficus.ee – Viigipuud (Ficus carica) ja viigipuude sordid Eestis</title>
+<title>Ficus.ee – Viigipuud Eestis</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta property="og:title" content="Ficus.ee – Harilik viigipuu Ficus Carica Eestis">
-<meta property="og:description" content="Kevadel 2026 saadaval üle 30 sordi viigipuid Eestis. Chicago Hardy, Ronde de Bordeaux, Longue d'Août ja paljud teised.">
-<meta property="og:image" content="https://ficus.ee/images/pellegrino.jpg">
-<meta property="og:url" content="https://ficus.ee">
-<meta property="og:type" content="website">
-
-<link rel="canonical" href="https://ficus.ee">
 
 <style>
 
@@ -32,53 +24,66 @@ padding:40px 20px;
 
 h1{
 font-size:34px;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
 /* SLIDER */
 
 .slider{
-overflow:hidden;
-max-width:1000px;
+max-width:900px;
 margin:auto;
-}
-
-.slide-track{
-display:flex;
-gap:20px;
-animation:scroll 40s linear infinite;
+position:relative;
 }
 
 .slide{
-min-width:260px;
 background:white;
-border-radius:12px;
+border-radius:14px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
-box-shadow:0 6px 20px rgba(0,0,0,0.15);
 }
 
 .slide img{
 width:100%;
-height:200px;
+height:420px;
 object-fit:cover;
 }
 
-.slide-title{
-padding:10px;
-font-weight:bold;
+.slide-content{
+padding:20px;
+text-align:left;
+}
+
+.slide h2{
+margin:0 0 10px 0;
 color:#2e7d32;
 }
 
-.slide a{
-text-decoration:none;
-}
-
-@keyframes scroll{
-0% {transform:translateX(0);}
-100% {transform:translateX(-50%);}
+.info-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:6px;
+font-size:15px;
 }
 
 /* BUTTONS */
+
+.nav{
+position:absolute;
+top:45%;
+transform:translateY(-50%);
+background:#2e7d32;
+color:white;
+border:none;
+padding:12px 16px;
+font-size:18px;
+cursor:pointer;
+border-radius:6px;
+}
+
+.prev{ left:-50px; }
+.next{ right:-50px; }
+
+/* LINKS */
 
 .button{
 display:inline-block;
@@ -110,6 +115,8 @@ font-size:17px;
 background:#1b5e20;
 }
 
+/* VARIETY LIST */
+
 .varieties{
 margin-top:50px;
 max-width:900px;
@@ -133,8 +140,12 @@ padding:4px 0;
 
 @media (max-width:700px){
 
-.slide{
-min-width:200px;
+.nav{
+display:none;
+}
+
+.slide img{
+height:260px;
 }
 
 .varieties ul{
@@ -154,45 +165,14 @@ columns:1;
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
 <div class="slider">
-<div class="slide-track">
 
-<a class="slide" href="variety.html?name=Pellegrino">
-<img src="images/pellegrino.jpg">
-<div class="slide-title">Pellegrino</div>
-</a>
+<button class="nav prev" onclick="prevSlide()">‹</button> <button class="nav next" onclick="nextSlide()">›</button>
 
-<a class="slide" href="variety.html?name=Cotentin">
-<img src="images/cotentin.jpg">
-<div class="slide-title">Cotentin</div>
-</a>
-
-<a class="slide" href="variety.html?name=Grise%20de%20Saint%20Jean">
-<img src="images/grise_de_saint_jean.jpg">
-<div class="slide-title">Grise de Saint Jean</div>
-</a>
-
-<a class="slide" href="variety.html?name=JH%20Adriatic">
-<img src="images/jh_adriatic.jpg">
-<div class="slide-title">JH Adriatic</div>
-</a>
-
-<a class="slide" href="variety.html?name=Longue%20d%27Ao%C3%BBt">
-<img src="images/longue_daout.jpg">
-<div class="slide-title">Longue d'Août</div>
-</a>
-
-<a class="slide" href="variety.html?name=Moro%20di%20Caneva">
-<img src="images/moro_di_caneva.jpg">
-<div class="slide-title">Moro di Caneva</div>
-</a>
-
-<a class="slide" href="variety.html?name=Violette%20de%20Bordeaux%20(LMF)">
-<img src="images/violette_de_bordeaux.jpg">
-<div class="slide-title">Violette de Bordeaux</div>
-</a>
+<div id="slideContainer"></div>
 
 </div>
-</div>
+
+<br>
 
 <a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
 Viigipuude grupp Facebookis
@@ -200,7 +180,7 @@ Viigipuude grupp Facebookis
 
 <div class="varieties">
 
-<h2>Kevadel 2026 saadaval sordid (enamikke 1-2 puud)</h2>
+<h2>Kevadel 2026 saadaval sordid</h2>
 
 <ul>
 
@@ -254,8 +234,82 @@ mats.ploompuu@gmail.com
 
 </div>
 
+<script>
+
+let figs=[]
+let current=0
+
+fetch("figs.json")
+.then(res=>res.json())
+.then(data=>{
+
+figs=data.filter(f=>f.image)
+
+showSlide()
+
+})
+
+function showSlide(){
+
+const f=figs[current]
+
+document.getElementById("slideContainer").innerHTML=`
+
+<div class="slide">
+
+<a href="variety.html?name=${encodeURIComponent(f.name)}">
+
+<img src="${f.image}">
+
+<div class="slide-content">
+
+<h2>${f.name}</h2>
+
+<div class="info-grid">
+
+<div><b>Varasus:</b> ${f.varasus}</div>
+<div><b>Maitse:</b> ${f.maitsev}</div>
+
+<div><b>Suurus:</b> ${f.suurus}</div>
+<div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
+
+<div><b>Värvus:</b> ${f.varvus}</div>
+<div><b>Breba:</b> ${f.breba}</div>
+
+<div><b>Riik:</b> ${f.riik}</div>
+<div><b>Kandnud:</b> ${f.kandnud}</div>
+
+</div>
+
+</div>
+
+</a>
+
+</div>
+
+`
+
+}
+
+function nextSlide(){
+
+current++
+if(current>=figs.length) current=0
+showSlide()
+
+}
+
+function prevSlide(){
+
+current--
+if(current<0) current=figs.length-1
+showSlide()
+
+}
+
+setInterval(nextSlide,6000)
+
+</script>
+
 </body>
 </html>
-
-
-
