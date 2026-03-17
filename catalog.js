@@ -37,3 +37,36 @@ body.appendChild(row)
 })
 
 })
+
+let figsData = []
+
+fetch("figs.json")
+.then(res => res.json())
+.then(data => {
+
+figsData = data
+renderTable(figsData)
+
+})
+
+document.getElementById("kandnudBtn").onclick = () => {
+
+filterKandnud = !filterKandnud
+
+document.getElementById("kandnudBtn").innerText =
+"Kandnud: " + (filterKandnud ? "ON" : "OFF")
+
+renderTable(figsData)
+
+}
+
+document.getElementById("saadavusBtn").onclick = () => {
+
+filterSaadavus = !filterSaadavus
+
+document.getElementById("saadavusBtn").innerText =
+"Saadaval: " + (filterSaadavus ? "ON" : "OFF")
+
+renderTable(figsData)
+
+}
