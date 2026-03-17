@@ -9,6 +9,7 @@
     "breba": "",
     "riik": "Prantsusmaa",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -21,6 +22,7 @@
     "breba": "",
     "riik": "USA",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -33,6 +35,7 @@
     "breba": "",
     "riik": "Prantsusmaa",
     "image": "../images/cotentin.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -45,6 +48,7 @@
     "breba": "jah",
     "riik": "Hispaania",
     "image": "../images/de_tres_esplets.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -57,6 +61,7 @@
     "breba": "",
     "riik": "Prantsusmaa",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -69,6 +74,7 @@
     "breba": "jah",
     "riik": "Prantsusmaa",
     "image": "../images/grise_de_saint_jean.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -81,6 +87,7 @@
     "breba": "",
     "riik": "USA",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -93,6 +100,7 @@
     "breba": "",
     "riik": "Iraan",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -105,6 +113,7 @@
     "breba": "mõningane",
     "riik": "",
     "image": "../images/jh_adriatic.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -117,6 +126,7 @@
     "breba": "",
     "riik": "Prantsusmaa",
     "image": "../images/longue_daout.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -129,6 +139,7 @@
     "breba": "",
     "riik": "Malta",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -141,6 +152,7 @@
     "breba": "jah",
     "riik": "Bulgaaria",
     "image": "",
+    "kandnud": "",
     "saadavus": "ei"
   },
   {
@@ -153,6 +165,7 @@
     "breba": "",
     "riik": "Bulgaaria",
     "image": "",
+    "kandnud": "",
     "saadavus": "ei"
   },
   {
@@ -165,6 +178,7 @@
     "breba": "jah",
     "riik": "Itaalia",
     "image": "../images/moro_di_caneva.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -176,6 +190,7 @@
     "varvus": "rohekas-pruunikas",
     "breba": "jah",
     "riik": "USA",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -188,6 +203,7 @@
     "breba": "jah",
     "riik": "Itaalia",
     "image": "../images/pellegrino.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -200,6 +216,7 @@
     "breba": "",
     "riik": "Liibanon",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -212,6 +229,7 @@
     "breba": "",
     "riik": "Prantsusmaa",
     "image": "",
+    "kandnud": "",
     "saadavus": "jah"
   },
   {
@@ -224,6 +242,7 @@
     "breba": "jah",
     "riik": "Prantsusmaa",
     "image": "../images/violette_de_bordeaux.jpg",
+    "kandnud": "",
     "saadavus": "jah"
   }
 ]
