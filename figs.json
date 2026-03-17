@@ -8,6 +8,7 @@
     "varvus": "kollakas-pruunikas",
     "breba": "",
     "riik": "Prantsusmaa",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -19,6 +20,7 @@
     "varvus": "rohekas-violetne",
     "breba": "",
     "riik": "USA",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -30,6 +32,7 @@
     "varvus": "rohekas-pruunikas",
     "breba": "",
     "riik": "Prantsusmaa",
+    "image": "images/cotentin.jpg",
     "saadavus": "jah"
   },
   {
@@ -41,6 +44,7 @@
     "varvus": "rohekas-violetne",
     "breba": "jah",
     "riik": "Hispaania",
+    "image": "de_tres_esplets.jpg",
     "saadavus": "jah"
   },
   {
@@ -52,6 +56,7 @@
     "varvus": "kollane",
     "breba": "",
     "riik": "Prantsusmaa",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -63,6 +68,7 @@
     "varvus": "hallikas-violetne",
     "breba": "jah",
     "riik": "Prantsusmaa",
+    "image": "grise_de_saint_jean.jpg",
     "saadavus": "jah"
   },
   {
@@ -74,6 +80,7 @@
     "varvus": "",
     "breba": "",
     "riik": "USA",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -85,6 +92,7 @@
     "varvus": "kollane",
     "breba": "",
     "riik": "Iraan",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -96,6 +104,7 @@
     "varvus": "roheline",
     "breba": "mõningane",
     "riik": "",
+    "image": "jh_adriatic.jpg",
     "saadavus": "jah"
   },
   {
@@ -107,6 +116,7 @@
     "varvus": "rohekas-pruunikas",
     "breba": "",
     "riik": "Prantsusmaa",
+    "image": "longue_daout.jpg",
     "saadavus": "jah"
   },
   {
@@ -118,6 +128,7 @@
     "varvus": "rohekas-violetne",
     "breba": "",
     "riik": "Malta",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -129,6 +140,7 @@
     "varvus": "roheline",
     "breba": "jah",
     "riik": "Bulgaaria",
+    "image": "",
     "saadavus": "ei"
   },
   {
@@ -140,6 +152,7 @@
     "varvus": "roheline",
     "breba": "",
     "riik": "Bulgaaria",
+    "image": "",
     "saadavus": "ei"
   },
   {
@@ -151,6 +164,7 @@
     "varvus": "pruun",
     "breba": "jah",
     "riik": "Itaalia",
+    "image": "moro_di_caneva.jpg",
     "saadavus": "jah"
   },
   {
@@ -173,6 +187,7 @@
     "varvus": "rohekas-punakas",
     "breba": "jah",
     "riik": "Itaalia",
+    "image": "pellegrino_jpg",
     "saadavus": "jah"
   },
   {
@@ -184,6 +199,7 @@
     "varvus": "",
     "breba": "",
     "riik": "Liibanon",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -195,6 +211,7 @@
     "varvus": "rohekas-violetne",
     "breba": "",
     "riik": "Prantsusmaa",
+    "image": "",
     "saadavus": "jah"
   },
   {
@@ -206,6 +223,7 @@
     "varvus": "violetne",
     "breba": "jah",
     "riik": "Prantsusmaa",
+    "image": "violette_de_bordeaux.jpg",
     "saadavus": "jah"
   }
 ]
