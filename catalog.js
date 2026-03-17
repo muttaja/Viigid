@@ -1,3 +1,6 @@
+let filterKandnud = true
+let filterSaadavus = true
+
 fetch("figs.json")
 .then(res => res.json())
 .then(data => {
