@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+
+<meta charset="UTF-8">
+<title>Viigipuu sordid</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f3f6f2;
+margin:0;
+padding:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.card{
+background:white;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+transition:transform .15s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.card-body{
+padding:18px;
+}
+
+.card h3{
+margin:0 0 10px;
+font-size:20px;
+}
+
+.info{
+font-size:14px;
+color:#444;
+line-height:1.4;
+}
+
+.tag{
+display:inline-block;
+background:#e6efe2;
+padding:4px 8px;
+margin:3px;
+border-radius:6px;
+font-size:12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 style="text-align:center">Viigipuu sordid</h1>
+
+<div class="grid" id="varietyGrid"></div>
+
+<script>
+
+fetch("figs.json")
+.then(res=>res.json())
+.then(data=>{
+
+const grid=document.getElementById("varietyGrid")
+
+data.forEach(fig=>{
+
+if(!fig.image) return
+
+const card=document.createElement("div")
+card.className="card"
+
+card.innerHTML=`
+
+<a href="catalog.html?sort=${encodeURIComponent(fig.name)}">
+
+<img src="${fig.image}" alt="${fig.name}">
+
+</a>
+
+<div class="card-body">
+
+<h3>${fig.name}</h3>
+
+<div class="info">
+
+<span class="tag">${fig.varasus || ""}</span>
+<span class="tag">${fig.suurus || ""}</span>
+<span class="tag">${fig.varvus || ""}</span>
+
+</div>
+
+</div>
+`
+
+grid.appendChild(card)
+
+})
+
+})
+
+</script>
+
+</body>
+</html>
