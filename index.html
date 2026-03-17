@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="et">
 <head>
 
@@ -8,130 +9,142 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta property="og:title" content="Ficus.ee – Harilik viigipuu Ficus Carica Eestis">
-<meta property="og:description" content="Kevadel 2026 saadaval üle 30 sordi viigipuid Eestis. Chicago Hardy, Ronde de Bordeaux, Longe d'Août ja paljud teised.">
-<meta property="og:image" content="https://ficus.ee/viigipuu-longe-daout.jpg">
+<meta property="og:description" content="Kevadel 2026 saadaval üle 30 sordi viigipuid Eestis. Chicago Hardy, Ronde de Bordeaux, Longue d'Août ja paljud teised.">
+<meta property="og:image" content="https://ficus.ee/images/pellegrino.jpg">
 <meta property="og:url" content="https://ficus.ee">
 <meta property="og:type" content="website">
 
-<meta name="keywords" content="viigipuu, fig tree, ficus carica, ficus carica eesti, viigipuu Eestis, viigipuu sordid, Moro di Caneva, De Tres Esplets, Chicago Hardy, Ronde de Bordeaux, Longe d'Aout, ficus.ee">
 <link rel="canonical" href="https://ficus.ee">
 
-    <script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": "WebSite",
- "name": "Ficus.ee",
- "url": "https://ficus.ee",
- "description": "Ficus carica ehk viigipuud Eestis. Kevadel 2026 saadaval üle 30 sordi viigipuid nagu Chicago Hardy, Ronde de Bordeaux ja Longe d'Août.",
- "inLanguage": "et",
- "keywords": [
-  "viigipuu",
-  "ficus carica",
-  "ficus carica eesti",
-  "fig tree",
-  "viigipuu sordid",
-  "Chicago Hardy",
-  "Ronde de Bordeaux"
- ]
-}
-</script>
-
-    
 <style>
 
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f3f6f2;
-    text-align:center;
-    color:#333;
+margin:0;
+font-family:Arial, sans-serif;
+background:#f3f6f2;
+text-align:center;
+color:#333;
 }
 
 .container{
-    padding:40px 20px;
-}
-
-img{
-    max-width:900px;
-    width:90%;
-    height:auto;
-    border-radius:14px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+padding:40px 20px;
 }
 
 h1{
-    font-size:34px;
-    margin-bottom:10px;
+font-size:34px;
+margin-bottom:25px;
 }
 
+/* SLIDER */
+
+.slider{
+overflow:hidden;
+max-width:1000px;
+margin:auto;
+}
+
+.slide-track{
+display:flex;
+gap:20px;
+animation:scroll 40s linear infinite;
+}
+
+.slide{
+min-width:260px;
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.slide img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.slide-title{
+padding:10px;
+font-weight:bold;
+color:#2e7d32;
+}
+
+.slide a{
+text-decoration:none;
+}
+
+@keyframes scroll{
+0% {transform:translateX(0);}
+100% {transform:translateX(-50%);}
+}
+
+/* BUTTONS */
+
 .button{
-    display:inline-block;
-    margin-top:30px;
-    padding:14px 28px;
-    font-size:18px;
-    color:white;
-    background:#1877f2;
-    text-decoration:none;
-    border-radius:8px;
+display:inline-block;
+margin-top:30px;
+padding:14px 28px;
+font-size:18px;
+color:white;
+background:#1877f2;
+text-decoration:none;
+border-radius:8px;
 }
 
 .button:hover{
-    background:#145dbf;
-}
-
-.varieties{
-    margin-top:50px;
-    max-width:900px;
-    margin-left:auto;
-    margin-right:auto;
-    background:white;
-    padding:35px;
-    border-radius:14px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.08);
-}
-
-.varieties h2{
-    font-size:28px;
-}
-
-.varieties ul{
-    columns:3;
-    text-align:left;
-    padding-left:20px;
-}
-
-.varieties li{
-    padding:4px 0;
-}
-
-.contact{
-    margin-top:30px;
+background:#145dbf;
 }
 
 .email-button{
-    display:inline-block;
-    margin-top:10px;
-    padding:14px 26px;
-    background:#2e7d32;
-    color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-size:17px;
+display:inline-block;
+margin-top:10px;
+padding:14px 26px;
+background:#2e7d32;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-size:17px;
 }
 
 .email-button:hover{
-    background:#1b5e20;
+background:#1b5e20;
+}
+
+.varieties{
+margin-top:50px;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+background:white;
+padding:35px;
+border-radius:14px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+.varieties ul{
+columns:3;
+text-align:left;
+padding-left:20px;
+}
+
+.varieties li{
+padding:4px 0;
 }
 
 @media (max-width:700px){
 
+.slide{
+min-width:200px;
+}
+
 .varieties ul{
-    columns:1;
+columns:1;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -140,15 +153,50 @@ h1{
 
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
-<img src="viigipuu-longe-daout.jpg" alt="Longe d'Août viigipuu viljad Eestis">
+<div class="slider">
+<div class="slide-track">
 
-<br>
+<a class="slide" href="variety.html?name=Pellegrino">
+<img src="images/pellegrino.jpg">
+<div class="slide-title">Pellegrino</div>
+</a>
+
+<a class="slide" href="variety.html?name=Cotentin">
+<img src="images/cotentin.jpg">
+<div class="slide-title">Cotentin</div>
+</a>
+
+<a class="slide" href="variety.html?name=Grise%20de%20Saint%20Jean">
+<img src="images/grise_de_saint_jean.jpg">
+<div class="slide-title">Grise de Saint Jean</div>
+</a>
+
+<a class="slide" href="variety.html?name=JH%20Adriatic">
+<img src="images/jh_adriatic.jpg">
+<div class="slide-title">JH Adriatic</div>
+</a>
+
+<a class="slide" href="variety.html?name=Longue%20d%27Ao%C3%BBt">
+<img src="images/longue_daout.jpg">
+<div class="slide-title">Longue d'Août</div>
+</a>
+
+<a class="slide" href="variety.html?name=Moro%20di%20Caneva">
+<img src="images/moro_di_caneva.jpg">
+<div class="slide-title">Moro di Caneva</div>
+</a>
+
+<a class="slide" href="variety.html?name=Violette%20de%20Bordeaux%20(LMF)">
+<img src="images/violette_de_bordeaux.jpg">
+<div class="slide-title">Violette de Bordeaux</div>
+</a>
+
+</div>
+</div>
 
 <a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
 Viigipuude grupp Facebookis
 </a>
-
-<br>
 
 <div class="varieties">
 
@@ -162,7 +210,7 @@ Viigipuude grupp Facebookis
 <li>Brown Turkey</li>
 <li>Campaniere</li>
 <li>Chicago Hardy</li>
-<li><a href="../varieties/cotentin.html">Cotentin</a></li>
+<li><a href="variety.html?name=Cotentin">Cotentin</a></li>
 <li>Croisic</li>
 <li>Crozes</li>
 <li>De Tres Esplets</li>
@@ -196,15 +244,11 @@ Viigipuude grupp Facebookis
 Levinumate sortide omadused
 </a>
 
-<div class="contact">
-
 <p>Huvi korral kirjuta:</p>
 
 <a class="email-button" href="mailto:mats.ploompuu@gmail.com">
 mats.ploompuu@gmail.com
 </a>
-
-</div>
 
 </div>
 
