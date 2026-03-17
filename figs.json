@@ -44,7 +44,7 @@
     "varvus": "rohekas-violetne",
     "breba": "jah",
     "riik": "Hispaania",
-    "image": "de_tres_esplets.jpg",
+    "image": "images/de_tres_esplets.jpg",
     "saadavus": "jah"
   },
   {
@@ -68,7 +68,7 @@
     "varvus": "hallikas-violetne",
     "breba": "jah",
     "riik": "Prantsusmaa",
-    "image": "grise_de_saint_jean.jpg",
+    "image": "images/grise_de_saint_jean.jpg",
     "saadavus": "jah"
   },
   {
@@ -104,7 +104,7 @@
     "varvus": "roheline",
     "breba": "mõningane",
     "riik": "",
-    "image": "jh_adriatic.jpg",
+    "image": "images/jh_adriatic.jpg",
     "saadavus": "jah"
   },
   {
@@ -116,7 +116,7 @@
     "varvus": "rohekas-pruunikas",
     "breba": "",
     "riik": "Prantsusmaa",
-    "image": "longue_daout.jpg",
+    "image": "images/longue_daout.jpg",
     "saadavus": "jah"
   },
   {
@@ -164,7 +164,7 @@
     "varvus": "pruun",
     "breba": "jah",
     "riik": "Itaalia",
-    "image": "moro_di_caneva.jpg",
+    "image": "images/moro_di_caneva.jpg",
     "saadavus": "jah"
   },
   {
@@ -187,7 +187,7 @@
     "varvus": "rohekas-punakas",
     "breba": "jah",
     "riik": "Itaalia",
-    "image": "pellegrino.jpg",
+    "image": "images/pellegrino.jpg",
     "saadavus": "jah"
   },
   {
@@ -223,7 +223,7 @@
     "varvus": "violetne",
     "breba": "jah",
     "riik": "Prantsusmaa",
-    "image": "violette_de_bordeaux.jpg",
+    "image": "images/violette_de_bordeaux.jpg",
     "saadavus": "jah"
   }
 ]
