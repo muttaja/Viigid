@@ -7,6 +7,16 @@
 
 <style>
 
+a{
+color:#2e7d32;
+text-decoration:none;
+font-weight:bold;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
 body{
 font-family:Arial;
 background:#f3f6f2;
@@ -42,6 +52,10 @@ cursor:pointer;
 
 th:hover{
 background:#dfe6da;
+}
+
+.photo{
+margin-left:6px;
 }
 
 </style>
@@ -97,8 +111,10 @@ if(filterSaadavus && fig.saadavus !== "jah") return
 
 const row=document.createElement("tr")
 
+let photoIcon = fig.image ? '<span class="photo">📷</span>' : ''
+
 row.innerHTML=`
-<td>${fig.name}</td>
+<td><a href="variety.html?name=${encodeURIComponent(fig.name)}">${fig.name}</a>${photoIcon}</td>
 <td>${fig.varasus}</td>
 <td>${fig.maitsev}</td>
 <td>${fig.suurus}</td>
@@ -129,7 +145,9 @@ document.getElementById("kandnudBtn").onclick = () => {
 filterKandnud = !filterKandnud
 
 document.getElementById("kandnudBtn").innerText =
-"Kandnud: " + (filterKandnud ? "jah, ainult kandnud sordid" : "kõik sordid")
+filterKandnud ?
+"Näita ka sorte, mis pole veel kandnud" :
+"Näita ainult sorte, mis on kandnud"
 
 renderTable(figsData)
 
@@ -140,7 +158,9 @@ document.getElementById("saadavusBtn").onclick = () => {
 filterSaadavus = !filterSaadavus
 
 document.getElementById("saadavusBtn").innerText =
-"Saadavus: " + (filterSaadavus ? "jah, ainult saadaval sordid" : "kõik sordid")
+filterSaadavus ?
+"Näita ka sorte, mis pole hetkel saadaval" :
+"Näita ainult hetkel saadaval sorte"
 
 renderTable(figsData)
 
