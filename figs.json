@@ -32,7 +32,7 @@
     "varvus": "rohekas-pruunikas",
     "breba": "",
     "riik": "Prantsusmaa",
-    "image": "/images/cotentin.jpg",
+    "image": ".../images/cotentin.jpg",
     "saadavus": "jah"
   },
   {
@@ -44,7 +44,7 @@
     "varvus": "rohekas-violetne",
     "breba": "jah",
     "riik": "Hispaania",
-    "image": "/images/de_tres_esplets.jpg",
+    "image": ".../images/de_tres_esplets.jpg",
     "saadavus": "jah"
   },
   {
