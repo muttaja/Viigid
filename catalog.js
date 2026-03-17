@@ -16,7 +16,7 @@ if(filterSaadavus && fig.saadavus !== "jah") return
 const row = document.createElement("tr")
 
 row.innerHTML = `
-<td>${fig.name}</td>
+<td><a href="variety.html?name=${encodeURIComponent(fig.name)}">${fig.name}</a></td>
 <td>${fig.varasus}</td>
 <td>${fig.maitsev}</td>
 <td>${fig.suurus}</td>
