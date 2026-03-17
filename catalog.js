@@ -1,9 +1,7 @@
 let filterKandnud = true
 let filterSaadavus = true
 
-fetch("figs.json")
-.then(res => res.json())
-.then(data => {
+let figsData = []
 
 function renderTable(data){
 
@@ -34,11 +32,7 @@ body.appendChild(row)
 
 })
 
-})
-
-})
-
-let figsData = []
+}
 
 fetch("figs.json")
 .then(res => res.json())
