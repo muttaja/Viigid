@@ -32,6 +32,7 @@ margin-bottom:30px;
 .slider{
 max-width:900px;
 margin:auto;
+cursor:pointer;
 }
 
 .slide{
@@ -141,7 +142,7 @@ columns:1;
 
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
-<div class="slider">
+<div class="slider" onclick="nextSlide()">
 <div id="slideContainer"></div>
 </div>
 
@@ -209,31 +210,43 @@ mats.ploompuu@gmail.com
 
 <script>
 
-let figs=[]
-let current=0
+let figs = []
+let current = 0
+let slideTimer
 
 fetch("figs.json")
-.then(res=>res.json())
-.then(data=>{
+.then(res => res.json())
+.then(data => {
 
-figs=data.filter(f=>f.image)
+figs = data.filter(f => f.image)
+
+if(figs.length === 0){
+return
+}
 
 /* start with Pellegrino */
-const pellegrinoIndex=figs.findIndex(f=>f.name==="Pellegrino")
 
-if(pellegrinoIndex!==-1){
-current=pellegrinoIndex
+const pellegrinoIndex = figs.findIndex(f => f.name === "Pellegrino")
+
+if(pellegrinoIndex !== -1){
+current = pellegrinoIndex
 }
 
 showSlide()
+
+slideTimer = setInterval(nextSlide,6000)
 
 })
 
 function showSlide(){
 
-const f=figs[current]
+if(figs.length === 0){
+return
+}
 
-document.getElementById("slideContainer").innerHTML=`
+const f = figs[current]
+
+document.getElementById("slideContainer").innerHTML = `
 
 <div class="slide">
 
@@ -273,44 +286,50 @@ document.getElementById("slideContainer").innerHTML=`
 
 function nextSlide(){
 
+clearInterval(slideTimer)
+
 current++
-if(current>=figs.length) current=0
+if(current >= figs.length){
+current = 0
+}
+
 showSlide()
+
+slideTimer = setInterval(nextSlide,6000)
 
 }
 
 function prevSlide(){
 
 current--
-if(current<0) current=figs.length-1
+if(current < 0){
+current = figs.length - 1
+}
+
 showSlide()
 
 }
 
-/* auto slide */
-
-setInterval(nextSlide,6000)
-
 /* swipe support */
 
-let startX=0
-let endX=0
+let startX = 0
+let endX = 0
 
-const slider=document.querySelector(".slider")
+const slider = document.querySelector(".slider")
 
-slider.addEventListener("touchstart",e=>{
-startX=e.changedTouches[0].screenX
+slider.addEventListener("touchstart", e => {
+startX = e.changedTouches[0].screenX
 })
 
-slider.addEventListener("touchend",e=>{
+slider.addEventListener("touchend", e => {
 
-endX=e.changedTouches[0].screenX
+endX = e.changedTouches[0].screenX
 
-if(startX-endX>50){
+if(startX - endX > 50){
 nextSlide()
 }
 
-if(endX-startX>50){
+if(endX - startX > 50){
 prevSlide()
 }
 
