@@ -34,7 +34,7 @@ body.appendChild(row)
 
 }
 
-fetch("figs.json")
+fetch("figs1.json")
 .then(res=>res.json())
 .then(data=>{
 
