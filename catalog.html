@@ -101,19 +101,24 @@ let figsData = []
 
 function renderTable(data){
 
-const body=document.getElementById("figBody")
-body.innerHTML=""
+const body = document.getElementById("figBody")
+body.innerHTML = ""
+
+// ✅ SORT ALPHABETICALLY BY NAME
+data = [...data].sort((a,b)=>
+a.name.localeCompare(b.name, 'et')
+)
 
 data.forEach(fig=>{
 
 if(filterKandnud && fig.kandnud !== "jah") return
 if(filterSaadavus && fig.saadavus !== "jah") return
 
-const row=document.createElement("tr")
+const row = document.createElement("tr")
 
 let photoIcon = fig.image ? '<span class="photo">📷</span>' : ''
 
-row.innerHTML=`
+row.innerHTML = `
 <td><a href="variety.html?name=${encodeURIComponent(fig.name)}">${fig.name}</a>${photoIcon}</td>
 <td>${fig.varasus}</td>
 <td>${fig.maitsev}</td>
