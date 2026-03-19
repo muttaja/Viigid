@@ -84,13 +84,8 @@ border-radius:8px;
 background:rgba(0,0,0,0.6);
 }
 
-.arrow-left{
-left:10px;
-}
-
-.arrow-right{
-right:10px;
-}
+.arrow-left{ left:10px; }
+.arrow-right{ right:10px; }
 
 /* BUTTONS */
 
@@ -100,63 +95,47 @@ margin-top:30px;
 padding:14px 28px;
 font-size:18px;
 color:white;
-background:#1877f2;
+background:#2e7d32;
 text-decoration:none;
 border-radius:8px;
 }
 
 .button:hover{
-background:#145dbf;
-}
-
-.email-button{
-display:inline-block;
-margin-top:10px;
-padding:14px 26px;
-background:#2e7d32;
-color:white;
-text-decoration:none;
-border-radius:8px;
-font-size:17px;
-}
-
-.email-button:hover{
 background:#1b5e20;
 }
 
-/* VARIETY LIST */
+/* FACEBOOK SECTION */
 
-.varieties{
-margin-top:50px;
+.fb-section{
+margin-top:60px;
 max-width:900px;
 margin-left:auto;
 margin-right:auto;
 background:white;
-padding:35px;
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.08);
+overflow:hidden;
 }
 
-.varieties ul{
-columns:3;
+.fb-section img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.fb-content{
+padding:20px;
 text-align:left;
-padding-left:20px;
 }
 
-.varieties li{
-padding:4px 0;
+.fb-content h3{
+margin-top:0;
+color:#1877f2;
 }
 
 @media (max-width:700px){
-
-.slide img{
-height:340px;
-}
-
-.varieties ul{
-columns:1;
-}
-
+.slide img{ height:340px; }
+.fb-section img{ height:160px; }
 }
 
 </style>
@@ -179,61 +158,30 @@ columns:1;
 
 <br>
 
-<a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
-Viigipuude grupp Facebookis
-</a>
-
-<div class="varieties">
-
-<h2>Kevadel 2026 saadaval sordid</h2>
-
-<ul>
-
-<li>Andrey's Violet</li>
-<li>Atreano</li>
-<li>Bornholm</li>
-<li>Brown Turkey</li>
-<li>Campaniere</li>
-<li>Chicago Hardy</li>
-<li><a href="variety.html?name=Cotentin">Cotentin</a></li>
-<li>Croisic</li>
-<li>Crozes</li>
-<li>De Tres Esplets</li>
-<li>Figue Jaune</li>
-<li>Grise de Saint Jean</li>
-<li>Improved Celeste</li>
-<li>Iranian Candy</li>
-<li>JH Adriatic</li>
-<li>Longue d'Août</li>
-<li>LSU Hollier</li>
-<li>Malta Black</li>
-<li>Martinsfeige</li>
-<li>Michurinska Green</li>
-<li>Moro di Caneva</li>
-<li>Moscatel Preto</li>
-<li>Obersöllbach</li>
-<li>Olympian</li>
-<li><a href="variety.html?name=Pellegrino">Pellegrino</a></li>
-<li>Preto de Torres Novas</li>
-<li>Ronde de Bordeaux</li>
-<li>Smith</li>
-<li>Takoma Violet</li>
-<li>Unk. Spain Pete Lee</li>
-<li>Vagabond</li>
-<li>Verdino del Nord VR</li>
-<li>Violette de Bordeaux</li>
-
-</ul>
-
 <a class="button" href="catalog.html">
-Levinumate sortide omadused
+Vaata kõiki saadaval sorte
 </a>
 
-<p>Huvi korral kirjuta:</p>
+<!-- FACEBOOK SECTION -->
 
-<a class="email-button" href="mailto:mats.ploompuu@gmail.com">
-mats.ploompuu@gmail.com
+<div class="fb-section">
+
+<img src="images/facebook-cover.jpg" alt="Viigipuude Facebook grupp">
+
+<div class="fb-content">
+
+<h3>Viigipuude grupp Facebookis</h3>
+
+<p>
+Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi,
+katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.
+</p>
+
+<a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
+Ava Facebooki grupp
 </a>
+
+</div>
 
 </div>
 
@@ -254,13 +202,9 @@ figs=data.filter(f=>f.image)
 if(figs.length===0) return
 
 const pellegrinoIndex=figs.findIndex(f=>f.name==="Pellegrino")
-
-if(pellegrinoIndex!==-1){
-current=pellegrinoIndex
-}
+if(pellegrinoIndex!==-1) current=pellegrinoIndex
 
 showSlide()
-
 slideTimer=setInterval(nextSlide,6000)
 
 })
@@ -280,53 +224,34 @@ document.getElementById("slideContainer").innerHTML=`
 <h2><a href="variety.html?name=${encodeURIComponent(f.name)}">${f.name}</a></h2>
 
 <div class="info-grid">
-
 <div><b>Varasus:</b> ${f.varasus}</div>
 <div><b>Maitsev:</b> ${f.maitsev}</div>
-
 <div><b>Suurus:</b> ${f.suurus}</div>
 <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-
 <div><b>Värvus:</b> ${f.varvus}</div>
 <div><b>Breba:</b> ${f.breba}</div>
-
 <div><b>Riik:</b> ${f.riik}</div>
 <div><b>Kandnud:</b> ${f.kandnud}</div>
-
 </div>
 
 </div>
-
 </div>
-
 `
 
 }
 
 function nextSlide(){
-
 clearInterval(slideTimer)
-
-current++
-if(current>=figs.length) current=0
-
+current=(current+1)%figs.length
 showSlide()
-
 slideTimer=setInterval(nextSlide,6000)
-
 }
 
 function prevSlide(){
-
 clearInterval(slideTimer)
-
-current--
-if(current<0) current=figs.length-1
-
+current=(current-1+figs.length)%figs.length
 showSlide()
-
 slideTimer=setInterval(nextSlide,6000)
-
 }
 
 /* swipe */
@@ -341,12 +266,9 @@ startX=e.changedTouches[0].screenX
 })
 
 slider.addEventListener("touchend",e=>{
-
 endX=e.changedTouches[0].screenX
-
 if(startX-endX>50) nextSlide()
 if(endX-startX>50) prevSlide()
-
 })
 
 </script>
