@@ -47,6 +47,7 @@
 {"name":"Noire de Caromb","varasus":"","maitsev":"","suurus":"","kulmakindlus":"","varvus":"","breba":"","riik":"Prantsusmaa","image":"","kandnud":"ei","saadavus":"ei"},
 {"name":"Obersöllbach","varasus":"","maitsev":"","suurus":"suur","kulmakindlus":"","varvus":"","breba":"","riik":"Saksamaa","image":"","kandnud":"jah","saadavus":"jah"},
 {"name":"Olympian","varasus":"hiline","maitsev":"jah","suurus":"suur","kulmakindlus":"jah","varvus":"rohekas-pruunikas","breba":"jah","riik":"USA","image":"../images/olympian.jpg","kandnud":"jah","saadavus":"jah"},
+{"name":"Pastillère","varasus":"","maitsev":"","suurus":"","kulmakindlus":"jah","varvus":"","breba":"","riik":"Prantsusmaa","image":"","kandnud":"ei","saadavus":"ei"},
 {"name":"Pellegrino","varasus":"","maitsev":"","suurus":"mega","kulmakindlus":"jah","varvus":"rohekas-punakas","breba":"jah","riik":"Itaalia","image":"../images/pellegrino.jpg","kandnud":"jah","saadavus":"jah"},
 {"name":"Preto de Torres Novas","varasus":"","maitsev":"","suurus":"","kulmakindlus":"","varvus":"","breba":"","riik":"Portugal","image":"","kandnud":"ei","saadavus":"jah"},
 {"name":"Reculver","varasus":"","maitsev":"","suurus":"","kulmakindlus":"","varvus":"","breba":"","riik":"Inglismaa","image":"","kandnud":"ei","saadavus":"ei"},
