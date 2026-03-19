@@ -1,11 +1,22 @@
 <!DOCTYPE html>
+
 <html lang="et">
 <head>
 
 <meta charset="UTF-8">
 <title>Viigipuu sordid</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
+
+body{
+font-family:Arial;
+background:#f3f6f2;
+padding:20px;
+text-align:center;
+color:#333;
+}
 
 a{
 color:#2e7d32;
@@ -17,15 +28,28 @@ a:hover{
 text-decoration:underline;
 }
 
-body{
-font-family:Arial;
-background:#f3f6f2;
-padding:40px;
+h1{
+margin-bottom:20px;
 }
+
+/* INFO BOX */
+
+.info-box{
+max-width:900px;
+margin:20px auto 30px auto;
+background:white;
+padding:20px 25px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+text-align:left;
+line-height:1.6;
+}
+
+/* BUTTONS */
 
 button{
 padding:8px 14px;
-margin-right:8px;
+margin:5px;
 border-radius:6px;
 border:none;
 background:#2e7d32;
@@ -33,16 +57,25 @@ color:white;
 cursor:pointer;
 }
 
+button:hover{
+background:#1b5e20;
+}
+
+/* TABLE */
+
 table{
 border-collapse:collapse;
 width:100%;
 background:white;
+display:block;
+overflow-x:auto;
 }
 
 th, td{
 border:1px solid #ddd;
 padding:8px;
 text-align:left;
+white-space:nowrap;
 }
 
 th{
@@ -58,6 +91,19 @@ background:#dfe6da;
 margin-left:6px;
 }
 
+/* COUNT */
+
+#count{
+margin:10px 0 15px 0;
+font-weight:bold;
+}
+
+/* MOBILE */
+
+@media (max-width:700px){
+body{ padding:10px; }
+}
+
 </style>
 
 </head>
@@ -66,7 +112,9 @@ margin-left:6px;
 
 <h1>Viigipuu sordid</h1>
 
-<div style="max-width:900px;margin:20px auto 30px auto;background:white;padding:20px 25px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);text-align:left;line-height:1.6;">
+<div class="info-box">
+
+<h2 style="margin-top:0;color:#2e7d32;">Istikud 2026</h2>
 
 <p>
 Puud on suured ja ilusad (kõrgus ~60–80 cm), terved ja tugevad. 
@@ -88,12 +136,12 @@ ja ei tähenda, et nad Eesti talve ilma korralikult katmata kahjustusteta üle e
 
 </div>
 
-<div style="margin-bottom:20px">
-
+<div>
 <button id="kandnudBtn">Näita ka sorte, mis pole veel kandnud</button>
 <button id="saadavusBtn">Näita ka sorte, mis pole hetkel saadaval</button>
-
 </div>
+
+<p id="count"></p>
 
 <table id="figTable">
 
@@ -126,7 +174,9 @@ function renderTable(data){
 const body = document.getElementById("figBody")
 body.innerHTML = ""
 
-// ✅ SORT ALPHABETICALLY BY NAME
+let visible = 0
+
+// alphabetical default
 data = [...data].sort((a,b)=>
 a.name.localeCompare(b.name, 'et')
 )
@@ -135,6 +185,8 @@ data.forEach(fig=>{
 
 if(filterKandnud && fig.kandnud !== "jah") return
 if(filterSaadavus && fig.saadavus !== "jah") return
+
+visible++
 
 const row = document.createElement("tr")
 
@@ -156,15 +208,16 @@ body.appendChild(row)
 
 })
 
+document.getElementById("count").innerText =
+"Leitud sorte: " + visible
+
 }
 
 fetch("figs2.json")
 .then(res=>res.json())
 .then(data=>{
-
-figsData=data
+figsData = data
 renderTable(figsData)
-
 })
 
 document.getElementById("kandnudBtn").onclick = () => {
@@ -192,6 +245,8 @@ filterSaadavus ?
 renderTable(figsData)
 
 }
+
+/* SORTING */
 
 const orderVarasus = {
 "kõige varasem":1,
@@ -234,13 +289,13 @@ const orderSaadavus = {
 
 function sortTable(n){
 
-const table=document.getElementById("figTable")
-let rows=Array.from(table.rows).slice(1)
+const table = document.getElementById("figTable")
+let rows = Array.from(table.rows).slice(1)
 
 rows.sort((a,b)=>{
 
-let x=a.cells[n].innerText.toLowerCase().trim()
-let y=b.cells[n].innerText.toLowerCase().trim()
+let x = a.cells[n].innerText.toLowerCase().trim()
+let y = b.cells[n].innerText.toLowerCase().trim()
 
 if(n===0) return x.localeCompare(y)
 if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
