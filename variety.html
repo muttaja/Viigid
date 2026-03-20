@@ -105,17 +105,17 @@ Laen...
 
 <script>
 
-function getNameFromURL(){
+function getIdFromURL(){
 const params = new URLSearchParams(window.location.search)
-return params.get("name")
+return params.get("id")
 }
 
 fetch("figs2.json")
 .then(res => res.json())
 .then(data => {
 
-const name = getNameFromURL()
-const fig = data.find(f => f.name === name)
+const id = getIdFromURL()
+const fig = data.find(f => f.id === id)
 
 if(!fig){
 document.getElementById("varietyContainer").innerHTML = "Sorti ei leitud"
@@ -144,6 +144,7 @@ ${descHTML}
 <tr><td>Värvus</td><td>${fig.varvus}</td></tr>
 <tr><td>Breba</td><td>${fig.breba}</td></tr>
 <tr><td>Riik</td><td>${fig.riik}</td></tr>
+<tr><td>Kandnud</td><td>${fig.kandnud}</td></tr>
 <tr><td>Saadavus</td><td>${fig.saadavus}</td></tr>
 </table>
 
@@ -155,4 +156,3 @@ ${descHTML}
 
 </body>
 </html>
-
