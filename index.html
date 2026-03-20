@@ -63,6 +63,24 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:6px;
 font-size:15px;
+margin-top:10px;
+}
+
+.desc{
+margin-top:10px;
+font-size:15px;
+}
+
+/* BADGE */
+
+.badge{
+display:inline-block;
+background:#2e7d32;
+color:white;
+padding:5px 10px;
+border-radius:6px;
+font-size:13px;
+margin-bottom:8px;
 }
 
 /* ARROWS */
@@ -149,11 +167,9 @@ color:#1877f2;
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
 <div class="slider">
-
-<button class="arrow arrow-left" onclick="prevSlide()">‹</button> <button class="arrow arrow-right" onclick="nextSlide()">›</button>
-
+<button class="arrow arrow-left" onclick="prevSlide()">‹</button>
+<button class="arrow arrow-right" onclick="nextSlide()">›</button>
 <div id="slideContainer"></div>
-
 </div>
 
 <br>
@@ -166,7 +182,7 @@ Vaata kõiki saadaval sorte
 
 <div class="fb-section">
 
-<img src="images/facebook-cover.jpg" alt="Viigipuude Facebook grupp">
+<img src="images/facebook-cover.jpg">
 
 <div class="fb-content">
 
@@ -182,7 +198,6 @@ Ava Facebooki grupp
 </a>
 
 </div>
-
 </div>
 
 </div>
@@ -193,15 +208,17 @@ let figs=[]
 let current=0
 let slideTimer
 
-fetch("figs.json")
+fetch("figs2.json")
 .then(res=>res.json())
 .then(data=>{
 
+// only varieties with image
 figs=data.filter(f=>f.image)
 
 if(figs.length===0) return
 
-const pellegrinoIndex=figs.findIndex(f=>f.name==="Pellegrino")
+// start from Pellegrino
+const pellegrinoIndex=figs.findIndex(f=>f.id==="pellegrino")
 if(pellegrinoIndex!==-1) current=pellegrinoIndex
 
 showSlide()
@@ -213,6 +230,14 @@ function showSlide(){
 
 const f=figs[current]
 
+let badge = f.saadavus==="jah"
+? `<div class="badge">Saadaval!</div>`
+: ""
+
+let desc = f.kirjeldus
+? `<div class="desc">${f.kirjeldus}</div>`
+: ""
+
 document.getElementById("slideContainer").innerHTML=`
 
 <div class="slide">
@@ -221,7 +246,11 @@ document.getElementById("slideContainer").innerHTML=`
 
 <div class="slide-content">
 
-<h2><a href="variety.html?name=${encodeURIComponent(f.name)}">${f.name}</a></h2>
+${badge}
+
+<h2><a href="variety.html?id=${f.id}">${f.name}</a></h2>
+
+${desc}
 
 <div class="info-grid">
 <div><b>Varasus:</b> ${f.varasus}</div>
@@ -231,13 +260,11 @@ document.getElementById("slideContainer").innerHTML=`
 <div><b>Värvus:</b> ${f.varvus}</div>
 <div><b>Breba:</b> ${f.breba}</div>
 <div><b>Riik:</b> ${f.riik}</div>
-<div><b>Kandnud:</b> ${f.kandnud}</div>
 </div>
 
 </div>
 </div>
 `
-
 }
 
 function nextSlide(){
@@ -275,3 +302,4 @@ if(endX-startX>50) prevSlide()
 
 </body>
 </html>
+
