@@ -2,139 +2,121 @@
 
 <html lang="et">
 <head>
-
 <meta charset="UTF-8">
 <title>Viigipuu sort</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 body{
 font-family:Arial;
 background:#f3f6f2;
 margin:0;
-padding:20px;
-color:#333;
-text-align:center;
+padding:40px 20px;
 }
 
 .container{
-max-width:800px;
+max-width:900px;
 margin:auto;
 background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
+padding:30px;
+border-radius:14px;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
 }
 
 h1{
 margin-top:0;
 }
 
-img{
+.badge{
+display:inline-block;
+padding:6px 12px;
+border-radius:6px;
+color:white;
+font-size:14px;
+margin-left:10px;
+}
+
+.available{ background:#2e7d32; }
+.unavailable{ background:#999; }
+
+.gallery{
+margin-top:20px;
+}
+
+.gallery img{
 width:100%;
-max-height:420px;
+max-height:450px;
 object-fit:cover;
 border-radius:10px;
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 table{
 border-collapse:collapse;
 width:100%;
-margin-top:15px;
+margin-top:20px;
 }
 
 td{
-border-bottom:1px solid #ddd;
-padding:10px;
-text-align:left;
-}
-
-td:first-child{
-font-weight:bold;
-width:40%;
+border-bottom:1px solid #eee;
+padding:8px;
 }
 
 .back{
 display:inline-block;
 margin-top:20px;
-padding:10px 18px;
-background:#2e7d32;
-color:white;
 text-decoration:none;
-border-radius:6px;
+color:#2e7d32;
+font-weight:bold;
 }
-
-.back:hover{
-background:#1b5e20;
-}
-
-.desc{
-margin:10px 0 15px 0;
-font-size:16px;
-}
-
-.badge{
-display:inline-block;
-padding:6px 12px;
-border-radius:6px;
-font-size:14px;
-color:white;
-margin-bottom:10px;
-}
-
-.available{
-background:#2e7d32;
-}
-
-.unavailable{
-background:#888;
-}
-
 </style>
 
 </head>
 
 <body>
 
-<div class="container" id="varietyContainer">
-Laen...
+<div class="container">
+<div id="variety"></div>
+<a class="back" href="catalogue.html">← Tagasi kataloogi</a>
 </div>
 
 <script>
-
-function getIdFromURL(){
-const params = new URLSearchParams(window.location.search)
+function getId(){
+const params=new URLSearchParams(window.location.search)
 return params.get("id")
 }
 
 fetch("figs2.json")
-.then(res => res.json())
-.then(data => {
-
-const id = getIdFromURL()
-const fig = data.find(f => f.id === id)
+.then(res=>res.json())
+.then(data=>{
+const id=getId()
+const fig=data.find(f=>f.id===id)
 
 if(!fig){
-document.getElementById("varietyContainer").innerHTML = "Sorti ei leitud"
+document.getElementById("variety").innerHTML="<h2>Sorti ei leitud</h2>"
 return
 }
 
-let imageHTML = fig.image ? `<img src="${fig.image}">` : ""
-let descHTML = fig.kirjeldus ? `<p class="desc"><b>Kirjeldus:</b> ${fig.kirjeldus}</p>` : ""
+let imagesHTML=""
+if(fig.images){
+fig.images.forEach(img=>{
+imagesHTML+=`<img src="${img}">`
+})
+}
 
-let badgeHTML = fig.saadavus === "jah"
-? `<div class="badge available">Saadaval</div>`
-: `<div class="badge unavailable">Pole saadaval</div>`
+document.getElementById("variety").innerHTML=`
+<h1>
+${fig.name}
+<span class="badge ${fig.saadavus=="jah"?"available":"unavailable"}">
+${fig.saadavus=="jah"?"Saadaval":"Pole saadaval"}
+</span>
+</h1>
 
-document.getElementById("varietyContainer").innerHTML = `
-<h1>${fig.name}</h1>
+<p><b>Kirjeldus:</b> ${fig.kirjeldus || ""}</p>
 
-${badgeHTML}
-${imageHTML}
-${descHTML}
+<div class="gallery">
+${imagesHTML}
+</div>
 
 <table>
 <tr><td>Varasus</td><td>${fig.varasus}</td></tr>
@@ -145,13 +127,9 @@ ${descHTML}
 <tr><td>Breba</td><td>${fig.breba}</td></tr>
 <tr><td>Riik</td><td>${fig.riik}</td></tr>
 <tr><td>Kandnud</td><td>${fig.kandnud}</td></tr>
-<tr><td>Saadavus</td><td>${fig.saadavus}</td></tr>
 </table>
-
-<a class="back" href="catalog.html">← Tagasi kataloogi</a>
 `
 })
-
 </script>
 
 </body>
