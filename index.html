@@ -2,14 +2,11 @@
 
 <html lang="et">
 <head>
-
 <meta charset="UTF-8">
 <title>Ficus.ee – Viigipuud Eestis</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 body{
 margin:0;
 font-family:Arial, sans-serif;
@@ -27,8 +24,6 @@ font-size:34px;
 margin-bottom:30px;
 }
 
-/* SLIDER */
-
 .slider{
 max-width:900px;
 margin:auto;
@@ -44,7 +39,7 @@ overflow:hidden;
 
 .slide img{
 width:100%;
-height:620px;
+height:500px;
 object-fit:cover;
 }
 
@@ -53,37 +48,12 @@ padding:20px;
 text-align:left;
 }
 
-.slide h2{
-margin:0 0 10px 0;
-color:#2e7d32;
-}
-
 .info-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:6px;
 font-size:15px;
-margin-top:10px;
 }
-
-.desc{
-margin-top:10px;
-font-size:15px;
-}
-
-/* BADGE */
-
-.badge{
-display:inline-block;
-background:#2e7d32;
-color:white;
-padding:5px 10px;
-border-radius:6px;
-font-size:13px;
-margin-bottom:8px;
-}
-
-/* ARROWS */
 
 .arrow{
 position:absolute;
@@ -98,14 +68,8 @@ cursor:pointer;
 border-radius:8px;
 }
 
-.arrow:hover{
-background:rgba(0,0,0,0.6);
-}
-
 .arrow-left{ left:10px; }
 .arrow-right{ right:10px; }
-
-/* BUTTONS */
 
 .button{
 display:inline-block;
@@ -117,12 +81,6 @@ background:#2e7d32;
 text-decoration:none;
 border-radius:8px;
 }
-
-.button:hover{
-background:#1b5e20;
-}
-
-/* FACEBOOK SECTION */
 
 .fb-section{
 margin-top:60px;
@@ -145,17 +103,6 @@ object-fit:cover;
 padding:20px;
 text-align:left;
 }
-
-.fb-content h3{
-margin-top:0;
-color:#1877f2;
-}
-
-@media (max-width:700px){
-.slide img{ height:340px; }
-.fb-section img{ height:160px; }
-}
-
 </style>
 
 </head>
@@ -163,7 +110,6 @@ color:#1877f2;
 <body>
 
 <div class="container">
-
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
 <div class="slider">
@@ -172,38 +118,24 @@ color:#1877f2;
 <div id="slideContainer"></div>
 </div>
 
-<br>
-
-<a class="button" href="catalog.html">
+<a class="button" href="catalogue.html">
 Vaata kõiki saadaval sorte
 </a>
 
-<!-- FACEBOOK SECTION -->
-
 <div class="fb-section">
-
 <img src="images/facebook-cover.jpg">
-
 <div class="fb-content">
-
 <h3>Viigipuude grupp Facebookis</h3>
-
-<p>
-Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi,
-katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.
-</p>
-
+<p>Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi, katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.</p>
 <a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
 Ava Facebooki grupp
 </a>
-
 </div>
 </div>
 
 </div>
 
 <script>
-
 let figs=[]
 let current=0
 let slideTimer
@@ -211,47 +143,20 @@ let slideTimer
 fetch("figs2.json")
 .then(res=>res.json())
 .then(data=>{
-
-// only varieties with image
-figs=data.filter(f=>f.image)
-
-if(figs.length===0) return
-
-// start from Pellegrino
-const pellegrinoIndex=figs.findIndex(f=>f.id==="pellegrino")
-if(pellegrinoIndex!==-1) current=pellegrinoIndex
-
+figs=data.filter(f=>f.images && f.images.length>0)
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
-
 })
 
 function showSlide(){
-
 const f=figs[current]
 
-let badge = f.saadavus==="jah"
-? `<div class="badge">Saadaval!</div>`
-: ""
-
-let desc = f.kirjeldus
-? `<div class="desc">${f.kirjeldus}</div>`
-: ""
-
 document.getElementById("slideContainer").innerHTML=`
-
 <div class="slide">
-
-<img src="${f.image}">
-
+<img src="${f.images[0]}">
 <div class="slide-content">
-
-${badge}
-
-<h2><a href="variety.html?id=${f.id}">${f.name}</a></h2>
-
-${desc}
-
+<h2>${f.name} ${f.saadavus=="jah" ? '<span style="color:green;">(saadaval!)</span>' : ''}</h2>
+<p>${f.kirjeldus || ""}</p>
 <div class="info-grid">
 <div><b>Varasus:</b> ${f.varasus}</div>
 <div><b>Maitsev:</b> ${f.maitsev}</div>
@@ -261,10 +166,8 @@ ${desc}
 <div><b>Breba:</b> ${f.breba}</div>
 <div><b>Riik:</b> ${f.riik}</div>
 </div>
-
 </div>
-</div>
-`
+</div>`
 }
 
 function nextSlide(){
@@ -280,26 +183,7 @@ current=(current-1+figs.length)%figs.length
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
 }
-
-/* swipe */
-
-let startX=0
-let endX=0
-
-const slider=document.querySelector(".slider")
-
-slider.addEventListener("touchstart",e=>{
-startX=e.changedTouches[0].screenX
-})
-
-slider.addEventListener("touchend",e=>{
-endX=e.changedTouches[0].screenX
-if(startX-endX>50) nextSlide()
-if(endX-startX>50) prevSlide()
-})
-
 </script>
 
 </body>
 </html>
-
