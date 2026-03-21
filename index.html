@@ -126,7 +126,10 @@ Vaata kõiki saadaval sorte
 <img src="images/facebook-cover.jpg">
 <div class="fb-content">
 <h3>Viigipuude grupp Facebookis</h3>
-<p>Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi, katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.</p>
+<p>
+Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi,
+katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.
+</p>
 <a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
 Ava Facebooki grupp
 </a>
@@ -140,10 +143,30 @@ let figs=[]
 let current=0
 let slideTimer
 
+// Check if image exists
+function imageExists(url){
+return new Promise(resolve=>{
+const img=new Image()
+img.onload=()=>resolve(true)
+img.onerror=()=>resolve(false)
+img.src=url
+})
+}
+
 fetch("figs2.json")
 .then(res=>res.json())
-.then(data=>{
-figs=data.filter(f=>f.images && f.images.length>0)
+.then(async data=>{
+for(const f of data){
+if(f.images && f.images.length>0){
+const exists=await imageExists(f.images[0])
+if(exists){
+figs.push(f)
+}
+}
+}
+
+if(figs.length===0) return
+
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
 })
@@ -155,8 +178,13 @@ document.getElementById("slideContainer").innerHTML=`
 <div class="slide">
 <img src="${f.images[0]}">
 <div class="slide-content">
-<h2>${f.name} ${f.saadavus=="jah" ? '<span style="color:green;">(saadaval!)</span>' : ''}</h2>
+<h2>
+${f.name}
+${f.saadavus=="jah" ? '<span style="color:green;">(saadaval!)</span>' : ''}
+</h2>
+
 <p>${f.kirjeldus || ""}</p>
+
 <div class="info-grid">
 <div><b>Varasus:</b> ${f.varasus}</div>
 <div><b>Maitsev:</b> ${f.maitsev}</div>
