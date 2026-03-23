@@ -143,7 +143,6 @@ let figs=[]
 let current=0
 let slideTimer
 
-// Check if image exists
 function imageExists(url){
 return new Promise(resolve=>{
 const img=new Image()
@@ -153,9 +152,10 @@ img.src=url
 })
 }
 
-fetch("figs2.json")
-.then(res=>res.json())
-.then(async data=>{
+async function loadSlides(){
+const res=await fetch("figs2.json")
+const data=await res.json()
+
 for(const f of data){
 if(f.images && f.images.length>0){
 const exists=await imageExists(f.images[0])
@@ -165,11 +165,12 @@ figs.push(f)
 }
 }
 
-if(figs.length===0) return
-
+if(figs.length>0){
+current=0
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
-})
+}
+}
 
 function showSlide(){
 const f=figs[current]
@@ -211,6 +212,8 @@ current=(current-1+figs.length)%figs.length
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
 }
+
+loadSlides()
 </script>
 
 </body>
