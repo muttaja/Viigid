@@ -123,7 +123,7 @@ Vaata kõiki saadaval sorte
 </a>
 
 <div class="fb-section">
-<img src="images_fb/facebook-cover.jpg">
+<img src="images/facebook-cover.jpg">
 <div class="fb-content">
 <h3>Viigipuude grupp Facebookis</h3>
 <p>
@@ -143,36 +143,18 @@ let figs=[]
 let current=0
 let slideTimer
 
-function imageExists(url){
-return new Promise(resolve=>{
-const img=new Image()
-img.onload=()=>resolve(true)
-img.onerror=()=>resolve(false)
-img.src=url
-})
-}
-
-async function loadSlides(){
-const res=await fetch("figs2.json")
-const data=await res.json()
-
-<script>
-let figs=[]
-let current=0
-let slideTimer
-
 fetch("figs2.json")
 .then(res=>res.json())
 .then(data=>{
 
-// Only varieties that actually have images defined
+// Only varieties with images
 figs = data.filter(f => f.images && f.images.length > 0)
 
-if(figs.length === 0) return
-
+if(figs.length > 0){
 current = 0
 showSlide()
 slideTimer = setInterval(nextSlide, 6000)
+}
 
 })
 
@@ -199,8 +181,10 @@ ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
 <div><b>Breba:</b> ${f.breba}</div>
 <div><b>Riik:</b> ${f.riik}</div>
 </div>
+
 </div>
-</div>`
+</div>
+`
 }
 
 function nextSlide(){
@@ -216,58 +200,6 @@ current = (current - 1 + figs.length) % figs.length
 showSlide()
 slideTimer = setInterval(nextSlide, 6000)
 }
-</script>
-
-
-if(figs.length>0){
-current=0
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
-}
-}
-
-function showSlide(){
-const f=figs[current]
-
-document.getElementById("slideContainer").innerHTML=`
-<div class="slide">
-<img src="${f.images[0]}">
-<div class="slide-content">
-<h2>
-${f.name}
-${f.saadavus=="jah" ? '<span style="color:green;">(saadaval!)</span>' : ''}
-</h2>
-
-<p>${f.kirjeldus || ""}</p>
-
-<div class="info-grid">
-<div><b>Varasus:</b> ${f.varasus}</div>
-<div><b>Maitsev:</b> ${f.maitsev}</div>
-<div><b>Suurus:</b> ${f.suurus}</div>
-<div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-<div><b>Värvus:</b> ${f.varvus}</div>
-<div><b>Breba:</b> ${f.breba}</div>
-<div><b>Riik:</b> ${f.riik}</div>
-</div>
-</div>
-</div>`
-}
-
-function nextSlide(){
-clearInterval(slideTimer)
-current=(current+1)%figs.length
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
-}
-
-function prevSlide(){
-clearInterval(slideTimer)
-current=(current-1+figs.length)%figs.length
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
-}
-
-loadSlides()
 </script>
 
 </body>
