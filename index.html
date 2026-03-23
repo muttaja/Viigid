@@ -139,31 +139,50 @@ Ava Facebooki grupp
 </div>
 
 <script>
-let figs=[]
-let current=0
+let figs = []
+let current = 0
 let slideTimer
 
-fetch("figs2.json")
-.then(res=>res.json())
-.then(data=>{
+function imageExists(url){
+return new Promise(resolve=>{
+const img = new Image()
+img.onload = () => resolve(true)
+img.onerror = () => resolve(false)
+img.src = url
+})
+}
 
-// Only varieties with images
-figs = data.filter(f => f.images && f.images.length > 0)
+async function loadSlides(){
+const res = await fetch("figs2.json")
+const data = await res.json()
+
+for(const f of data){
+if(f.images && f.images.length > 0){
+
+// Fix path for index page
+const imgPath = f.images[0].replace('../','')
+
+const exists = await imageExists(imgPath)
+if(exists){
+figs.push(f)
+}
+}
+}
 
 if(figs.length > 0){
 current = 0
 showSlide()
 slideTimer = setInterval(nextSlide, 6000)
 }
-
-})
+}
 
 function showSlide(){
 const f = figs[current]
+const imgPath = f.images[0].replace('../','')
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
-<img src="${f.images[0]}">
+<img src="${imgPath}">
 <div class="slide-content">
 <h2>
 ${f.name}
@@ -200,6 +219,8 @@ current = (current - 1 + figs.length) % figs.length
 showSlide()
 slideTimer = setInterval(nextSlide, 6000)
 }
+
+loadSlides()
 </script>
 
 </body>
