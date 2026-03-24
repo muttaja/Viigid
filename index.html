@@ -187,7 +187,7 @@ slideTimer = setInterval(nextSlide, 6000)
 
 function showSlide(){
 const f = figs[current]
-const imgPath = f.images[0].replace('../','')
+const imgPath = figs[current].sliderImg.replace('../','')
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
