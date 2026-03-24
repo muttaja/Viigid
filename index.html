@@ -103,6 +103,12 @@ object-fit:cover;
 padding:20px;
 text-align:left;
 }
+
+@media(max-width:600px){
+.slide img{
+height:300px;
+}
+}
 </style>
 
 </head>
@@ -142,32 +148,20 @@ Ava Facebooki grupp
 let figs = []
 let current = 0
 let slideTimer
-
-function imageExists(url){
-return new Promise(resolve=>{
-const img = new Image()
-img.onload = () => resolve(true)
-img.onerror = () => resolve(false)
-img.src = url
-})
-}
+let startX = 0
 
 async function loadSlides(){
 const res = await fetch("figs2.json")
 const data = await res.json()
 
+// Only varieties that actually have image folder images (1.jpg)
 for(const f of data){
 if(f.images && f.images.length > 0){
-
-const imgPath = f.images[0].replace('../','')
-
-const exists = await imageExists(imgPath)
-if(exists){
 figs.push(f)
 }
 }
-}
 
+// Start from first real slide
 if(figs.length > 0){
 current = 0
 showSlide()
@@ -177,11 +171,10 @@ slideTimer = setInterval(nextSlide, 6000)
 
 function showSlide(){
 const f = figs[current]
-const imgPath = f.images[0].replace('../','')
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
-<img src="${imgPath}">
+<img id="slideImg" src="${f.images[0].replace('../','')}">
 <div class="slide-content">
 <h2>
 ${f.name}
@@ -199,10 +192,21 @@ ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
 <div><b>Breba:</b> ${f.breba}</div>
 <div><b>Riik:</b> ${f.riik}</div>
 </div>
-
 </div>
 </div>
 `
+
+// Mobile swipe
+const img = document.getElementById("slideImg")
+img.addEventListener("touchstart", e=>{
+startX = e.touches[0].clientX
+})
+
+img.addEventListener("touchend", e=>{
+let endX = e.changedTouches[0].clientX
+if(endX - startX > 50) prevSlide()
+if(startX - endX > 50) nextSlide()
+})
 }
 
 function nextSlide(){
