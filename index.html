@@ -37,7 +37,6 @@ border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
 margin-bottom:20px;
-transition:background 0.3s;
 }
 
 .slide-image{
@@ -112,18 +111,6 @@ background:white;
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.08);
 overflow:hidden;
-transition:background 0.3s;
-}
-
-.fb-section img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
-
-.fb-content{
-padding:20px;
-text-align:left;
 }
 
 /* DARK MODE */
@@ -157,6 +144,12 @@ background:#388e3c;
 background:rgba(255,255,255,0.2);
 }
 }
+
+@media(max-width:600px){
+.slide-image{
+height:300px;
+}
+}
 </style>
 
 </head>
@@ -166,7 +159,7 @@ background:rgba(255,255,255,0.2);
 <div class="container">
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
-<div class="slider">
+<div class="slider" id="slider">
 <button class="arrow arrow-left" onclick="prevSlide()">‹</button>
 <button class="arrow arrow-right" onclick="nextSlide()">›</button>
 <div id="slideContainer"></div>
@@ -198,6 +191,8 @@ let slideOrder=[]
 let slides=[]
 let current=0
 let slideTimer
+let startX=0
+let endX=0
 
 async function loadSlides(){
 const res=await fetch("figs2.json")
@@ -268,6 +263,19 @@ current=(current-1+slides.length)%slides.length
 showSlide()
 slideTimer=setInterval(nextSlide,6000)
 }
+
+/* SWIPE MOBILE */
+const slider=document.getElementById("slider")
+
+slider.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX
+})
+
+slider.addEventListener("touchend",e=>{
+endX=e.changedTouches[0].clientX
+if(endX-startX>50) prevSlide()
+if(startX-endX>50) nextSlide()
+})
 
 loadSlides()
 </script>
