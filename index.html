@@ -102,18 +102,63 @@ text-decoration:none;
 border-radius:8px;
 }
 
-.fb-section{
-margin-top:60px;
+/* Facebook card */
+.fb-card{
+display:block;
 max-width:900px;
-margin-left:auto;
-margin-right:auto;
-background:white;
+margin:60px auto;
 border-radius:14px;
-box-shadow:0 6px 20px rgba(0,0,0,0.08);
 overflow:hidden;
+text-decoration:none;
+box-shadow:0 6px 20px rgba(0,0,0,0.15);
+transition:0.2s;
 }
 
-/* DARK MODE */
+.fb-card:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+.fb-image{
+position:relative;
+}
+
+.fb-image img{
+width:100%;
+height:260px;
+object-fit:cover;
+display:block;
+}
+
+.fb-overlay{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+background:linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+color:white;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.fb-logo{
+width:50px;
+height:50px;
+}
+
+.fb-text h3{
+margin:0;
+font-size:20px;
+}
+
+.fb-text p{
+margin:4px 0 0 0;
+font-size:14px;
+}
+
+/* Dark mode */
 @media (prefers-color-scheme: dark){
 body{
 background:#121212;
@@ -128,10 +173,6 @@ background:#1e1e1e;
 background:#1e1e1e;
 }
 
-.fb-section{
-background:#1e1e1e;
-}
-
 .slide-title{
 color:#81c784;
 }
@@ -139,15 +180,26 @@ color:#81c784;
 .button{
 background:#388e3c;
 }
-
-.arrow{
-background:rgba(255,255,255,0.2);
-}
 }
 
+/* Mobile */
 @media(max-width:600px){
 .slide-image{
 height:300px;
+}
+
+.fb-image img{
+height:180px;
+}
+
+.fb-overlay{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.fb-logo{
+width:40px;
+height:40px;
 }
 }
 </style>
@@ -169,19 +221,20 @@ height:300px;
 Vaata kõiki saadaval sorte
 </a>
 
-<div class="fb-section">
-<img src="images_fb/facebook-cover.jpg">
-<div class="fb-content">
+<!-- Facebook card -->
+
+<a href="https://www.facebook.com/groups/1096702358191767/" target="_blank" class="fb-card">
+<div class="fb-image">
+<img src="../images_fb/facebook-cover.jpg">
+<div class="fb-overlay">
+<img class="fb-logo" src="../images_fb/facebook-logo.png">
+<div class="fb-text">
 <h3>Viigipuude grupp Facebookis</h3>
-<p>
-Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi,
-katsetame sorte ja arutame, millised viigipuud Eesti kliimas kõige paremini kasvavad.
-</p>
-<a class="button" href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
-Ava Facebooki grupp
+<p>Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi ja katsetame sorte.</p>
+</div>
+</div>
+</div>
 </a>
-</div>
-</div>
 
 </div>
 
@@ -264,7 +317,7 @@ showSlide()
 slideTimer=setInterval(nextSlide,6000)
 }
 
-/* SWIPE MOBILE */
+/* Swipe mobile */
 const slider=document.getElementById("slider")
 
 slider.addEventListener("touchstart",e=>{
