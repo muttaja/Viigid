@@ -13,6 +13,7 @@ font-family:Arial, sans-serif;
 background:#f3f6f2;
 text-align:center;
 color:#333;
+transition:background 0.3s, color 0.3s;
 }
 
 .container{
@@ -36,6 +37,7 @@ border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
 margin-bottom:20px;
+transition:background 0.3s;
 }
 
 .slide-image{
@@ -110,6 +112,7 @@ background:white;
 border-radius:14px;
 box-shadow:0 6px 20px rgba(0,0,0,0.08);
 overflow:hidden;
+transition:background 0.3s;
 }
 
 .fb-section img{
@@ -127,6 +130,41 @@ text-align:left;
 .slide-image{
 height:300px;
 }
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark){
+
+body{
+background:#121212;
+color:#e0e0e0;
+}
+
+.slide{
+background:#1e1e1e;
+box-shadow:0 8px 25px rgba(0,0,0,0.6);
+}
+
+.slide-image{
+background:#1e1e1e;
+}
+
+.fb-section{
+background:#1e1e1e;
+}
+
+.slide-title{
+color:#81c784;
+}
+
+.button{
+background:#388e3c;
+}
+
+.arrow{
+background:rgba(255,255,255,0.2);
+}
+
 }
 </style>
 
@@ -210,7 +248,7 @@ document.getElementById("slideContainer").innerHTML = `
     <div class="slide-content">
         <h2 class="slide-title" onclick="openVariety()">
         ${f.name}
-        ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
+        ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval!)</span>' : ''}
         </h2>
 
         <p>${f.kirjeldus || ""}</p>
@@ -245,14 +283,14 @@ function nextSlide(){
 clearInterval(slideTimer)
 current = (current + 1) % slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 5000)
+slideTimer = setInterval(nextSlide, 6000)
 }
 
 function prevSlide(){
 clearInterval(slideTimer)
 current = (current - 1 + slides.length) % slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 5000)
+slideTimer = setInterval(nextSlide, 6000)
 }
 
 loadSlides()
