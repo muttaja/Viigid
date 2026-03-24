@@ -150,56 +150,38 @@ let current = 0
 let slideTimer
 let startX = 0
 
-function imageExists(url){
-return new Promise(resolve=>{
-const img = new Image()
-img.onload = ()=>resolve(true)
-img.onerror = ()=>resolve(false)
-img.src = url
-})
-}
-
 async function loadSlides(){
 const res = await fetch("figs2.json")
-const data = await res.json()
+figs = await res.json()
 
-let validFigs = []
+// Remove varieties without images
+figs = figs.filter(f => f.images && f.images.length > 0)
 
-for(const f of data){
-if(!f.images || f.images.length === 0) continue
-
-let img = f.images[0]
-
-// Folder → use 1.jpg
-if(img.endsWith('/')){
-img = img + "1.jpg"
-}
-
-img = img.replace('../','')
-
-// Check if image exists
-if(await imageExists(img)){
-f.sliderImg = img
-validFigs.push(f)
-}
-}
-
-// Use only valid figs
-figs = validFigs
-
-if(figs.length > 0){
 current = 0
 showSlide()
 slideTimer = setInterval(nextSlide, 6000)
 }
+
+function getImagePath(f){
+let img = f.images[0]
+
+// Folder images
+if(img.endsWith('/')){
+img = img + "1.jpg"
+}
+
+return img.replace('../','')
 }
 
 function showSlide(){
+if(figs.length === 0) return
+
 const f = figs[current]
+const imgPath = getImagePath(f)
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
-<img id="slideImg" src="${f.sliderImg}">
+<img id="slideImg" src="${imgPath}" onerror="imageError()">
 <div class="slide-content">
 <h2>
 ${f.name}
@@ -221,7 +203,7 @@ ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
 </div>
 `
 
-// Swipe mobile
+// Mobile swipe
 const img = document.getElementById("slideImg")
 img.addEventListener("touchstart", e=>{
 startX = e.touches[0].clientX
@@ -232,6 +214,11 @@ let endX = e.changedTouches[0].clientX
 if(endX - startX > 50) prevSlide()
 if(startX - endX > 50) nextSlide()
 })
+}
+
+// If image missing → skip slide automatically
+function imageError(){
+nextSlide()
 }
 
 function nextSlide(){
