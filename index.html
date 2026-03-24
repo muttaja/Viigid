@@ -154,14 +154,12 @@ async function loadSlides(){
 const res = await fetch("figs2.json")
 const data = await res.json()
 
+// Only varieties that have folder images (1.jpg)
 for(const f of data){
 if(f.images && f.images.length > 0){
-
-// Only varieties with folder images (1.jpg)
 if(f.images[0].includes('/1.jpg')){
 figs.push(f)
 }
-
 }
 }
 
@@ -174,10 +172,11 @@ slideTimer = setInterval(nextSlide, 6000)
 
 function showSlide(){
 const f = figs[current]
+const imgPath = f.images[0].replace('../','')
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
-<img id="slideImg" src="${f.images[0].replace('../','')}">
+<img id="slideImg" src="${imgPath}">
 <div class="slide-content">
 <h2>
 ${f.name}
