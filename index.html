@@ -35,12 +35,16 @@ background:white;
 border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+height:500px;
 }
 
 .slide img{
-width:100%;
-height:500px;
-object-fit:cover;
+max-width:90%;
+max-height:90%;
+object-fit:contain;
 }
 
 .slide-content{
@@ -105,7 +109,7 @@ text-align:left;
 }
 
 @media(max-width:600px){
-.slide img{
+.slide{
 height:300px;
 }
 }
@@ -146,92 +150,4 @@ Ava Facebooki grupp
 
 <script>
 let figs = []
-let slides = []
-let current = 0
-let slideTimer
-let startX = 0
-
-async function loadSlides(){
-
-// Load varieties JSON
-const res = await fetch("figs2.json")
-figs = await res.json()
-
-// Load slide list
-const txt = await fetch("for_slides/for_slides.txt")
-const text = await txt.text()
-slides = text.split("\n").map(s => s.trim()).filter(s => s)
-
-// Filter only listed varieties
-figs = figs.filter(f => slides.includes(f.id))
-
-showSlide()
-slideTimer = setInterval(nextSlide, 5000)
-}
-
-function getImagePath(f){
-return "images/" + f.id + "/1.jpg"
-}
-
-function showSlide(){
-if(figs.length === 0) return
-
-const f = figs[current]
-const imgPath = getImagePath(f)
-
-document.getElementById("slideContainer").innerHTML = `
-<div class="slide">
-<img id="slideImg" src="${imgPath}" onerror="nextSlide()">
-<div class="slide-content">
-<h2>
-${f.name}
-${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
-</h2>
-
-<p>${f.kirjeldus || ""}</p>
-
-<div class="info-grid">
-<div><b>Varasus:</b> ${f.varasus}</div>
-<div><b>Maitsev:</b> ${f.maitsev}</div>
-<div><b>Suurus:</b> ${f.suurus}</div>
-<div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-<div><b>Värvus:</b> ${f.varvus}</div>
-<div><b>Breba:</b> ${f.breba}</div>
-<div><b>Riik:</b> ${f.riik}</div>
-</div>
-</div>
-</div>
-`
-
-// Swipe mobile
-const img = document.getElementById("slideImg")
-img.addEventListener("touchstart", e=>{
-startX = e.touches[0].clientX
-})
-
-img.addEventListener("touchend", e=>{
-let endX = e.changedTouches[0].clientX
-if(endX - startX > 50) prevSlide()
-if(startX - endX > 50) nextSlide()
-})
-}
-
-function nextSlide(){
-clearInterval(slideTimer)
-current = (current + 1) % figs.length
-showSlide()
-slideTimer = setInterval(nextSlide, 6000)
-}
-
-function prevSlide(){
-clearInterval(slideTimer)
-current = (current - 1 + figs.length) % figs.length
-showSlide()
-slideTimer = setInterval(nextSlide, 6000)
-}
-
-loadSlides()
-</script>
-
-</body>
-</html>
+let slide
