@@ -35,13 +35,18 @@ background:white;
 border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
+margin-bottom:20px;
+}
+
+.slide-image{
 display:flex;
 align-items:center;
 justify-content:center;
 height:500px;
+background:white;
 }
 
-.slide img{
+.slide-image img{
 max-width:90%;
 max-height:90%;
 object-fit:contain;
@@ -109,7 +114,7 @@ text-align:left;
 }
 
 @media(max-width:600px){
-.slide{
+.slide-image{
 height:300px;
 }
 }
@@ -150,4 +155,96 @@ Ava Facebooki grupp
 
 <script>
 let figs = []
-let slide
+let slideOrder = []
+let slides = []
+let current = 0
+let slideTimer
+let startX = 0
+
+async function loadSlides(){
+
+// Load JSON
+const res = await fetch("figs2.json")
+figs = await res.json()
+
+// Load slide order
+const txt = await fetch("for_slides/for_slides.txt")
+const text = await txt.text()
+slideOrder = text.split("\n").map(s => s.trim()).filter(s => s)
+
+// Build slides in correct order
+slides = slideOrder.map(id => figs.find(f => f.id === id)).filter(f => f)
+
+showSlide()
+slideTimer = setInterval(nextSlide, 6000)
+}
+
+function getImagePath(f){
+return "images/" + f.id + "/1.jpg"
+}
+
+function showSlide(){
+if(slides.length === 0) return
+
+const f = slides[current]
+const imgPath = getImagePath(f)
+
+document.getElementById("slideContainer").innerHTML = `
+<div class="slide">
+    <div class="slide-image">
+        <img id="slideImg" src="${imgPath}" onerror="nextSlide()">
+    </div>
+
+    <div class="slide-content">
+        <h2>
+        ${f.name}
+        ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
+        </h2>
+
+        <p>${f.kirjeldus || ""}</p>
+
+        <div class="info-grid">
+            <div><b>Varasus:</b> ${f.varasus}</div>
+            <div><b>Maitsev:</b> ${f.maitsev}</div>
+            <div><b>Suurus:</b> ${f.suurus}</div>
+            <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
+            <div><b>Värvus:</b> ${f.varvus}</div>
+            <div><b>Breba:</b> ${f.breba}</div>
+            <div><b>Riik:</b> ${f.riik}</div>
+        </div>
+    </div>
+</div>
+`
+
+// Mobile swipe
+const img = document.getElementById("slideImg")
+img.addEventListener("touchstart", e=>{
+startX = e.touches[0].clientX
+})
+
+img.addEventListener("touchend", e=>{
+let endX = e.changedTouches[0].clientX
+if(endX - startX > 50) prevSlide()
+if(startX - endX > 50) nextSlide()
+})
+}
+
+function nextSlide(){
+clearInterval(slideTimer)
+current = (current + 1) % slides.length
+showSlide()
+slideTimer = setInterval(nextSlide, 6000)
+}
+
+function prevSlide(){
+clearInterval(slideTimer)
+current = (current - 1 + slides.length) % slides.length
+showSlide()
+slideTimer = setInterval(nextSlide, 6000)
+}
+
+loadSlides()
+</script>
+
+</body>
+</html>
