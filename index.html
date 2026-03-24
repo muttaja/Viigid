@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="et">
 <head>
 <meta charset="UTF-8">
@@ -7,203 +6,129 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root{
+    --bg:#f3f6f2;
+    --card:#ffffff;
+    --text:#333;
+    --green:#2e7d32;
+}
+
+@media (prefers-color-scheme: dark){
+:root{
+    --bg:#1e1e1e;
+    --card:#2a2a2a;
+    --text:#e8e8e8;
+}
+}
+
 body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#f3f6f2;
-text-align:center;
-color:#333;
-transition:background 0.3s, color 0.3s;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    text-align:center;
 }
 
 .container{
-padding:40px 20px;
+    padding:30px 15px;
+    max-width:1000px;
+    margin:auto;
 }
 
 h1{
-font-size:34px;
-margin-bottom:30px;
+    margin-bottom:20px;
 }
 
+/* SLIDER */
 .slider{
-max-width:900px;
-margin:auto;
-position:relative;
+    position:relative;
+    margin:auto;
+    max-width:900px;
 }
 
 .slide{
-background:white;
-border-radius:14px;
-box-shadow:0 8px 25px rgba(0,0,0,0.15);
-overflow:hidden;
-margin-bottom:20px;
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    overflow:hidden;
 }
 
-.slide-image{
-display:flex;
-align-items:center;
-justify-content:center;
-height:500px;
-background:white;
-cursor:pointer;
-}
-
-.slide-image img{
-max-width:90%;
-max-height:90%;
-object-fit:contain;
+.slide img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    transform:scale(0.8); /* zoom out 20% */
 }
 
 .slide-content{
-padding:20px;
-text-align:left;
+    padding:20px;
+    text-align:left;
 }
 
-.slide-title{
-cursor:pointer;
-color:#1b5e20;
-}
-
-.slide-title:hover{
-text-decoration:underline;
+.slide a{
+    color:inherit;
+    text-decoration:none;
 }
 
 .info-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:6px;
-font-size:15px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:6px;
+    font-size:14px;
 }
 
 .arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,0.4);
-color:white;
-border:none;
-font-size:30px;
-padding:10px 18px;
-cursor:pointer;
-border-radius:8px;
+    position:absolute;
+    top:45%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.4);
+    color:white;
+    border:none;
+    font-size:28px;
+    padding:10px 16px;
+    cursor:pointer;
+    border-radius:8px;
 }
 
 .arrow-left{ left:10px; }
 .arrow-right{ right:10px; }
 
+/* BUTTON */
 .button{
-display:inline-block;
-margin-top:30px;
-padding:14px 28px;
-font-size:18px;
-color:white;
-background:#2e7d32;
-text-decoration:none;
-border-radius:8px;
+    display:inline-block;
+    margin:25px 0;
+    padding:14px 26px;
+    font-size:18px;
+    color:white;
+    background:var(--green);
+    text-decoration:none;
+    border-radius:8px;
 }
 
-/* Facebook card */
-.fb-card{
-display:block;
-max-width:900px;
-margin:60px auto;
-border-radius:14px;
-overflow:hidden;
-text-decoration:none;
-box-shadow:0 6px 20px rgba(0,0,0,0.15);
-transition:0.2s;
+/* FACEBOOK BANNER */
+.fb-banner{
+    margin-top:30px;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,0.2);
 }
 
-.fb-card:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 30px rgba(0,0,0,0.25);
+.fb-banner img{
+    width:100%;
+    display:block;
 }
 
-.fb-image{
-position:relative;
+/* MOBILE */
+@media (max-width:700px){
+.slide img{
+    height:260px;
 }
-
-.fb-image img{
-width:100%;
-height:260px;
-object-fit:cover;
-display:block;
-}
-
-.fb-overlay{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-background:linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-color:white;
-padding:20px;
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.fb-logo{
-width:50px;
-height:50px;
-}
-
-.fb-text h3{
-margin:0;
-font-size:20px;
-}
-
-.fb-text p{
-margin:4px 0 0 0;
-font-size:14px;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark){
-body{
-background:#121212;
-color:#e0e0e0;
-}
-
-.slide{
-background:#1e1e1e;
-}
-
-.slide-image{
-background:#1e1e1e;
-}
-
-.slide-title{
-color:#81c784;
-}
-
-.button{
-background:#388e3c;
-}
-}
-
-/* Mobile */
-@media(max-width:600px){
-.slide-image{
-height:300px;
-}
-
-.fb-image img{
-height:180px;
-}
-
-.fb-overlay{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.fb-logo{
-width:40px;
-height:40px;
+.arrow{
+    font-size:22px;
+    padding:8px 12px;
 }
 }
 </style>
-
 </head>
 
 <body>
@@ -211,7 +136,7 @@ height:40px;
 <div class="container">
 <h1>Ficus.ee – Viigipuud Eestis</h1>
 
-<div class="slider" id="slider">
+<div class="slider">
 <button class="arrow arrow-left" onclick="prevSlide()">‹</button>
 <button class="arrow arrow-right" onclick="nextSlide()">›</button>
 <div id="slideContainer"></div>
@@ -221,113 +146,99 @@ height:40px;
 Vaata kõiki saadaval sorte
 </a>
 
-<!-- Facebook card -->
-
-<a href="https://www.facebook.com/groups/1096702358191767/" target="_blank" class="fb-card">
-<div class="fb-image">
-<img src="../images_fb/facebook-cover.jpg">
-<div class="fb-overlay">
-<img class="fb-logo" src="../images_fb/facebook-logo.png">
-<div class="fb-text">
-<h3>Viigipuude grupp Facebookis</h3>
-<p>Liitu Eesti viigipuude kasvatajate kogukonnaga. Jagame kogemusi ja katsetame sorte.</p>
-</div>
-</div>
+<!-- FACEBOOK BANNER -->
+<a href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
+<div class="fb-banner">
+<img src="../images_fb/banner.png">
 </div>
 </a>
 
 </div>
 
 <script>
-let figs=[]
-let slideOrder=[]
-let slides=[]
-let current=0
+let figs = []
+let slideList = []
+let current = 0
 let slideTimer
-let startX=0
-let endX=0
 
 async function loadSlides(){
-const res=await fetch("figs2.json")
-figs=await res.json()
 
-const txt=await fetch("for_slides/for_slides.txt")
-const text=await txt.text()
-slideOrder=text.split("\n").map(s=>s.trim()).filter(s=>s)
+    // load slide order
+    const txt = await fetch("../for_slides/for_slides.txt")
+    const text = await txt.text()
+    slideList = text.split("\n").map(s=>s.trim()).filter(Boolean)
 
-slides=slideOrder.map(id=>figs.find(f=>f.id===id)).filter(f=>f)
+    // load json
+    const res = await fetch("figs.json")
+    const data = await res.json()
 
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
-}
+    // build slides only from list
+    for(const id of slideList){
+        const f = data.find(x => x.id === id)
+        if(f && f.images && f.images.length > 0){
+            figs.push(f)
+        }
+    }
 
-function getImagePath(f){
-return "images/"+f.id+"/1.jpg"
-}
-
-function openVariety(){
-const f=slides[current]
-window.location.href="variety.html?id="+f.id
+    if(figs.length > 0){
+        showSlide()
+        slideTimer = setInterval(nextSlide, 6000)
+    }
 }
 
 function showSlide(){
-if(slides.length===0) return
+    const f = figs[current]
+    const imgPath = f.images[0].replace("../","")
 
-const f=slides[current]
-const imgPath=getImagePath(f)
+    document.getElementById("slideContainer").innerHTML = `
+    <div class="slide">
+        <a href="variety.html?id=${f.id}">
+            <img src="${imgPath}">
+        </a>
+        <div class="slide-content">
+            <h2>
+                <a href="variety.html?id=${f.id}">
+                    ${f.name}
+                </a>
+                ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
+            </h2>
 
-document.getElementById("slideContainer").innerHTML=`
-<div class="slide">
-<div class="slide-image" onclick="openVariety()">
-<img src="${imgPath}" onerror="nextSlide()">
-</div>
+            <p>${f.kirjeldus || ""}</p>
 
-<div class="slide-content">
-<h2 class="slide-title" onclick="openVariety()">
-${f.name}
-${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval!)</span>' : ''}
-</h2>
-
-<p>${f.kirjeldus || ""}</p>
-
-<div class="info-grid">
-<div><b>Varasus:</b> ${f.varasus}</div>
-<div><b>Maitsev:</b> ${f.maitsev}</div>
-<div><b>Suurus:</b> ${f.suurus}</div>
-<div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-<div><b>Värvus:</b> ${f.varvus}</div>
-<div><b>Breba:</b> ${f.breba}</div>
-<div><b>Riik:</b> ${f.riik}</div>
-</div>
-</div>
-</div>`
+            <div class="info-grid">
+                <div><b>Varasus:</b> ${f.varasus}</div>
+                <div><b>Maitsev:</b> ${f.maitsev}</div>
+                <div><b>Suurus:</b> ${f.suurus}</div>
+                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
+                <div><b>Värvus:</b> ${f.varvus}</div>
+                <div><b>Breba:</b> ${f.breba}</div>
+                <div><b>Riik:</b> ${f.riik}</div>
+            </div>
+        </div>
+    </div>`
 }
 
 function nextSlide(){
-clearInterval(slideTimer)
-current=(current+1)%slides.length
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
+    current = (current + 1) % figs.length
+    showSlide()
 }
 
 function prevSlide(){
-clearInterval(slideTimer)
-current=(current-1+slides.length)%slides.length
-showSlide()
-slideTimer=setInterval(nextSlide,6000)
+    current = (current - 1 + figs.length) % figs.length
+    showSlide()
 }
 
-/* Swipe mobile */
-const slider=document.getElementById("slider")
+/* MOBILE SWIPE */
+let startX = 0
 
-slider.addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX
+document.addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX
 })
 
-slider.addEventListener("touchend",e=>{
-endX=e.changedTouches[0].clientX
-if(endX-startX>50) prevSlide()
-if(startX-endX>50) nextSlide()
+document.addEventListener("touchend", e=>{
+    let endX = e.changedTouches[0].clientX
+    if(endX - startX > 50) prevSlide()
+    if(startX - endX > 50) nextSlide()
 })
 
 loadSlides()
