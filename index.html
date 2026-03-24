@@ -126,15 +126,8 @@ padding:20px;
 text-align:left;
 }
 
-@media(max-width:600px){
-.slide-image{
-height:300px;
-}
-}
-
 /* DARK MODE */
 @media (prefers-color-scheme: dark){
-
 body{
 background:#121212;
 color:#e0e0e0;
@@ -142,7 +135,6 @@ color:#e0e0e0;
 
 .slide{
 background:#1e1e1e;
-box-shadow:0 8px 25px rgba(0,0,0,0.6);
 }
 
 .slide-image{
@@ -164,7 +156,6 @@ background:#388e3c;
 .arrow{
 background:rgba(255,255,255,0.2);
 }
-
 }
 </style>
 
@@ -202,95 +193,80 @@ Ava Facebooki grupp
 </div>
 
 <script>
-let figs = []
-let slideOrder = []
-let slides = []
-let current = 0
+let figs=[]
+let slideOrder=[]
+let slides=[]
+let current=0
 let slideTimer
-let startX = 0
 
 async function loadSlides(){
+const res=await fetch("figs2.json")
+figs=await res.json()
 
-const res = await fetch("figs2.json")
-figs = await res.json()
+const txt=await fetch("for_slides/for_slides.txt")
+const text=await txt.text()
+slideOrder=text.split("\n").map(s=>s.trim()).filter(s=>s)
 
-const txt = await fetch("for_slides/for_slides.txt")
-const text = await txt.text()
-slideOrder = text.split("\n").map(s => s.trim()).filter(s => s)
-
-slides = slideOrder.map(id => figs.find(f => f.id === id)).filter(f => f)
+slides=slideOrder.map(id=>figs.find(f=>f.id===id)).filter(f=>f)
 
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer=setInterval(nextSlide,6000)
 }
 
 function getImagePath(f){
-return "images/" + f.id + "/1.jpg"
+return "images/"+f.id+"/1.jpg"
 }
 
 function openVariety(){
-const f = slides[current]
-window.location.href = "variety.html?id=" + f.id
+const f=slides[current]
+window.location.href="variety.html?id="+f.id
 }
 
 function showSlide(){
-if(slides.length === 0) return
+if(slides.length===0) return
 
-const f = slides[current]
-const imgPath = getImagePath(f)
+const f=slides[current]
+const imgPath=getImagePath(f)
 
-document.getElementById("slideContainer").innerHTML = `
+document.getElementById("slideContainer").innerHTML=`
 <div class="slide">
-    <div class="slide-image" onclick="openVariety()">
-        <img id="slideImg" src="${imgPath}" onerror="nextSlide()">
-    </div>
-
-    <div class="slide-content">
-        <h2 class="slide-title" onclick="openVariety()">
-        ${f.name}
-        ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval!)</span>' : ''}
-        </h2>
-
-        <p>${f.kirjeldus || ""}</p>
-
-        <div class="info-grid">
-            <div><b>Varasus:</b> ${f.varasus}</div>
-            <div><b>Maitsev:</b> ${f.maitsev}</div>
-            <div><b>Suurus:</b> ${f.suurus}</div>
-            <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-            <div><b>Värvus:</b> ${f.varvus}</div>
-            <div><b>Breba:</b> ${f.breba}</div>
-            <div><b>Riik:</b> ${f.riik}</div>
-        </div>
-    </div>
+<div class="slide-image" onclick="openVariety()">
+<img src="${imgPath}" onerror="nextSlide()">
 </div>
-`
 
-// Swipe mobile
-const img = document.getElementById("slideImg")
-img.addEventListener("touchstart", e=>{
-startX = e.touches[0].clientX
-})
+<div class="slide-content">
+<h2 class="slide-title" onclick="openVariety()">
+${f.name}
+${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval!)</span>' : ''}
+</h2>
 
-img.addEventListener("touchend", e=>{
-let endX = e.changedTouches[0].clientX
-if(endX - startX > 50) prevSlide()
-if(startX - endX > 50) nextSlide()
-})
+<p>${f.kirjeldus || ""}</p>
+
+<div class="info-grid">
+<div><b>Varasus:</b> ${f.varasus}</div>
+<div><b>Maitsev:</b> ${f.maitsev}</div>
+<div><b>Suurus:</b> ${f.suurus}</div>
+<div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
+<div><b>Värvus:</b> ${f.varvus}</div>
+<div><b>Breba:</b> ${f.breba}</div>
+<div><b>Riik:</b> ${f.riik}</div>
+</div>
+</div>
+</div>`
 }
 
 function nextSlide(){
 clearInterval(slideTimer)
-current = (current + 1) % slides.length
+current=(current+1)%slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer=setInterval(nextSlide,6000)
 }
 
 function prevSlide(){
 clearInterval(slideTimer)
-current = (current - 1 + slides.length) % slides.length
+current=(current-1+slides.length)%slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer=setInterval(nextSlide,6000)
 }
 
 loadSlides()
