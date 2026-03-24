@@ -154,14 +154,17 @@ async function loadSlides(){
 const res = await fetch("figs2.json")
 const data = await res.json()
 
-// Only varieties that actually have image folder images (1.jpg)
 for(const f of data){
 if(f.images && f.images.length > 0){
+
+// Only varieties with folder images (1.jpg)
+if(f.images[0].includes('/1.jpg')){
 figs.push(f)
+}
+
 }
 }
 
-// Start from first real slide
 if(figs.length > 0){
 current = 0
 showSlide()
