@@ -123,7 +123,7 @@ Vaata kõiki saadaval sorte
 </a>
 
 <div class="fb-section">
-<img src="../images/images_fb/facebook-cover.jpg">
+<img src="images_fb/facebook-cover.jpg">
 <div class="fb-content">
 <h3>Viigipuude grupp Facebookis</h3>
 <p>
@@ -159,7 +159,6 @@ const data = await res.json()
 for(const f of data){
 if(f.images && f.images.length > 0){
 
-// Fix path for index page
 const imgPath = f.images[0].replace('../','')
 
 const exists = await imageExists(imgPath)
