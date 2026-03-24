@@ -3,7 +3,7 @@
 <html lang="et">
 <head>
 <meta charset="UTF-8">
-<title>Sort</title>
+<title>Viigipuu sort</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,8 +11,9 @@ body{
 font-family:Arial, sans-serif;
 background:#f3f6f2;
 margin:0;
-padding:20px;
+padding:30px;
 color:#333;
+transition:background 0.3s, color 0.3s;
 }
 
 .container{
@@ -20,68 +21,63 @@ max-width:900px;
 margin:auto;
 background:white;
 padding:25px;
-border-radius:14px;
+border-radius:12px;
 box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transition:background 0.3s;
 }
 
 h1{
 margin-top:0;
 }
 
-.badge{
-display:inline-block;
-background:#2e7d32;
-color:white;
-padding:5px 10px;
-border-radius:6px;
-font-size:14px;
-margin-left:10px;
-}
-
 .gallery{
-position:relative;
-margin:20px 0;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
 }
 
 .gallery img{
-width:100%;
-border-radius:10px;
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:8px;
 cursor:pointer;
 }
 
-.gallery button{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,0.4);
-color:white;
-border:none;
-font-size:26px;
-padding:6px 12px;
-cursor:pointer;
-border-radius:6px;
-}
-
-.prev{ left:10px; }
-.next{ right:10px; }
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-
-td{
-padding:10px;
-border-bottom:1px solid #ddd;
+.info-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+margin-top:15px;
 }
 
 .back{
 display:inline-block;
-margin-top:20px;
-color:#2e7d32;
+margin-bottom:20px;
 text-decoration:none;
+color:#2e7d32;
 font-weight:bold;
+}
+
+.back:hover{
+text-decoration:underline;
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark){
+body{
+background:#121212;
+color:#e0e0e0;
+}
+
+.container{
+background:#1e1e1e;
+}
+
+a{
+color:#81c784;
+}
 }
 </style>
 
@@ -89,134 +85,68 @@ font-weight:bold;
 
 <body>
 
+<a class="back" href="catalogue.html">← Tagasi kataloogi</a>
+
 <div class="container">
 <h1 id="name"></h1>
-<p><b>Kirjeldus:</b> <span id="kirjeldus"></span></p>
 
-<div class="gallery">
-<button class="prev" onclick="prevImg()">‹</button>
-<img id="galleryImg">
-<button class="next" onclick="nextImg()">›</button>
+<div class="gallery" id="gallery"></div>
+
+<p id="description"></p>
+
+<div class="info-grid">
+<div><b>Varasus:</b> <span id="varasus"></span></div>
+<div><b>Maitsev:</b> <span id="maitsev"></span></div>
+<div><b>Suurus:</b> <span id="suurus"></span></div>
+<div><b>Külmakindlus:</b> <span id="kulmakindlus"></span></div>
+<div><b>Värvus:</b> <span id="varvus"></span></div>
+<div><b>Breba:</b> <span id="breba"></span></div>
+<div><b>Riik:</b> <span id="riik"></span></div>
+<div><b>Kandnud:</b> <span id="kandnud"></span></div>
+<div><b>Saadavus:</b> <span id="saadavus"></span></div>
 </div>
-
-<table>
-<tr><td>Varasus</td><td id="varasus"></td></tr>
-<tr><td>Maitsev</td><td id="maitsev"></td></tr>
-<tr><td>Suurus</td><td id="suurus"></td></tr>
-<tr><td>Külmakindlus</td><td id="kulmakindlus"></td></tr>
-<tr><td>Värvus</td><td id="varvus"></td></tr>
-<tr><td>Breba</td><td id="breba"></td></tr>
-<tr><td>Riik</td><td id="riik"></td></tr>
-<tr><td>Kandnud</td><td id="kandnud"></td></tr>
-</table>
-
-<a class="back" href="catalogue.html">← Tagasi kataloogi</a>
 
 </div>
 
 <script>
-let images = []
-let currentImg = 0
-let startX = 0
-
-function getId(){
-const params = new URLSearchParams(window.location.search)
+function getIdFromUrl(){
+const params=new URLSearchParams(window.location.search)
 return params.get("id")
 }
 
-function loadGallery(fig){
-images = []
+fetch("figs2.json")
+.then(res=>res.json())
+.then(data=>{
 
-if(fig.images && fig.images.length > 0){
+const id=getIdFromUrl()
+const fig=data.find(f=>f.id===id)
+if(!fig) return
 
-// Multiple images
-if(fig.images.length > 1){
-images = fig.images
-}
+document.getElementById("name").innerText=fig.name
+document.getElementById("description").innerText=fig.kirjeldus || ""
 
-// Folder images
-else if(fig.images[0].endsWith('/')){
-for(let i=1;i<=10;i++){
-images.push(fig.images[0] + i + ".jpg")
-}
-}
+document.getElementById("varasus").innerText=fig.varasus || ""
+document.getElementById("maitsev").innerText=fig.maitsev || ""
+document.getElementById("suurus").innerText=fig.suurus || ""
+document.getElementById("kulmakindlus").innerText=fig.kulmakindlus || ""
+document.getElementById("varvus").innerText=fig.varvus || ""
+document.getElementById("breba").innerText=fig.breba || ""
+document.getElementById("riik").innerText=fig.riik || ""
+document.getElementById("kandnud").innerText=fig.kandnud || ""
+document.getElementById("saadavus").innerText=fig.saadavus || ""
 
-// Single image
-else{
-images = fig.images
-}
+const gallery=document.getElementById("gallery")
 
-}
-
-currentImg = 0
-showImg()
-}
-
-function showImg(){
-if(images.length === 0) return
-document.getElementById("galleryImg").src = images[currentImg]
-}
-
-function nextImg(){
-currentImg = (currentImg + 1) % images.length
-showImg()
-}
-
-function prevImg(){
-currentImg = (currentImg - 1 + images.length) % images.length
-showImg()
-}
-
-// Swipe mobile
-document.addEventListener("touchstart", e=>{
-startX = e.touches[0].clientX
+if(fig.images){
+fig.images.forEach(img=>{
+const image=document.createElement("img")
+image.src=img.replace("../","")
+image.onclick=()=>window.open(image.src)
+gallery.appendChild(image)
 })
+}
 
-document.addEventListener("touchend", e=>{
-let endX = e.changedTouches[0].clientX
-if(endX - startX > 50) prevImg()
-if(startX - endX > 50) nextImg()
 })
-
-// Fullscreen on click
-document.addEventListener("click", function(e){
-if(e.target.id === "galleryImg"){
-if(!document.fullscreenElement){
-e.target.requestFullscreen()
-}else{
-document.exitFullscreen()
-}
-}
-})
-
-async function loadVariety(){
-const id = getId()
-const res = await fetch("figs2.json")
-const data = await res.json()
-const fig = data.find(f => f.id === id)
-
-if(!fig){
-document.body.innerHTML = "Sorti ei leitud"
-return
-}
-
-document.getElementById("name").innerHTML =
-fig.name + (fig.saadavus === "jah" ? ' <span class="badge">Saadaval</span>' : '')
-
-document.getElementById("kirjeldus").innerText = fig.kirjeldus || ""
-document.getElementById("varasus").innerText = fig.varasus || ""
-document.getElementById("maitsev").innerText = fig.maitsev || ""
-document.getElementById("suurus").innerText = fig.suurus || ""
-document.getElementById("kulmakindlus").innerText = fig.kulmakindlus || ""
-document.getElementById("varvus").innerText = fig.varvus || ""
-document.getElementById("breba").innerText = fig.breba || ""
-document.getElementById("riik").innerText = fig.riik || ""
-document.getElementById("kandnud").innerText = fig.kandnud || ""
-
-loadGallery(fig)
-}
-
-loadVariety()
 </script>
 
 </body>
