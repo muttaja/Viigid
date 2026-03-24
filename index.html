@@ -110,12 +110,23 @@ h1{
     margin-top:30px;
     border-radius:14px;
     overflow:hidden;
-    box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    line-height:0;
+    position:relative;
 }
 
 .fb-banner img{
     width:100%;
     display:block;
+}
+
+.fb-banner::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:14px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+    pointer-events:none;
 }
 
 /* MOBILE */
@@ -243,6 +254,15 @@ document.addEventListener("touchend", e=>{
 
 loadSlides()
 </script>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    text-align:center;
+    overflow-x:hidden;
+}
 
 </body>
 </html>
