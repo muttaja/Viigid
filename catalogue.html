@@ -6,6 +6,14 @@
 <title>Viigipuu sordid</title>
 
 <style>
+body{
+font-family:Arial;
+background:#f3f6f2;
+padding:40px;
+color:#333;
+transition:background 0.3s, color 0.3s;
+}
+
 a{
 color:#2e7d32;
 text-decoration:none;
@@ -14,12 +22,6 @@ font-weight:bold;
 
 a:hover{
 text-decoration:underline;
-}
-
-body{
-font-family:Arial;
-background:#f3f6f2;
-padding:40px;
 }
 
 button{
@@ -36,6 +38,7 @@ table{
 border-collapse:collapse;
 width:100%;
 background:white;
+transition:background 0.3s;
 }
 
 th, td{
@@ -56,6 +59,30 @@ background:#dfe6da;
 .photo{
 margin-left:6px;
 }
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark){
+body{
+background:#121212;
+color:#e0e0e0;
+}
+
+table{
+background:#1e1e1e;
+}
+
+th{
+background:#2a2a2a;
+}
+
+td{
+border:1px solid #333;
+}
+
+a{
+color:#81c784;
+}
+}
 </style>
 
 </head>
@@ -63,26 +90,6 @@ margin-left:6px;
 <body>
 
 <h1>Viigipuu sordid</h1>
-
-<div style="max-width:900px;margin:20px auto 30px auto;background:white;padding:20px 25px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.08);text-align:left;line-height:1.6;">
-<p>
-Puud on suured ja ilusad (kõrgus ~60–80 cm), terved ja tugevad. 
-Samal aastal kandmine on sobilikes tingimustes garanteeritud. 
-Ühe puu hind 50 €, kolm puud 120 €.
-</p>
-
-<p>
-Huvi korral kirjuta 
-<a href="mailto:mats.ploompuu@gmail.com">mats.ploompuu@gmail.com</a> 
-või Messengeris.
-</p>
-
-<p style="font-size:14px;color:#666;margin-top:15px;">
-Tabelis toodud omadused on subjektiivsed. 
-"Suhteline külmakindlus" tähendab külmakindlust võrreldes teiste sortidega 
-ja ei tähenda, et nad Eesti talve ilma korralikult katmata kahjustusteta üle elaks.
-</p>
-</div>
 
 <div style="margin-bottom:20px">
 <button id="kandnudBtn">Näita ka sorte, mis pole veel kandnud</button>
@@ -107,32 +114,25 @@ ja ei tähenda, et nad Eesti talve ilma korralikult katmata kahjustusteta üle e
 </table>
 
 <script>
-let filterKandnud = true
-let filterSaadavus = true
-let figsData = []
+let filterKandnud=true
+let filterSaadavus=true
+let figsData=[]
 
 function renderTable(data){
-const body = document.getElementById("figBody")
-body.innerHTML = ""
+const body=document.getElementById("figBody")
+body.innerHTML=""
 
-// Alphabetical
-data = [...data].sort((a,b)=>
-a.name.localeCompare(b.name,'et')
-)
+data=[...data].sort((a,b)=>a.name.localeCompare(b.name,'et'))
 
 data.forEach(fig=>{
+if(filterKandnud && fig.kandnud!=="jah") return
+if(filterSaadavus && fig.saadavus!=="jah") return
 
-if(filterKandnud && fig.kandnud !== "jah") return
-if(filterSaadavus && fig.saadavus !== "jah") return
+const row=document.createElement("tr")
+let photoIcon=fig.images && fig.images.length>0 ? '📷' : ''
 
-const row = document.createElement("tr")
-
-let photoIcon = (fig.images && fig.images.length > 0)
-? '<span class="photo">📷</span>'
-: ''
-
-row.innerHTML = `
-<td><a href="variety.html?id=${fig.id}">${fig.name}</a>${photoIcon}</td>
+row.innerHTML=`
+<td><a href="variety.html?id=${fig.id}">${fig.name}</a> ${photoIcon}</td>
 <td>${fig.varasus}</td>
 <td>${fig.maitsev}</td>
 <td>${fig.suurus}</td>
@@ -154,69 +154,22 @@ figsData=data
 renderTable(figsData)
 })
 
-document.getElementById("kandnudBtn").onclick = () => {
-filterKandnud = !filterKandnud
-
-document.getElementById("kandnudBtn").innerText =
-filterKandnud ?
-"Näita ka sorte, mis pole veel kandnud" :
-"Näita ainult sorte, mis on kandnud"
-
+document.getElementById("kandnudBtn").onclick=()=>{
+filterKandnud=!filterKandnud
 renderTable(figsData)
 }
 
-document.getElementById("saadavusBtn").onclick = () => {
-filterSaadavus = !filterSaadavus
-
-document.getElementById("saadavusBtn").innerText =
-filterSaadavus ?
-"Näita ka sorte, mis pole hetkel saadaval" :
-"Näita ainult hetkel saadaval sorte"
-
+document.getElementById("saadavusBtn").onclick=()=>{
+filterSaadavus=!filterSaadavus
 renderTable(figsData)
 }
 
-const orderVarasus = {
+const orderVarasus={
 "kõige varasem":1,
-"väga varane":2,
-"varane":3,
-"keskmine":4,
-"":5,
-"hiline":5
-}
-
-const orderMaitsev = {
-"erakordselt":1,
-"jah":2,
-"":3
-}
-
-const orderSuurus = {
-"mega":1,
-"suur":2,
+"varane":2,
 "keskmine":3,
-"väiksepoolne":4,
-"väike":5,
-"":6
-}
-
-const orderKulm = {
-"kõige külmakindlam":1,
-"jah":2,
-"":3,
-"ei":4
-}
-
-const orderBreba = {
-"jah":1,
-"mõningane":2,
-"":3,
-"ei":4
-}
-
-const orderSaadavus = {
-"jah":1,
-"ei":2
+"":4,
+"hiline":5
 }
 
 function sortTable(n){
@@ -229,13 +182,7 @@ let y=b.cells[n].innerText.toLowerCase().trim()
 
 if(n===0) return x.localeCompare(y)
 if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
-if(n===2) return (orderMaitsev[x]||99)-(orderMaitsev[y]||99)
-if(n===3) return (orderSuurus[x]||99)-(orderSuurus[y]||99)
-if(n===4) return (orderKulm[x]||99)-(orderKulm[y]||99)
-if(n===5) return x.localeCompare(y)
-if(n===6) return (orderBreba[x]||99)-(orderBreba[y]||99)
-if(n===7) return x.localeCompare(y)
-if(n===8) return (orderSaadavus[x]||99)-(orderSaadavus[y]||99)
+return x.localeCompare(y)
 })
 
 rows.forEach(row=>table.appendChild(row))
