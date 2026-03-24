@@ -36,12 +36,6 @@ border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
 margin-bottom:20px;
-cursor:pointer;
-transition:transform 0.2s;
-}
-
-.slide:hover{
-transform:scale(1.01);
 }
 
 .slide-image{
@@ -50,6 +44,7 @@ align-items:center;
 justify-content:center;
 height:500px;
 background:white;
+cursor:pointer;
 }
 
 .slide-image img{
@@ -61,6 +56,15 @@ object-fit:contain;
 .slide-content{
 padding:20px;
 text-align:left;
+}
+
+.slide-title{
+cursor:pointer;
+color:#1b5e20;
+}
+
+.slide-title:hover{
+text-decoration:underline;
 }
 
 .info-grid{
@@ -198,13 +202,13 @@ const f = slides[current]
 const imgPath = getImagePath(f)
 
 document.getElementById("slideContainer").innerHTML = `
-<div class="slide" onclick="openVariety()">
-    <div class="slide-image">
+<div class="slide">
+    <div class="slide-image" onclick="openVariety()">
         <img id="slideImg" src="${imgPath}" onerror="nextSlide()">
     </div>
 
     <div class="slide-content">
-        <h2>
+        <h2 class="slide-title" onclick="openVariety()">
         ${f.name}
         ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
         </h2>
@@ -241,14 +245,14 @@ function nextSlide(){
 clearInterval(slideTimer)
 current = (current + 1) % slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer = setInterval(nextSlide, 5000)
 }
 
 function prevSlide(){
 clearInterval(slideTimer)
 current = (current - 1 + slides.length) % slides.length
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer = setInterval(nextSlide, 5000)
 }
 
 loadSlides()
