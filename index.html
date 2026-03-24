@@ -36,6 +36,12 @@ border-radius:14px;
 box-shadow:0 8px 25px rgba(0,0,0,0.15);
 overflow:hidden;
 margin-bottom:20px;
+cursor:pointer;
+transition:transform 0.2s;
+}
+
+.slide:hover{
+transform:scale(1.01);
 }
 
 .slide-image{
@@ -163,16 +169,13 @@ let startX = 0
 
 async function loadSlides(){
 
-// Load JSON
 const res = await fetch("figs2.json")
 figs = await res.json()
 
-// Load slide order
 const txt = await fetch("for_slides/for_slides.txt")
 const text = await txt.text()
 slideOrder = text.split("\n").map(s => s.trim()).filter(s => s)
 
-// Build slides in correct order
 slides = slideOrder.map(id => figs.find(f => f.id === id)).filter(f => f)
 
 showSlide()
@@ -183,6 +186,11 @@ function getImagePath(f){
 return "images/" + f.id + "/1.jpg"
 }
 
+function openVariety(){
+const f = slides[current]
+window.location.href = "variety.html?id=" + f.id
+}
+
 function showSlide(){
 if(slides.length === 0) return
 
@@ -190,7 +198,7 @@ const f = slides[current]
 const imgPath = getImagePath(f)
 
 document.getElementById("slideContainer").innerHTML = `
-<div class="slide">
+<div class="slide" onclick="openVariety()">
     <div class="slide-image">
         <img id="slideImg" src="${imgPath}" onerror="nextSlide()">
     </div>
@@ -216,7 +224,7 @@ document.getElementById("slideContainer").innerHTML = `
 </div>
 `
 
-// Mobile swipe
+// Swipe mobile
 const img = document.getElementById("slideImg")
 img.addEventListener("touchstart", e=>{
 startX = e.touches[0].clientX
