@@ -164,12 +164,47 @@ filterSaadavus=!filterSaadavus
 renderTable(figsData)
 }
 
-const orderVarasus={
+const orderVarasus = {
 "kõige varasem":1,
-"varane":2,
-"keskmine":3,
-"":4,
+"väga varane":2,
+"varane":3,
+"keskmine":4,
+"":5,
 "hiline":5
+}
+
+const orderMaitsev = {
+"erakordselt":1,
+"jah":2,
+"":3
+}
+
+const orderSuurus = {
+"mega":1,
+"suur":2,
+"keskmine":3,
+"väiksepoolne":4,
+"väike":5,
+"":6
+}
+
+const orderKulm = {
+"kõige külmakindlam":1,
+"jah":2,
+"":3,
+"ei":4
+}
+
+const orderBreba = {
+"jah":1,
+"mõningane":2,
+"":3,
+"ei":4
+}
+
+const orderSaadavus = {
+"jah":1,
+"ei":2
 }
 
 function sortTable(n){
