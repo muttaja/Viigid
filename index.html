@@ -146,31 +146,31 @@ Ava Facebooki grupp
 
 <script>
 let figs = []
+let slides = []
 let current = 0
 let slideTimer
 let startX = 0
 
 async function loadSlides(){
+
+// Load varieties JSON
 const res = await fetch("figs2.json")
 figs = await res.json()
 
-// Remove varieties without images
-figs = figs.filter(f => f.images && f.images.length > 0)
+// Load slide list
+const txt = await fetch("for_slides/for_slides.txt")
+const text = await txt.text()
+slides = text.split("\n").map(s => s.trim()).filter(s => s)
 
-current = 0
+// Filter only listed varieties
+figs = figs.filter(f => slides.includes(f.id))
+
 showSlide()
-slideTimer = setInterval(nextSlide, 6000)
+slideTimer = setInterval(nextSlide, 5000)
 }
 
 function getImagePath(f){
-let img = f.images[0]
-
-// Folder images
-if(img.endsWith('/')){
-img = img + "1.jpg"
-}
-
-return img.replace('../','')
+return "images/" + f.id + "/1.jpg"
 }
 
 function showSlide(){
@@ -181,7 +181,7 @@ const imgPath = getImagePath(f)
 
 document.getElementById("slideContainer").innerHTML = `
 <div class="slide">
-<img id="slideImg" src="${imgPath}" onerror="imageError()">
+<img id="slideImg" src="${imgPath}" onerror="nextSlide()">
 <div class="slide-content">
 <h2>
 ${f.name}
@@ -203,7 +203,7 @@ ${f.saadavus=="jah" ? '<span style="color:green;"> (saadaval!)</span>' : ''}
 </div>
 `
 
-// Mobile swipe
+// Swipe mobile
 const img = document.getElementById("slideImg")
 img.addEventListener("touchstart", e=>{
 startX = e.touches[0].clientX
@@ -214,11 +214,6 @@ let endX = e.changedTouches[0].clientX
 if(endX - startX > 50) prevSlide()
 if(startX - endX > 50) nextSlide()
 })
-}
-
-// If image missing → skip slide automatically
-function imageError(){
-nextSlide()
 }
 
 function nextSlide(){
