@@ -112,7 +112,6 @@ h1{
     overflow:hidden;
     box-shadow:0 6px 20px rgba(0,0,0,0.25);
     line-height:0;
-    position:relative;
 }
 
 .fb-banner img{
@@ -131,8 +130,8 @@ h1{
 
 /* MOBILE */
 @media (max-width:700px){
-.slide img{
-    height:260px;
+.fb-banner{
+    margin-top:20px;
 }
 .arrow{
     font-size:22px;
@@ -254,15 +253,6 @@ document.addEventListener("touchend", e=>{
 
 loadSlides()
 </script>
-
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    text-align:center;
-    overflow-x:hidden;
-}
 
 </body>
 </html>
