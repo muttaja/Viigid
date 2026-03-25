@@ -2,7 +2,7 @@
 <html lang="et">
 <head>
 <meta charset="UTF-8">
-<title>Sort</title>
+<title>Sort – Ficus.ee</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -37,26 +37,33 @@ body{
 .card{
     background:var(--card);
     border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
     padding:20px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.15);
-}
-
-h1{
-    margin-top:0;
 }
 
 /* IMAGE SLIDER */
 .image-slider{
     position:relative;
+    margin-bottom:15px;
 }
 
-.image-slider img{
+.image-frame{
     width:100%;
-    border-radius:12px;
-    margin-top:15px;
-    cursor:pointer;
+    height:420px;
+    background:#00000015;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    overflow:hidden;
 }
 
+.image-frame img{
+    max-width:100%;
+    max-height:100%;
+}
+
+/* ARROWS */
 .img-arrow{
     position:absolute;
     top:50%;
@@ -64,52 +71,37 @@ h1{
     background:rgba(0,0,0,0.4);
     color:white;
     border:none;
-    font-size:24px;
-    padding:8px 12px;
-    border-radius:8px;
+    font-size:26px;
+    padding:8px 14px;
     cursor:pointer;
+    border-radius:6px;
 }
 
 .img-left{ left:10px; }
 .img-right{ right:10px; }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+/* INFO TABLE */
+.info-grid{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:8px;
     margin-top:15px;
-}
-
-td{
-    padding:8px;
-    border-bottom:1px solid rgba(0,0,0,0.1);
+    font-size:15px;
 }
 
 .back{
     display:inline-block;
-    margin-top:15px;
+    margin-top:20px;
     color:var(--green);
     text-decoration:none;
     font-weight:bold;
 }
 
-/* MODAL */
-.modal{
-    display:none;
-    position:fixed;
-    z-index:1000;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.9);
+/* MOBILE */
+@media (max-width:700px){
+.image-frame{
+    height:260px;
 }
-
-.modal img{
-    display:block;
-    max-width:95%;
-    max-height:95%;
-    margin:auto;
-    margin-top:2%;
 }
 </style>
 </head>
@@ -117,32 +109,21 @@ td{
 <body>
 
 <div class="container">
-<div class="card">
-
-<h1 id="title"></h1>
-<p><b>Kirjeldus:</b> <span id="kirjeldus"></span></p>
-
-<div id="images"></div>
-
-<table id="info"></table>
-
-<a class="back" href="catalogue.html">← Tagasi kataloogi</a>
-
-</div>
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="modal" onclick="closeModal()">
-<img id="modalImg">
+<div class="card" id="varietyCard"></div>
 </div>
 
 <script>
 let images = []
 let currentImg = 0
+let startX = 0
+
+function getId(){
+    const params = new URLSearchParams(window.location.search)
+    return params.get("id")
+}
 
 async function loadVariety(){
-    const params = new URLSearchParams(window.location.search)
-    const id = params.get("id")
+    const id = getId()
 
     const res = await fetch("figs.json")
     const data = await res.json()
@@ -150,70 +131,57 @@ async function loadVariety(){
     const f = data.find(x => x.id === id)
     if(!f) return
 
-    document.getElementById("title").innerText =
-        f.name + (f.saadavus=="jah" ? " (saadaval)" : "")
+    images = f.images.map(img => img.replace("../",""))
 
-    document.getElementById("kirjeldus").innerText =
-        f.kirjeldus || ""
-
-    document.getElementById("info").innerHTML = `
-        <tr><td>Varasus</td><td>${f.varasus || ""}</td></tr>
-        <tr><td>Maitsev</td><td>${f.maitsev || ""}</td></tr>
-        <tr><td>Suurus</td><td>${f.suurus || ""}</td></tr>
-        <tr><td>Külmakindlus</td><td>${f.kulmakindlus || ""}</td></tr>
-        <tr><td>Värvus</td><td>${f.varvus || ""}</td></tr>
-        <tr><td>Breba</td><td>${f.breba || ""}</td></tr>
-        <tr><td>Riik</td><td>${f.riik || ""}</td></tr>
-        <tr><td>Kandnud</td><td>${f.kandnud || ""}</td></tr>
-    `
-
-    images = []
-    if(f.images){
-        for(const img of f.images){
-            images.push(img.replace("../",""))
-        }
-    }
-
-    renderImages()
+    renderVariety(f)
 }
 
-function renderImages(){
-    if(images.length == 0) return
+function renderVariety(f){
+    document.getElementById("varietyCard").innerHTML = `
+        <h1>
+            ${f.name}
+            ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
+        </h1>
 
-    if(images.length == 1){
-        document.getElementById("images").innerHTML =
-            `<img src="${images[0]}" onclick="openModal('${images[0]}')">`
-        return
-    }
+        <p><b>Kirjeldus:</b> ${f.kirjeldus || ""}</p>
 
-    document.getElementById("images").innerHTML = `
         <div class="image-slider">
             <button class="img-arrow img-left" onclick="prevImg()">‹</button>
-            <img id="sliderImg" src="${images[0]}" onclick="openModal('${images[0]}')">
             <button class="img-arrow img-right" onclick="nextImg()">›</button>
+
+            <div class="image-frame">
+                <img id="varImg" src="${images[0]}">
+            </div>
         </div>
+
+        <div class="info-grid">
+            <div>Varasus</div><div>${f.varasus}</div>
+            <div>Maitsev</div><div>${f.maitsev}</div>
+            <div>Suurus</div><div>${f.suurus}</div>
+            <div>Külmakindlus</div><div>${f.kulmakindlus}</div>
+            <div>Värvus</div><div>${f.varvus}</div>
+            <div>Breba</div><div>${f.breba}</div>
+            <div>Riik</div><div>${f.riik}</div>
+            <div>Kandnud</div><div>${f.kandnud}</div>
+        </div>
+
+        <a class="back" href="catalogue.html">← Tagasi kataloogi</a>
     `
 }
 
 function nextImg(){
+    if(images.length < 2) return
     currentImg = (currentImg + 1) % images.length
-    updateImg()
+    document.getElementById("varImg").src = images[currentImg]
 }
 
 function prevImg(){
+    if(images.length < 2) return
     currentImg = (currentImg - 1 + images.length) % images.length
-    updateImg()
-}
-
-function updateImg(){
-    const img = document.getElementById("sliderImg")
-    img.src = images[currentImg]
-    img.setAttribute("onclick", `openModal('${images[currentImg]}')`)
+    document.getElementById("varImg").src = images[currentImg]
 }
 
 /* SWIPE */
-let startX = 0
-
 document.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX
 })
@@ -223,16 +191,6 @@ document.addEventListener("touchend", e=>{
     if(endX - startX > 50) prevImg()
     if(startX - endX > 50) nextImg()
 })
-
-/* MODAL */
-function openModal(src){
-    document.getElementById("modal").style.display="block"
-    document.getElementById("modalImg").src = src
-}
-
-function closeModal(){
-    document.getElementById("modal").style.display="none"
-}
 
 loadVariety()
 </script>
