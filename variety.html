@@ -45,17 +45,33 @@ h1{
     margin-top:0;
 }
 
-.variety-img{
-    width:100%;
-    margin-top:15px;
-    border-radius:12px;
-    cursor:pointer;
-    transition:0.2s;
+/* IMAGE SLIDER */
+.image-slider{
+    position:relative;
 }
 
-.variety-img:hover{
-    transform:scale(1.02);
+.image-slider img{
+    width:100%;
+    border-radius:12px;
+    margin-top:15px;
+    cursor:pointer;
 }
+
+.img-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.4);
+    color:white;
+    border:none;
+    font-size:24px;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.img-left{ left:10px; }
+.img-right{ right:10px; }
 
 table{
     width:100%;
@@ -76,7 +92,7 @@ td{
     font-weight:bold;
 }
 
-/* IMAGE MODAL */
+/* MODAL */
 .modal{
     display:none;
     position:fixed;
@@ -94,10 +110,6 @@ td{
     max-height:95%;
     margin:auto;
     margin-top:2%;
-}
-
-.modal.close{
-    cursor:pointer;
 }
 </style>
 </head>
@@ -119,12 +131,15 @@ td{
 </div>
 </div>
 
-<!-- IMAGE MODAL -->
+<!-- MODAL -->
 <div id="modal" class="modal" onclick="closeModal()">
 <img id="modalImg">
 </div>
 
 <script>
+let images = []
+let currentImg = 0
+
 async function loadVariety(){
     const params = new URLSearchParams(window.location.search)
     const id = params.get("id")
@@ -152,18 +167,64 @@ async function loadVariety(){
         <tr><td>Kandnud</td><td>${f.kandnud || ""}</td></tr>
     `
 
-    // LOAD ALL IMAGES
-    let html = ""
+    images = []
     if(f.images){
         for(const img of f.images){
-            const imgPath = img.replace("../","")
-            html += `<img src="${imgPath}" class="variety-img" onclick="openModal('${imgPath}')">`
+            images.push(img.replace("../",""))
         }
     }
 
-    document.getElementById("images").innerHTML = html
+    renderImages()
 }
 
+function renderImages(){
+    if(images.length == 0) return
+
+    if(images.length == 1){
+        document.getElementById("images").innerHTML =
+            `<img src="${images[0]}" onclick="openModal('${images[0]}')">`
+        return
+    }
+
+    document.getElementById("images").innerHTML = `
+        <div class="image-slider">
+            <button class="img-arrow img-left" onclick="prevImg()">‹</button>
+            <img id="sliderImg" src="${images[0]}" onclick="openModal('${images[0]}')">
+            <button class="img-arrow img-right" onclick="nextImg()">›</button>
+        </div>
+    `
+}
+
+function nextImg(){
+    currentImg = (currentImg + 1) % images.length
+    updateImg()
+}
+
+function prevImg(){
+    currentImg = (currentImg - 1 + images.length) % images.length
+    updateImg()
+}
+
+function updateImg(){
+    const img = document.getElementById("sliderImg")
+    img.src = images[currentImg]
+    img.setAttribute("onclick", `openModal('${images[currentImg]}')`)
+}
+
+/* SWIPE */
+let startX = 0
+
+document.addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX
+})
+
+document.addEventListener("touchend", e=>{
+    let endX = e.changedTouches[0].clientX
+    if(endX - startX > 50) prevImg()
+    if(startX - endX > 50) nextImg()
+})
+
+/* MODAL */
 function openModal(src){
     document.getElementById("modal").style.display="block"
     document.getElementById("modalImg").src = src
