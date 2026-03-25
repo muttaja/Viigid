@@ -1,152 +1,179 @@
 <!DOCTYPE html>
-
 <html lang="et">
 <head>
 <meta charset="UTF-8">
-<title>Viigipuu sort</title>
+<title>Sort</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root{
+    --bg:#f3f6f2;
+    --card:#ffffff;
+    --text:#333;
+    --green:#2e7d32;
+}
+
+@media (prefers-color-scheme: dark){
+:root{
+    --bg:#1e1e1e;
+    --card:#2a2a2a;
+    --text:#e8e8e8;
+}
+}
+
 body{
-font-family:Arial, sans-serif;
-background:#f3f6f2;
-margin:0;
-padding:30px;
-color:#333;
-transition:background 0.3s, color 0.3s;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
 }
 
 .container{
-max-width:900px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 6px 20px rgba(0,0,0,0.1);
-transition:background 0.3s;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.15);
 }
 
 h1{
-margin-top:0;
+    margin-top:0;
 }
 
-.gallery{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:20px;
+.variety-img{
+    width:100%;
+    margin-top:15px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.2s;
 }
 
-.gallery img{
-width:180px;
-height:180px;
-object-fit:cover;
-border-radius:8px;
-cursor:pointer;
+.variety-img:hover{
+    transform:scale(1.02);
 }
 
-.info-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:8px;
-margin-top:15px;
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+td{
+    padding:8px;
+    border-bottom:1px solid rgba(0,0,0,0.1);
 }
 
 .back{
-display:inline-block;
-margin-bottom:20px;
-text-decoration:none;
-color:#2e7d32;
-font-weight:bold;
+    display:inline-block;
+    margin-top:15px;
+    color:var(--green);
+    text-decoration:none;
+    font-weight:bold;
 }
 
-.back:hover{
-text-decoration:underline;
+/* IMAGE MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
 }
 
-/* DARK MODE */
-@media (prefers-color-scheme: dark){
-body{
-background:#121212;
-color:#e0e0e0;
+.modal img{
+    display:block;
+    max-width:95%;
+    max-height:95%;
+    margin:auto;
+    margin-top:2%;
 }
 
-.container{
-background:#1e1e1e;
-}
-
-a{
-color:#81c784;
-}
+.modal.close{
+    cursor:pointer;
 }
 </style>
-
 </head>
 
 <body>
 
+<div class="container">
+<div class="card">
+
+<h1 id="title"></h1>
+<p><b>Kirjeldus:</b> <span id="kirjeldus"></span></p>
+
+<div id="images"></div>
+
+<table id="info"></table>
+
 <a class="back" href="catalogue.html">← Tagasi kataloogi</a>
 
-<div class="container">
-<h1 id="name"></h1>
-
-<div class="gallery" id="gallery"></div>
-
-<p id="description"></p>
-
-<div class="info-grid">
-<div><b>Varasus:</b> <span id="varasus"></span></div>
-<div><b>Maitsev:</b> <span id="maitsev"></span></div>
-<div><b>Suurus:</b> <span id="suurus"></span></div>
-<div><b>Külmakindlus:</b> <span id="kulmakindlus"></span></div>
-<div><b>Värvus:</b> <span id="varvus"></span></div>
-<div><b>Breba:</b> <span id="breba"></span></div>
-<div><b>Riik:</b> <span id="riik"></span></div>
-<div><b>Kandnud:</b> <span id="kandnud"></span></div>
-<div><b>Saadavus:</b> <span id="saadavus"></span></div>
+</div>
 </div>
 
+<!-- IMAGE MODAL -->
+<div id="modal" class="modal" onclick="closeModal()">
+<img id="modalImg">
 </div>
 
 <script>
-function getIdFromUrl(){
-const params=new URLSearchParams(window.location.search)
-return params.get("id")
+async function loadVariety(){
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get("id")
+
+    const res = await fetch("figs.json")
+    const data = await res.json()
+
+    const f = data.find(x => x.id === id)
+    if(!f) return
+
+    document.getElementById("title").innerText =
+        f.name + (f.saadavus=="jah" ? " (saadaval)" : "")
+
+    document.getElementById("kirjeldus").innerText =
+        f.kirjeldus || ""
+
+    document.getElementById("info").innerHTML = `
+        <tr><td>Varasus</td><td>${f.varasus || ""}</td></tr>
+        <tr><td>Maitsev</td><td>${f.maitsev || ""}</td></tr>
+        <tr><td>Suurus</td><td>${f.suurus || ""}</td></tr>
+        <tr><td>Külmakindlus</td><td>${f.kulmakindlus || ""}</td></tr>
+        <tr><td>Värvus</td><td>${f.varvus || ""}</td></tr>
+        <tr><td>Breba</td><td>${f.breba || ""}</td></tr>
+        <tr><td>Riik</td><td>${f.riik || ""}</td></tr>
+        <tr><td>Kandnud</td><td>${f.kandnud || ""}</td></tr>
+    `
+
+    // LOAD ALL IMAGES
+    let html = ""
+    if(f.images){
+        for(const img of f.images){
+            const imgPath = img.replace("../","")
+            html += `<img src="${imgPath}" class="variety-img" onclick="openModal('${imgPath}')">`
+        }
+    }
+
+    document.getElementById("images").innerHTML = html
 }
 
-fetch("figs2.json")
-.then(res=>res.json())
-.then(data=>{
-
-const id=getIdFromUrl()
-const fig=data.find(f=>f.id===id)
-if(!fig) return
-
-document.getElementById("name").innerText=fig.name
-document.getElementById("description").innerText=fig.kirjeldus || ""
-
-document.getElementById("varasus").innerText=fig.varasus || ""
-document.getElementById("maitsev").innerText=fig.maitsev || ""
-document.getElementById("suurus").innerText=fig.suurus || ""
-document.getElementById("kulmakindlus").innerText=fig.kulmakindlus || ""
-document.getElementById("varvus").innerText=fig.varvus || ""
-document.getElementById("breba").innerText=fig.breba || ""
-document.getElementById("riik").innerText=fig.riik || ""
-document.getElementById("kandnud").innerText=fig.kandnud || ""
-document.getElementById("saadavus").innerText=fig.saadavus || ""
-
-const gallery=document.getElementById("gallery")
-
-if(fig.images){
-fig.images.forEach(img=>{
-const image=document.createElement("img")
-image.src=img.replace("../","")
-image.onclick=()=>window.open(image.src)
-gallery.appendChild(image)
-})
+function openModal(src){
+    document.getElementById("modal").style.display="block"
+    document.getElementById("modalImg").src = src
 }
 
-})
+function closeModal(){
+    document.getElementById("modal").style.display="none"
+}
+
+loadVariety()
 </script>
 
 </body>
