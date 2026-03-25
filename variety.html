@@ -56,7 +56,6 @@ body{
     justify-content:center;
     border-radius:10px;
     overflow:hidden;
-    cursor:pointer;
 }
 
 .image-frame img{
@@ -81,7 +80,26 @@ body{
 .img-left{ left:10px; }
 .img-right{ right:10px; }
 
-/* FULLSCREEN IMAGE */
+/* DOTS */
+.img-dots{
+    text-align:center;
+    margin-top:8px;
+}
+
+.img-dot{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    margin:0 4px;
+    background:#aaa;
+    border-radius:50%;
+}
+
+.img-dot.active{
+    background:#555;
+}
+
+/* FULLSCREEN */
 .fullscreen{
     position:fixed;
     inset:0;
@@ -123,7 +141,6 @@ body{
     font-weight:bold;
 }
 
-/* MOBILE */
 @media (max-width:700px){
 .image-frame{
     height:260px;
@@ -157,14 +174,13 @@ async function loadVariety(){
     const f = data.find(x => x.id === id)
     if(!f) return
 
-    // FIX MULTIPLE IMAGES
     images = []
+    currentImg = 0
+
     if(Array.isArray(f.images)){
-        for(const img of f.images){
-            images.push(img.replace("../",""))
-        }
+        images = f.images.map(img => img.replace("../",""))
     } else if(typeof f.images === "string"){
-        images.push(f.images.replace("../",""))
+        images = [f.images.replace("../","")]
     }
 
     renderVariety(f)
@@ -177,14 +193,18 @@ function renderVariety(f){
             ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
         </h1>
 
-        <p><b>Kirjeldus:</b> ${f.kirjeldus || ""}</p>
+        <p>${f.kirjeldus || ""}</p>
 
         <div class="image-slider">
             ${images.length>1 ? '<button class="img-arrow img-left" onclick="prevImg()">‹</button>' : ''}
             ${images.length>1 ? '<button class="img-arrow img-right" onclick="nextImg()">›</button>' : ''}
 
             <div class="image-frame" onclick="openFullscreen()">
-                <img id="varImg" src="${images[0]}">
+                <img id="varImg" src="${images[0]}" loading="lazy">
+            </div>
+
+            <div class="img-dots">
+                ${images.map((_,i)=>`<span class="img-dot ${i==0?'active':''}"></span>`).join("")}
             </div>
         </div>
 
@@ -204,14 +224,22 @@ function renderVariety(f){
 }
 
 /* IMAGE NAV */
+function updateDots(){
+    const dots = document.querySelectorAll(".img-dot")
+    dots.forEach(d=>d.classList.remove("active"))
+    if(dots[currentImg]) dots[currentImg].classList.add("active")
+}
+
 function nextImg(){
     currentImg = (currentImg + 1) % images.length
     document.getElementById("varImg").src = images[currentImg]
+    updateDots()
 }
 
 function prevImg(){
     currentImg = (currentImg - 1 + images.length) % images.length
     document.getElementById("varImg").src = images[currentImg]
+    updateDots()
 }
 
 /* FULLSCREEN */
@@ -225,15 +253,19 @@ function openFullscreen(){
     document.body.appendChild(div)
 }
 
-/* SWIPE */
+/* SWIPE ONLY ON IMAGE */
 document.addEventListener("touchstart", e=>{
-    startX = e.touches[0].clientX
+    if(e.target.closest(".image-frame")){
+        startX = e.touches[0].clientX
+    }
 })
 
 document.addEventListener("touchend", e=>{
-    let endX = e.changedTouches[0].clientX
-    if(endX - startX > 50) prevImg()
-    if(startX - endX > 50) nextImg()
+    if(e.target.closest(".image-frame")){
+        let endX = e.changedTouches[0].clientX
+        if(endX - startX > 50) prevImg()
+        if(startX - endX > 50) nextImg()
+    }
 })
 
 loadVariety()
