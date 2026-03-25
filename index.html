@@ -8,22 +8,23 @@
 <style>
 :root{
     --bg:#f3f6f2;
-    --card:#ffffff;
+    --card:#ffffffcc;
     --text:#333;
-    --green:#2e7d32;
+    --green1:#6aa36f;
+    --green2:#3f6f45;
 }
 
 @media (prefers-color-scheme: dark){
 :root{
-    --bg:#1e1e1e;
-    --card:#2a2a2a;
+    --bg:#1b1f1c;
+    --card:#2a2f2bcc;
     --text:#e8e8e8;
 }
 }
 
 body{
     margin:0;
-    font-family:Arial, sans-serif;
+    font-family:system-ui, Arial, sans-serif;
     background:var(--bg);
     color:var(--text);
     text-align:center;
@@ -48,20 +49,22 @@ h1{
 
 .slide{
     background:var(--card);
-    border-radius:14px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    backdrop-filter:blur(8px);
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
     overflow:hidden;
+    transition:0.4s;
 }
 
 .slide img{
     width:100%;
     height:420px;
     object-fit:cover;
-    transform:scale(0.8);
+    border-radius:16px;
 }
 
 .slide-content{
-    padding:20px;
+    padding:22px;
     text-align:left;
 }
 
@@ -70,13 +73,25 @@ h1{
     text-decoration:none;
 }
 
+/* DESCRIPTION */
+.desc{
+    color:#999;
+    margin-top:5px;
+    margin-bottom:12px;
+}
+
+/* INFO GRID */
 .info-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:6px;
-    font-size:14px;
+    gap:8px 20px;
+    font-size:15px;
+    margin-top:10px;
+    border-top:1px solid rgba(150,150,150,0.2);
+    padding-top:12px;
 }
 
+/* ARROWS */
 .arrow{
     position:absolute;
     top:45%;
@@ -87,43 +102,64 @@ h1{
     font-size:28px;
     padding:10px 16px;
     cursor:pointer;
-    border-radius:8px;
+    border-radius:10px;
 }
 
 .arrow-left{ left:10px; }
 .arrow-right{ right:10px; }
 
-/* FACEBOOK BANNER */
+/* SLIDE DOTS */
+.dots{
+    margin:15px 0;
+}
+
+.dot{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    margin:0 4px;
+    background:#aaa;
+    border-radius:50%;
+}
+
+.dot.active{
+    background:#fff;
+}
+
+/* SLIDE COUNTER */
+.counter{
+    font-size:13px;
+    opacity:0.6;
+    margin-top:5px;
+}
+
+/* BUTTON */
+.button{
+    display:block;
+    width:90%;
+    max-width:600px;
+    margin:20px auto;
+    padding:16px;
+    font-size:18px;
+    color:white;
+    background:linear-gradient(45deg,var(--green1),var(--green2));
+    text-decoration:none;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+/* FACEBOOK */
 .fb-banner{
-    margin:30px auto;
+    margin:25px auto;
     border-radius:14px;
     overflow:hidden;
-    box-shadow:0 6px 20px rgba(0,0,0,0.25);
-    line-height:0;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
     max-width:750px;
 }
 
 .fb-banner img{
     width:100%;
     display:block;
-    border-radius:14px;
-    transition:0.2s;
-}
-
-.fb-banner img:hover{
-    transform:scale(1.02);
-}
-
-/* BUTTON */
-.button{
-    display:inline-block;
-    margin:10px 0 25px 0;
-    padding:14px 26px;
-    font-size:18px;
-    color:white;
-    background:var(--green);
-    text-decoration:none;
-    border-radius:8px;
 }
 
 /* MOBILE */
@@ -134,10 +170,6 @@ h1{
 .arrow{
     font-size:22px;
     padding:8px 12px;
-}
-.fb-banner{
-    max-width:100%;
-    margin-top:20px;
 }
 }
 </style>
@@ -152,17 +184,18 @@ h1{
 <button class="arrow arrow-left" onclick="prevSlide()">‹</button>
 <button class="arrow arrow-right" onclick="nextSlide()">›</button>
 <div id="slideContainer"></div>
+<div class="dots" id="dots"></div>
+<div class="counter" id="counter"></div>
 </div>
 
-<!-- FACEBOOK BANNER -->
+<a class="button" href="catalogue.html">
+Vaata kõiki saadaval sorte
+</a>
+
 <a href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
 <div class="fb-banner">
 <img src="../images_fb/banner.png">
 </div>
-</a>
-
-<a class="button" href="catalogue.html">
-Vaata kõiki saadaval sorte
 </a>
 
 </div>
@@ -191,6 +224,7 @@ async function loadSlides(){
 
     if(figs.length > 0){
         showSlide()
+        createDots()
         slideTimer = setInterval(nextSlide, 6000)
     }
 }
@@ -202,7 +236,7 @@ function showSlide(){
     document.getElementById("slideContainer").innerHTML = `
     <div class="slide">
         <a href="variety.html?id=${f.id}">
-            <img src="${imgPath}">
+            <img src="${imgPath}" loading="lazy">
         </a>
         <div class="slide-content">
             <h2>
@@ -212,19 +246,22 @@ function showSlide(){
                 ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
             </h2>
 
-            <p>${f.kirjeldus || ""}</p>
+            <div class="desc">${f.kirjeldus || ""}</div>
 
             <div class="info-grid">
                 <div><b>Varasus:</b> ${f.varasus}</div>
                 <div><b>Maitsev:</b> ${f.maitsev}</div>
                 <div><b>Suurus:</b> ${f.suurus}</div>
-                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-                <div><b>Värvus:</b> ${f.varvus}</div>
                 <div><b>Breba:</b> ${f.breba}</div>
+                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
                 <div><b>Riik:</b> ${f.riik}</div>
             </div>
         </div>
     </div>`
+
+    updateDots()
+    document.getElementById("counter").innerText =
+        (current+1) + " / " + figs.length
 }
 
 function nextSlide(){
@@ -237,13 +274,31 @@ function prevSlide(){
     showSlide()
 }
 
+/* DOTS */
+function createDots(){
+    let dotsHTML=""
+    for(let i=0;i<figs.length;i++){
+        dotsHTML += `<span class="dot" onclick="goToSlide(${i})"></span>`
+    }
+    document.getElementById("dots").innerHTML = dotsHTML
+}
+
+function updateDots(){
+    const dots = document.querySelectorAll(".dot")
+    dots.forEach(d=>d.classList.remove("active"))
+    if(dots[current]) dots[current].classList.add("active")
+}
+
+function goToSlide(i){
+    current=i
+    showSlide()
+}
+
 /* MOBILE SWIPE */
 let startX = 0
-
 document.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX
 })
-
 document.addEventListener("touchend", e=>{
     let endX = e.changedTouches[0].clientX
     if(endX - startX > 50) prevSlide()
