@@ -169,18 +169,20 @@ function getId(){
 async function loadImages(folder){
     let list = []
 
-    for(let i=1;i<=20;i++){
+    for(let i=1;i<=10;i++){
         const img = folder + i + ".jpg"
-        try{
-            const res = await fetch(img, {method:'HEAD'})
-            if(res.ok){
+
+        await new Promise(resolve=>{
+            const testImg = new Image()
+            testImg.onload = ()=>{
                 list.push(img)
-            } else {
-                break
+                resolve()
             }
-        }catch{
-            break
-        }
+            testImg.onerror = ()=>{
+                resolve()
+            }
+            testImg.src = img
+        })
     }
 
     return list
