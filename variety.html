@@ -165,6 +165,25 @@ function getId(){
     return params.get("id")
 }
 
+/* LOAD IMAGES FROM FOLDER */
+async function loadImagesFromFolder(folder){
+    let list = []
+    for(let i=1;i<=20;i++){
+        const img = folder + i + ".jpg"
+        try{
+            let res = await fetch(img, {method:'HEAD'})
+            if(res.ok){
+                list.push(img)
+            } else {
+                break
+            }
+        }catch{
+            break
+        }
+    }
+    return list
+}
+
 async function loadVariety(){
     const id = getId()
 
@@ -178,9 +197,20 @@ async function loadVariety(){
     currentImg = 0
 
     if(Array.isArray(f.images)){
-        images = f.images.map(img => img.replace("../",""))
+        for(const path of f.images){
+            if(path.endsWith("/")){
+                const folderImgs = await loadImagesFromFolder(path)
+                images = images.concat(folderImgs)
+            } else {
+                images.push(path)
+            }
+        }
     } else if(typeof f.images === "string"){
-        images = [f.images.replace("../","")]
+        if(f.images.endsWith("/")){
+            images = await loadImagesFromFolder(f.images)
+        } else {
+            images = [f.images]
+        }
     }
 
     renderVariety(f)
@@ -200,7 +230,7 @@ function renderVariety(f){
             ${images.length>1 ? '<button class="img-arrow img-right" onclick="nextImg()">›</button>' : ''}
 
             <div class="image-frame" onclick="openFullscreen()">
-                <img id="varImg" src="${images[0]}" loading="lazy">
+                <img id="varImg" src="${images[0] || ''}" loading="lazy">
             </div>
 
             <div class="img-dots">
@@ -253,7 +283,7 @@ function openFullscreen(){
     document.body.appendChild(div)
 }
 
-/* SWIPE ONLY ON IMAGE */
+/* SWIPE */
 document.addEventListener("touchstart", e=>{
     if(e.target.closest(".image-frame")){
         startX = e.touches[0].clientX
