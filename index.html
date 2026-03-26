@@ -44,6 +44,7 @@ h1{
     position:relative;
     margin:auto;
     max-width:900px;
+    touch-action: pan-y;
 }
 
 .slide{
@@ -53,13 +54,12 @@ h1{
     overflow:hidden;
 }
 
-/* IMAGE HIGHER */
+/* IMAGE HIGHER + ZOOM OUT */
 .slide img{
     width:100%;
     height:500px;
     object-fit:cover;
     transform:scale(0.85);
-    transform-origin:center;
 }
 
 /* CONTENT */
@@ -93,7 +93,7 @@ h1{
     margin-top:10px;
 }
 
-/* FIG LEAF ARROWS OUTSIDE */
+/* ARROWS */
 .arrow{
     background:none;
     border:none;
@@ -117,13 +117,10 @@ h1{
 .arrow-right{ left:-120px; }
 .arrow-left{ right:-120px; }
 
-/* MOBILE */
+/* MOBILE → HIDE ARROWS */
 @media (max-width:900px){
-.arrow-left{ left:-10px; }
-.arrow-right{ right:-10px; }
-
-.arrow img{
-    width:55px;
+.arrow{
+    display:none;
 }
 
 .slide img{
@@ -195,7 +192,7 @@ h1{
 <div class="container">
 <h1>Viigipuud Eestis</h1>
 
-<div class="slider">
+<div class="slider" id="slider">
 
 <button class="arrow arrow-right" onclick="prevSlide()">
     <img src="images/ui/leaf-right.png">
@@ -228,6 +225,7 @@ let slideList = []
 let current = 0
 let slideTimer
 let startX = 0
+let endX = 0
 
 async function loadSlides(){
 
@@ -313,13 +311,19 @@ function updateDots(){
     if(dots[current]) dots[current].classList.add("active")
 }
 
-/* SWIPE */
-document.addEventListener("touchstart", e=>{
+/* SWIPE ONLY INSIDE SLIDER */
+const slider = document.getElementById("slider")
+
+slider.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX
 })
 
-document.addEventListener("touchend", e=>{
-    let endX = e.changedTouches[0].clientX
+slider.addEventListener("touchmove", e=>{
+    e.preventDefault()
+})
+
+slider.addEventListener("touchend", e=>{
+    endX = e.changedTouches[0].clientX
     if(endX - startX > 50) prevSlide()
     if(startX - endX > 50) nextSlide()
 })
