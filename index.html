@@ -242,7 +242,11 @@ async function loadSlides(){
 
 function showSlide(){
     const f = figs[current]
-    const imgPath = f.images[0]
+
+    let imgPath = f.images[0]
+    if(imgPath.endsWith("/")){
+        imgPath = imgPath + "1.jpg"
+    }
 
     document.getElementById("slideContainer").innerHTML = `
     <div class="slide">
@@ -311,9 +315,11 @@ document.addEventListener("touchend", e=>{
 })
 
 /* PAUSE ON HOVER */
-const slider = document.querySelector(".slider")
-slider.addEventListener("mouseenter", ()=> clearInterval(slideTimer))
-slider.addEventListener("mouseleave", ()=> slideTimer = setInterval(nextSlide, 6000))
+window.addEventListener("DOMContentLoaded", ()=>{
+    const slider = document.querySelector(".slider")
+    slider.addEventListener("mouseenter", ()=> clearInterval(slideTimer))
+    slider.addEventListener("mouseleave", ()=> slideTimer = setInterval(nextSlide, 6000))
+})
 
 /* KEYBOARD */
 document.addEventListener("keydown", function(e){
