@@ -167,27 +167,12 @@ function getId(){
     return params.get("id")
 }
 
-/* LOAD IMAGES FROM FOLDER */
-async function loadImages(folder){
-    let list = []
-
+/* FAST IMAGE LOADING */
+function loadImages(folder){
+    images = []
     for(let i=1;i<=10;i++){
-        const img = folder + i + ".jpg"
-
-        await new Promise(resolve=>{
-            const testImg = new Image()
-            testImg.onload = ()=>{
-                list.push(img)
-                resolve()
-            }
-            testImg.onerror = ()=>{
-                resolve()
-            }
-            testImg.src = img
-        })
+        images.push(folder + i + ".jpg")
     }
-
-    return list
 }
 
 async function loadVariety(){
@@ -200,7 +185,7 @@ async function loadVariety(){
     if(!f) return
 
     if(f.images && f.images[0].endsWith("/")){
-        images = await loadImages(f.images[0])
+        loadImages(f.images[0])
     } else {
         images = f.images || []
     }
@@ -226,7 +211,7 @@ function buildPage(f){
             ${images.length>1 ? '<button class="img-arrow img-right" id="nextBtn">›</button>' : ''}
 
             <div class="image-frame" id="imageFrame">
-                <img id="varImg" src="${images[0] || ''}">
+                <img id="varImg" src="${images[0]}" loading="lazy">
             </div>
 
             <div class="img-dots" id="dots"></div>
@@ -249,7 +234,7 @@ function buildPage(f){
     setupSlider()
 }
 
-/* SETUP SLIDER */
+/* SLIDER */
 function setupSlider(){
     const img = document.getElementById("varImg")
     const dotsDiv = document.getElementById("dots")
@@ -285,16 +270,13 @@ function setupSlider(){
     })
 }
 
-/* IMAGE NAV */
 function nextImg(){
-    if(images.length < 2) return
     currentImg = (currentImg + 1) % images.length
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
 }
 
 function prevImg(){
-    if(images.length < 2) return
     currentImg = (currentImg - 1 + images.length) % images.length
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
