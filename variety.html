@@ -195,20 +195,20 @@ async function loadVariety(){
     const f = data.find(x => x.id === id)
     if(!f) return
 
-    currentImg = 0
-
-    // LOAD IMAGES FIRST
     if(f.images && f.images[0].endsWith("/")){
         images = await loadImages(f.images[0])
     } else {
         images = f.images || []
     }
 
-    renderVariety(f)
+    buildPage(f)
 }
 
-function renderVariety(f){
-    document.getElementById("varietyCard").innerHTML = `
+/* BUILD PAGE */
+function buildPage(f){
+    const card = document.getElementById("varietyCard")
+
+    card.innerHTML = `
         <h1>
             ${f.name}
             ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
@@ -217,16 +217,14 @@ function renderVariety(f){
         <p>${f.kirjeldus || ""}</p>
 
         <div class="image-slider">
-            ${images.length>1 ? '<button class="img-arrow img-left" onclick="prevImg()">‹</button>' : ''}
-            ${images.length>1 ? '<button class="img-arrow img-right" onclick="nextImg()">›</button>' : ''}
+            <button class="img-arrow img-left" id="prevBtn">‹</button>
+            <button class="img-arrow img-right" id="nextBtn">›</button>
 
-            <div class="image-frame">
+            <div class="image-frame" id="imageFrame">
                 <img id="varImg" src="${images[0] || ''}">
             </div>
 
-            <div class="img-dots">
-                ${images.map((_,i)=>`<span class="img-dot ${i==0?'active':''}"></span>`).join("")}
-            </div>
+            <div class="img-dots" id="dots"></div>
         </div>
 
         <div class="info-grid">
@@ -242,15 +240,47 @@ function renderVariety(f){
 
         <a class="back" href="catalogue.html">← Tagasi kataloogi</a>
     `
+
+    setupSlider()
+}
+
+/* SETUP SLIDER */
+function setupSlider(){
+    const img = document.getElementById("varImg")
+    const dotsDiv = document.getElementById("dots")
+
+    // create dots
+    dotsDiv.innerHTML = images.map((_,i)=>`<span class="img-dot" data-i="${i}"></span>`).join("")
+    updateDots()
+
+    // arrows
+    document.getElementById("prevBtn").onclick = prevImg
+    document.getElementById("nextBtn").onclick = nextImg
+
+    // dots click
+    document.querySelectorAll(".img-dot").forEach(dot=>{
+        dot.onclick = () => {
+            currentImg = parseInt(dot.dataset.i)
+            img.src = images[currentImg]
+            updateDots()
+        }
+    })
+
+    // swipe
+    const frame = document.getElementById("imageFrame")
+
+    frame.addEventListener("touchstart", e=>{
+        startX = e.touches[0].clientX
+    })
+
+    frame.addEventListener("touchend", e=>{
+        let endX = e.changedTouches[0].clientX
+        if(endX - startX > 50) prevImg()
+        if(startX - endX > 50) nextImg()
+    })
 }
 
 /* IMAGE NAV */
-function updateDots(){
-    const dots = document.querySelectorAll(".img-dot")
-    dots.forEach(d=>d.classList.remove("active"))
-    if(dots[currentImg]) dots[currentImg].classList.add("active")
-}
-
 function nextImg(){
     if(images.length < 2) return
     currentImg = (currentImg + 1) % images.length
@@ -265,20 +295,11 @@ function prevImg(){
     updateDots()
 }
 
-/* SWIPE */
-document.addEventListener("touchstart", e=>{
-    if(e.target.closest(".image-frame")){
-        startX = e.touches[0].clientX
-    }
-})
-
-document.addEventListener("touchend", e=>{
-    if(e.target.closest(".image-frame")){
-        let endX = e.changedTouches[0].clientX
-        if(endX - startX > 50) prevImg()
-        if(startX - endX > 50) nextImg()
-    }
-})
+function updateDots(){
+    const dots = document.querySelectorAll(".img-dot")
+    dots.forEach(d=>d.classList.remove("active"))
+    if(dots[currentImg]) dots[currentImg].classList.add("active")
+}
 
 loadVariety()
 </script>
