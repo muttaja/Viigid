@@ -31,7 +31,7 @@ body{
 
 .container{
     padding:30px 15px;
-    max-width:1000px;
+    max-width:1100px;
     margin:auto;
 }
 
@@ -77,48 +77,46 @@ h1{
     margin-top:10px;
 }
 
-/* FIG LEAF ARROWS */
+/* FIG LEAF ARROWS OUTSIDE */
 .arrow{
     background:none;
     border:none;
     cursor:pointer;
     position:absolute;
-    top:42%;
+    top:45%;
     transform:translateY(-50%);
-    z-index:5;
+    z-index:10;
 }
 
 .arrow img{
-    width:90px;
-    height:auto;
+    width:95px;
     transition:0.25s;
 }
 
-/* SWITCHED DIRECTIONS */
-.arrow-left img{
-    transform: rotate(14deg);
-}
-
-.arrow-right img{
-    transform: rotate(-14deg);
-}
-
 .arrow img:hover{
-    transform: scale(1.12);
+    transform:scale(1.15);
 }
 
-.arrow-left{ left:-30px; }
-.arrow-right{ right:-30px; }
+/* SWITCHED SIDES */
+.arrow-left{ left:-120px; }
+.arrow-right{ right:-120px; }
 
-@media (max-width:700px){
-.slide img{
-    height:260px;
-}
+/* ROTATION */
+.arrow-left img{ transform: rotate(12deg); }
+.arrow-right img{ transform: rotate(-12deg); }
+
+/* MOBILE */
+@media (max-width:900px){
+.arrow-left{ left:-10px; }
+.arrow-right{ right:-10px; }
+
 .arrow img{
     width:55px;
 }
-.arrow-left{ left:-10px; }
-.arrow-right{ right:-10px; }
+
+.slide img{
+    height:260px;
+}
 }
 
 /* DOTS */
@@ -187,12 +185,13 @@ h1{
 
 <div class="slider">
 
-<button class="arrow arrow-left" onclick="prevSlide()">
-    <img src="images/ui/leaf-left.png">
+<!-- SWITCHED ARROWS -->
+<button class="arrow arrow-left" onclick="nextSlide()">
+    <img src="images/ui/leaf-right.png">
 </button>
 
-<button class="arrow arrow-right" onclick="nextSlide()">
-    <img src="images/ui/leaf-right.png">
+<button class="arrow arrow-right" onclick="prevSlide()">
+    <img src="images/ui/leaf-left.png">
 </button>
 
 <div id="slideContainer"></div>
