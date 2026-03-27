@@ -126,13 +126,17 @@ body{
     cursor:pointer;
 }
 
-/* INFO TABLE */
+/* INFO GRID 2 COLUMNS */
 .info-grid{
     display:grid;
-    grid-template-columns:150px 1fr;
-    gap:8px;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
     margin-top:15px;
     font-size:15px;
+}
+
+.info-col div{
+    margin-bottom:6px;
 }
 
 .back{
@@ -161,18 +165,38 @@ body{
 let images = []
 let currentImg = 0
 let startX = 0
+let startY = 0
 
 function getId(){
     const params = new URLSearchParams(window.location.search)
     return params.get("id")
 }
 
-/* FAST IMAGE LOADING */
+/* LOAD ONLY EXISTING IMAGES */
 function loadImages(folder){
-    images = []
-    for(let i=1;i<=10;i++){
-        images.push(folder + i + ".jpg")
-    }
+    return new Promise(resolve=>{
+        let list = []
+        let i = 1
+
+        function check(){
+            let img = new Image()
+            let path = folder + i + ".jpg"
+
+            img.onload = function(){
+                list.push(path)
+                i++
+                check()
+            }
+
+            img.onerror = function(){
+                resolve(list)
+            }
+
+            img.src = path
+        }
+
+        check()
+    })
 }
 
 async function loadVariety(){
@@ -185,7 +209,7 @@ async function loadVariety(){
     if(!f) return
 
     if(f.images && f.images[0].endsWith("/")){
-        loadImages(f.images[0])
+        images = await loadImages(f.images[0])
     } else {
         images = f.images || []
     }
@@ -211,21 +235,26 @@ function buildPage(f){
             ${images.length>1 ? '<button class="img-arrow img-right" id="nextBtn">›</button>' : ''}
 
             <div class="image-frame" id="imageFrame">
-                <img id="varImg" src="${images[0]}" loading="lazy">
+                <img id="varImg" src="${images[0] || ''}">
             </div>
 
             <div class="img-dots" id="dots"></div>
         </div>
 
         <div class="info-grid">
-            <div>Varasus</div><div>${f.varasus}</div>
-            <div>Maitsev</div><div>${f.maitsev}</div>
-            <div>Suurus</div><div>${f.suurus}</div>
-            <div>Külmakindlus</div><div>${f.kulmakindlus}</div>
-            <div>Värvus</div><div>${f.varvus}</div>
-            <div>Breba</div><div>${f.breba}</div>
-            <div>Riik</div><div>${f.riik}</div>
-            <div>Kandnud</div><div>${f.kandnud}</div>
+            <div class="info-col">
+                <div><b>Varasus:</b> ${f.varasus}</div>
+                <div><b>Suurus:</b> ${f.suurus}</div>
+                <div><b>Värvus:</b> ${f.varvus}</div>
+                <div><b>Maitse:</b> ${f.maitse}</div>
+            </div>
+
+            <div class="info-col">
+                <div><b>Maitsev:</b> ${f.maitsev}</div>
+                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
+                <div><b>Breba:</b> ${f.breba}</div>
+                <div><b>Riik:</b> ${f.riik}</div>
+            </div>
         </div>
 
         <a class="back" href="catalogue.html">← Tagasi kataloogi</a>
@@ -261,23 +290,39 @@ function setupSlider(){
 
     frame.addEventListener("touchstart", e=>{
         startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
     })
 
     frame.addEventListener("touchend", e=>{
         let endX = e.changedTouches[0].clientX
-        if(endX - startX > 50) prevImg()
-        if(startX - endX > 50) nextImg()
+        let endY = e.changedTouches[0].clientY
+
+        let diffX = endX - startX
+        let diffY = endY - startY
+
+        if(Math.abs(diffX) > Math.abs(diffY)){
+            if(diffX > 50) prevImg()
+            if(diffX < -50) nextImg()
+        }
     })
 }
 
 function nextImg(){
-    currentImg = (currentImg + 1) % images.length
+    if(currentImg < images.length-1){
+        currentImg++
+    } else {
+        currentImg = 0
+    }
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
 }
 
 function prevImg(){
-    currentImg = (currentImg - 1 + images.length) % images.length
+    if(currentImg > 0){
+        currentImg--
+    } else {
+        currentImg = images.length-1
+    }
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
 }
