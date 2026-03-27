@@ -52,6 +52,12 @@ h1{
     border-radius:14px;
     box-shadow:0 8px 25px rgba(0,0,0,0.15);
     overflow:hidden;
+    animation:fade 0.4s ease;
+}
+
+@keyframes fade{
+    from{opacity:0.4;}
+    to{opacity:1;}
 }
 
 /* IMAGE */
@@ -62,19 +68,16 @@ h1{
     transform:scale(0.85);
 }
 
-/* CONTENT */
+/* CONTENT AREA FIXED HEIGHT */
 .slide-content{
     padding:20px;
     text-align:left;
-    min-height:150px;
+    height:190px;
+    display:flex;
+    flex-direction:column;
 }
 
-.slide a{
-    color:inherit;
-    text-decoration:none;
-}
-
-/* DESCRIPTION 1 LINE */
+/* DESCRIPTION ALWAYS SAME HEIGHT */
 .slide-desc{
     display:-webkit-box;
     -webkit-line-clamp:1;
@@ -82,6 +85,12 @@ h1{
     overflow:hidden;
     line-height:1.4em;
     height:1.4em;
+    margin-bottom:6px;
+}
+
+.slide a{
+    color:inherit;
+    text-decoration:none;
 }
 
 /* INFO GRID */
@@ -96,256 +105,4 @@ h1{
 /* ARROWS */
 .arrow{
     background:none;
-    border:none;
-    cursor:pointer;
-    position:absolute;
-    top:45%;
-    transform:translateY(-50%);
-    z-index:10;
-}
-
-.arrow img{
-    width:95px;
-    transition:0.25s;
-}
-
-.arrow img:hover{
-    transform:scale(1.15);
-}
-
-/* SWITCHED SIDES */
-.arrow-right{ left:-120px; }
-.arrow-left{ right:-120px; }
-
-/* MOBILE */
-@media (max-width:900px){
-.arrow{
-    display:none;
-}
-
-.slide img{
-    height:240px;
-}
-}
-
-/* DOTS */
-.dots{
-    margin-top:12px;
-}
-
-.dot{
-    display:inline-block;
-    width:8px;
-    height:8px;
-    margin:4px;
-    background:#aaa;
-    border-radius:50%;
-}
-
-.dot.active{
-    background:#555;
-}
-
-/* COUNTER */
-.counter{
-    margin-top:4px;
-    font-size:13px;
-    opacity:0.7;
-}
-
-/* BUTTON */
-.button{
-    display:inline-block;
-    margin:20px 0;
-    padding:14px 26px;
-    font-size:18px;
-    color:white;
-    background:var(--green);
-    text-decoration:none;
-    border-radius:8px;
-}
-
-/* FACEBOOK */
-.fb-banner{
-    margin:20px auto;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 6px 20px rgba(0,0,0,0.25);
-    line-height:0;
-    max-width:750px;
-}
-
-.fb-banner img{
-    width:100%;
-    display:block;
-    transition:0.2s;
-}
-
-.fb-banner img:hover{
-    transform:scale(1.02);
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-<h1>Viigipuud Eestis</h1>
-
-<div class="slider" id="slider">
-
-<button class="arrow arrow-right" onclick="prevSlide()">
-    <img src="images/ui/leaf-right.png">
-</button>
-<button class="arrow arrow-left" onclick="nextSlide()">
-    <img src="images/ui/leaf-left.png">
-</button>
-
-<div id="slideContainer"></div>
-<div class="dots" id="dots"></div>
-<div class="counter" id="counter"></div>
-
-</div>
-
-<a class="button" href="catalogue.html">
-Vaata kõiki saadaval sorte
-</a>
-
-<a href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
-<div class="fb-banner">
-<img src="../images_fb/banner.png">
-</div>
-</a>
-
-</div>
-
-<script>
-let figs = []
-let slideList = []
-let current = 0
-let slideTimer
-let startX = 0
-let startY = 0
-
-async function loadSlides(){
-
-    const txt = await fetch("../for_slides/for_slides.txt")
-    const text = await txt.text()
-    slideList = text.split("\n").map(s=>s.trim()).filter(Boolean)
-
-    const res = await fetch("figs.json")
-    const data = await res.json()
-
-    for(const id of slideList){
-        const f = data.find(x => x.id === id)
-        if(f && f.images && f.images.length > 0){
-            figs.push(f)
-        }
-    }
-
-    createDots()
-    showSlide()
-    slideTimer = setInterval(nextSlide, 6000)
-}
-
-function showSlide(){
-    const f = figs[current]
-
-    let imgPath = f.images[0]
-    if(imgPath.endsWith("/")){
-        imgPath = imgPath + "1.jpg"
-    }
-
-    document.getElementById("slideContainer").innerHTML = `
-    <div class="slide">
-        <a href="variety.html?id=${f.id}">
-            <img src="${imgPath}" loading="lazy">
-        </a>
-        <div class="slide-content">
-            <h2>
-                <a href="variety.html?id=${f.id}">
-                    ${f.name}
-                </a>
-                ${f.saadavus=="jah" ? '<span style="color:lightgreen;"> (saadaval)</span>' : ''}
-            </h2>
-
-            <p class="slide-desc">${f.kirjeldus || ""}</p>
-
-            <div class="info-grid">
-                <div><b>Varasus:</b> ${f.varasus}</div>
-                <div><b>Maitsev:</b> ${f.maitsev}</div>
-                <div><b>Suurus:</b> ${f.suurus}</div>
-                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-                <div><b>Värvus:</b> ${f.varvus}</div>
-                <div><b>Riik:</b> ${f.riik}</div>
-            </div>
-        </div>
-    </div>`
-
-    updateDots()
-    document.getElementById("counter").innerText = (current+1) + " / " + figs.length
-}
-
-function nextSlide(){
-    current = (current + 1) % figs.length
-    showSlide()
-}
-
-function prevSlide(){
-    current = (current - 1 + figs.length) % figs.length
-    showSlide()
-}
-
-function createDots(){
-    const dots = document.getElementById("dots")
-    dots.innerHTML = ""
-    for(let i=0;i<figs.length;i++){
-        dots.innerHTML += `<span class="dot"></span>`
-    }
-}
-
-function updateDots(){
-    const dots = document.querySelectorAll(".dot")
-    dots.forEach(d=>d.classList.remove("active"))
-    if(dots[current]) dots[current].classList.add("active")
-}
-
-/* MOBILE SWIPE WITH SCROLL */
-const slider = document.getElementById("slider")
-
-slider.addEventListener("touchstart", e=>{
-    startX = e.touches[0].clientX
-    startY = e.touches[0].clientY
-})
-
-slider.addEventListener("touchend", e=>{
-    let endX = e.changedTouches[0].clientX
-    let endY = e.changedTouches[0].clientY
-
-    let diffX = endX - startX
-    let diffY = endY - startY
-
-    if(Math.abs(diffX) > Math.abs(diffY)){
-        if(diffX > 50) prevSlide()
-        if(diffX < -50) nextSlide()
-    }
-})
-
-/* PAUSE ON HOVER */
-window.addEventListener("DOMContentLoaded", ()=>{
-    const slider = document.querySelector(".slider")
-    slider.addEventListener("mouseenter", ()=> clearInterval(slideTimer))
-    slider.addEventListener("mouseleave", ()=> slideTimer = setInterval(nextSlide, 6000))
-})
-
-/* KEYBOARD */
-document.addEventListener("keydown", function(e){
-    if(e.key === "ArrowLeft") prevSlide()
-    if(e.key === "ArrowRight") nextSlide()
-})
-
-loadSlides()
-</script>
-
-</body>
-</html>
+   
