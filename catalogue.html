@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="et">
 <head>
 <meta charset="UTF-8">
@@ -56,7 +55,11 @@ th:hover{
 background:#dfe6da;
 }
 
-.photo{
+/* FIG ICON */
+.fig-icon{
+width:18px;
+height:18px;
+vertical-align:middle;
 margin-left:6px;
 }
 
@@ -128,8 +131,12 @@ data.forEach(fig=>{
 if(filterKandnud && fig.kandnud!=="jah") return
 if(filterSaadavus && fig.saadavus!=="jah") return
 
+let photoIcon = ""
+if(fig.images && fig.images.length>0){
+photoIcon = '<img src="images/ui/fig-icon.png" class="fig-icon">'
+}
+
 const row=document.createElement("tr")
-let photoIcon=fig.images && fig.images.length>0 ? '📷' : ''
 
 row.innerHTML=`
 <td><a href="variety.html?id=${fig.id}">${fig.name}</a> ${photoIcon}</td>
@@ -170,41 +177,7 @@ const orderVarasus = {
 "varane":3,
 "keskmine":4,
 "":5,
-"hiline":5
-}
-
-const orderMaitsev = {
-"erakordselt":1,
-"jah":2,
-"":3
-}
-
-const orderSuurus = {
-"mega":1,
-"suur":2,
-"keskmine":3,
-"väiksepoolne":4,
-"väike":5,
-"":6
-}
-
-const orderKulm = {
-"kõige külmakindlam":1,
-"jah":2,
-"":3,
-"ei":4
-}
-
-const orderBreba = {
-"jah":1,
-"mõningane":2,
-"":3,
-"ei":4
-}
-
-const orderSaadavus = {
-"jah":1,
-"ei":2
+"hiline":6
 }
 
 function sortTable(n){
@@ -217,6 +190,7 @@ let y=b.cells[n].innerText.toLowerCase().trim()
 
 if(n===0) return x.localeCompare(y)
 if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
+
 return x.localeCompare(y)
 })
 
