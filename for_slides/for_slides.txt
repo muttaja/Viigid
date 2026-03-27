@@ -17,3 +17,4 @@ michurinska_green
 martinsfeige
 malta_black
 ronde_de_bordeaux
+chicago_hardy
