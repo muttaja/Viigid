@@ -1,0 +1,1243 @@
+[
+  {
+    "id": "alvor",
+    "name": "Alvor",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Bulgaaria",
+    "images": [
+      "../images/alvor/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "amarcord",
+    "name": "Amarcord",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/amarcord/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "andreys_violet",
+    "name": "Andrey's Violet",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Sloveenia",
+    "images": [
+      "../images/andreys_violet/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "angelito",
+    "name": "Angelito",
+    "varasus": "",
+    "maitsev": "erakordselt",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "USA",
+    "images": [
+      "../images/angelito/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Ootan maitseelamust ja suuri vilju.",
+    "kandnud": "ei"
+  },
+  {
+    "id": "atreano",
+    "name": "Atreano",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/atreano/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "becane",
+    "name": "Becane",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/becane/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "bornholm",
+    "name": "Bornholm",
+    "varasus": "hiline",
+    "maitsev": "jah",
+    "suurus": "suur",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "Taani",
+    "images": [
+      "../images/bornholm/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Pärit Bornholmi saarelt Läänemeres, meil lähima päritoluga sort. Paraku hiline",
+    "kandnud": "jah"
+  },
+  {
+    "id": "brown_turkey",
+    "name": "Brown Turkey",
+    "varasus": "hiline",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "kõige külmakindlam",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "",
+    "images": [
+      "../images/brown_turkey/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kõige parema külmakindlusega, aga hiline.",
+    "kandnud": "ei"
+  },
+  {
+    "id": "campaniere",
+    "name": "Campaniere",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väiksepoolne",
+    "kulmakindlus": "jah",
+    "varvus": "kollakas-pruunikas",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/campaniere/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Väga varane. Vanem puu väidetavalt üpris külmakindel. Ilus suur, pehme ja karvane leht.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "casa_di_lazzaro",
+    "name": "Casa di Lazzaro",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/casa_di_lazzaro/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "castillion",
+    "name": "Castillion",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/castillion/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "cesare",
+    "name": "Cesare",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "Itaalia",
+    "images": [
+      "../images/cesare/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "jah"
+  },
+  {
+    "id": "chicago_hardy",
+    "name": "Chicago Hardy",
+    "varasus": "keskmine",
+    "maitsev": "",
+    "suurus": "väiksepoolne",
+    "kulmakindlus": "kõige külmakindlam",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/chicago_hardy/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Rahvahääletuse võitja kui kõige külmakindlam sort.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "constantine_de_algerie",
+    "name": "Constantine de Algerie",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "Alžeeria",
+    "images": [
+      "../images/constantine_de_algerie/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "cotentin",
+    "name": "Cotentin",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "rohekas-pruunikas",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/cotentin/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Jäi esimesel aastal silma kõrge viljakuse ja suurte viljadega. Viljad on väljast kõvemad kui teistel sortidel, eristudes tugevalt.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "croisic",
+    "name": "Croisic",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/croisic/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Isase viigipuu sort ehk caprifig. Eriline selle poolest, et tema viljad on söödavad! Viljad on maitselt mahedad, üpris magusad. Vili ise on käsnjalt pehmepoolne võrreldes tavaliste viigimarjadega. Sobib ka käsitsi tolmeldamiseks ja sordiaretuseks.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "crozes",
+    "name": "Crozes",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/crozes/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "cull_noir",
+    "name": "Cull Noir",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/cull_noir/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "dalmatie",
+    "name": "Dalmatie",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/dalmatie/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "de_tres_esplets",
+    "name": "De Tres Esplets",
+    "varasus": "kõige varasem",
+    "maitsev": "erakordselt",
+    "suurus": "keskmine",
+    "kulmakindlus": "ei",
+    "varvus": "rohekas-violetne",
+    "breba": "jah",
+    "riik": "Hispaania",
+    "images": [
+      "../images/de_tres_esplets/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kõige varasem ja samas ka väga maitsev; lisaks magususele ja \"viigisusele\" on tunda ka kerget hapet, mis viigimarjade puhul on haruldane. ",
+    "kandnud": "jah"
+  },
+  {
+    "id": "desert_king",
+    "name": "Desert King",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/desert_king/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "jah"
+  },
+  {
+    "id": "enderud",
+    "name": "Enderud",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/enderud/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "figue_jaune",
+    "name": "Figue Jaune",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/figue_jaune/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Osad väidavad, et kõige varasem. Ilusa suure läikiva lehega.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "gota_de_mel",
+    "name": "Gota de Mel",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Hispaania",
+    "images": [
+      "../images/gota_de_mel/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "grise_de_saint_jean",
+    "name": "Grise de Saint Jean",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "ei",
+    "varvus": "hallikas-violetne",
+    "breba": "jah",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/grise_de_saint_jean/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Lisaks põhisaagile annab korraliku breba saagi.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "hanover",
+    "name": "Hanover",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Saksamaa",
+    "images": [
+      "../images/hanover/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "hative_dargenteuil",
+    "name": "Hative d'Argenteuil",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/hative_dargenteuil/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "hunt",
+    "name": "Hunt",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/hunt/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "improved_celeste",
+    "name": "Improved Celeste",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/improved_celeste/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kõige varasem! Tugeva kasvuga, heades tingimustes väga suurte lehtedega ja eks seetõttu ka suure veevajadusega.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "iranian_candy",
+    "name": "Iranian Candy",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "Iraan",
+    "images": [
+      "../images/iranian_candy/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kõige varasem! Väidetavalt ka külmakindel.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "italian_258",
+    "name": "Italian-258",
+    "varasus": "hiline",
+    "maitsev": "erakordselt",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/italian_258/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "jah"
+  },
+  {
+    "id": "jh_adriatic",
+    "name": "JH Adriatic",
+    "varasus": "hiline",
+    "maitsev": "erakordselt",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "roheline",
+    "breba": "mõningane",
+    "riik": "USA",
+    "images": [
+      "../images/jh_adriatic/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Hilissügisel kõige maitsvam, isegi kui pole täiesti küps.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "kadota",
+    "name": "Kadota",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia, USA",
+    "images": [
+      "../images/kadota/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "laghel",
+    "name": "Laghel",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/laghel/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "longue_daout",
+    "name": "Longue d'Août",
+    "varasus": "keskmine",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-pruunikas",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/longue_daout/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Megad brebad, mega põhisaak.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "lsu_hollier",
+    "name": "LSU Hollier",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/lsu_hollier/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "lsu_orourke",
+    "name": "LSU O’Rourke",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/lsu_orourke/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "lsu_tiger",
+    "name": "LSU Tiger",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/lsu_tiger/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "malta_black",
+    "name": "Malta Black",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "riik": "Malta",
+    "images": [
+      "../images/malta_black/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Sarnane kuulsale Chicago Hardyle, aga väidetavalt parem.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "marseilles_black_vs",
+    "name": "Marseilles Black VS",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/marseilles_black_vs/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "martinsfeige",
+    "name": "Martinsfeige",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Saksamaa",
+    "images": [
+      "../images/martinsfeige/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Üks Saksamaa varasemaid ja külmakindlamaid sorte.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "michurinska_green",
+    "name": "Michurinska Green",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "roheline",
+    "breba": "jah",
+    "riik": "Bulgaaria",
+    "images": [
+      "../images/michurinska_green/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "Mõõdukalt varastest üks maitsvamaid.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "michurinska_10",
+    "name": "Michurinska-10",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "kõige külmakindlam",
+    "varvus": "",
+    "breba": "",
+    "riik": "Bulgaaria",
+    "images": [
+      "../images/michurinska_10/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "Kõige varasem ja kõige külmakindlam.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "moellada",
+    "name": "Moellada",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Hispaania",
+    "images": [
+      "../images/moellada/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "moro_di_caneva",
+    "name": "Moro di Caneva",
+    "varasus": "varane",
+    "maitsev": "jah",
+    "suurus": "keskmine",
+    "kulmakindlus": "",
+    "varvus": "pruun",
+    "breba": "jah",
+    "riik": "Itaalia",
+    "images": [
+      "../images/moro_di_caneva/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Seni kõige magusamate viljadega sort! Varane.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "moscatel_preto",
+    "name": "Moscatel Preto",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Portugal",
+    "images": [
+      "../images/moscatel_preto/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "negretta",
+    "name": "Negretta",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/negretta/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "nero_600_m",
+    "name": "Nero 600 M",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/nero_600_m/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "noire_de_caromb",
+    "name": "Noire de Caromb",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/noire_de_caromb/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "obersollbach",
+    "name": "Obersöllbach",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "suur",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Saksamaa",
+    "images": [
+      "../images/obersollbach/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Vilja suurust arvestades väidetavalt suhteliselt varane.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "olympian",
+    "name": "Olympian",
+    "varasus": "hiline",
+    "maitsev": "jah",
+    "suurus": "suur",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-pruunikas",
+    "breba": "jah",
+    "riik": "USA",
+    "images": [
+      "../images/olympian/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Suured ja maitsvad. Külma suvega võib aga põhisaagi valmimisega hätta jääda, ent korralik breba-saak päästab välja.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "pastillere",
+    "name": "Pastillère",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/pastillere/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "pellegrino",
+    "name": "Pellegrino",
+    "varasus": "keskmine",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-punakas",
+    "breba": "jah",
+    "riik": "Itaalia",
+    "images": [
+      "../images/pellegrino/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Megad brebad, mega põhisaak. Veidi varasem kui sarane sort  Longue d'Août.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "preto_de_torres_novas",
+    "name": "Preto de Torres Novas",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Portugal",
+    "images": [
+      "../images/preto_de_torres_novas/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "reculver",
+    "name": "Reculver",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Inglismaa",
+    "images": [
+      "../images/reculver/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "red_lebanese_bv",
+    "name": "Red Lebanese BV",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Liibanon",
+    "images": [
+      "../images/red_lebanese_bv/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Selle aasta üks maitsvamaid. Samas \"perekonnas\", kus Chicago Hardy, seega võiks olla hea külmakindlusega. ",
+    "kandnud": "jah"
+  },
+  {
+    "id": "ronde_de_bordeaux",
+    "name": "Ronde de Bordeaux",
+    "varasus": "kõige varasem",
+    "maitsev": "",
+    "suurus": "väiksepoolne",
+    "kulmakindlus": "jah",
+    "varvus": "rohekas-violetne",
+    "breba": "",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/ronde_de_bordeaux/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kõige varasem, üks parimaid külmakindluse osas. Maitsev prantsuse klassika.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "saint_rita",
+    "name": "Saint Rita",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/saint_rita/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "smith",
+    "name": "Smith",
+    "varasus": "",
+    "maitsev": "erakordselt",
+    "suurus": "",
+    "kulmakindlus": "ei",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/smith/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Kuulus erakordselt maitsvate viljade poolest. Suhteliselt varane, ent üks külmaõrnemaid sorte.",
+    "kandnud": "ei"
+  },
+  {
+    "id": "squeglia",
+    "name": "Squeglia",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/squeglia/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "takoma_violet",
+    "name": "Takoma Violet",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/takoma_violet/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "unk_spain_pete_lee",
+    "name": "Unk. Spain Pete Lee",
+    "varasus": "väga varane",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Hispaania",
+    "images": [
+      "../images/unk_spain_pete_lee/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "vagabond",
+    "name": "Vagabond",
+    "varasus": "",
+    "maitsev": "jah",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Bulgaaria",
+    "images": [
+      "../images/vagabond/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Ootan temalt maitseelamust ja seda suhteliselt varakult.",
+    "kandnud": "ei"
+  },
+  {
+    "id": "verdino_del_nord_vr",
+    "name": "Verdino del Nord VR",
+    "varasus": "väga varane",
+    "maitsev": "",
+    "suurus": "väike",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "jah",
+    "riik": "Itaalia",
+    "images": [
+      "../images/verdino_del_nord_vr/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "verdolino",
+    "name": "Verdolino",
+    "varasus": "varane",
+    "maitsev": "",
+    "suurus": "keskmine",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "Itaalia",
+    "images": [
+      "../images/verdolino/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "violette_de_bordeaux",
+    "name": "Violette de Bordeaux (Little Miss Figgy)",
+    "varasus": "hiline",
+    "maitsev": "jah",
+    "suurus": "väike",
+    "kulmakindlus": "jah",
+    "varvus": "violetne",
+    "breba": "jah",
+    "riik": "Prantsusmaa",
+    "images": [
+      "../images/violette_de_bordeaux/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "Maitsev breba ja põhisaak, aga hilisepoolne.",
+    "kandnud": "jah"
+  },
+  {
+    "id": "kastanhinho",
+    "name": "Kastanhinho",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "",
+    "images": [
+      "../images/kastanhinho/"
+    ],
+    "saadavus": "jah",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "odesa_aborigen",
+    "name": "Odesa Aborigen",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "Ukraina",
+    "images": [
+      "../images/odesa_aborigen/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "absheron",
+    "name": "Absheron",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "kollane",
+    "breba": "",
+    "riik": "Aserbaidžaan",
+    "images": [
+      "../images/absheron/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "super_jumbo_dk",
+    "name": "Super Jumbo DK",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "mega",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Taiwan",
+    "images": [
+      "../images/super_jumbo_dk/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "randino",
+    "name": "Randino",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "jah",
+    "varvus": "",
+    "breba": "",
+    "riik": "USA",
+    "images": [
+      "../images/randino/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "masui_dauphine",
+    "name": "Masui Dauphine",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Jaapan",
+    "images": [
+      "../images/masui_dauphine/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  },
+  {
+    "id": "magarachskiy",
+    "name": "Magarachskiy",
+    "varasus": "",
+    "maitsev": "",
+    "suurus": "",
+    "kulmakindlus": "",
+    "varvus": "",
+    "breba": "",
+    "riik": "Ukraina",
+    "images": [
+      "../images/magarachskiy/"
+    ],
+    "saadavus": "ei",
+    "kirjeldus": "",
+    "kandnud": "ei"
+  }
+]
