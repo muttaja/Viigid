@@ -13,6 +13,24 @@ body{
     transition:background 0.3s, color 0.3s;
 }
 
+h1{
+    margin-bottom:5px;
+}
+
+.nav-home{
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.nav-home a{
+    color:#2e7d32;
+    text-decoration:none;
+}
+
+.nav-home a:hover{
+    text-decoration:underline;
+}
+
 a{
     color:#2e7d32;
     text-decoration:none;
@@ -118,6 +136,9 @@ tr:hover{
 <body>
 
 <h1>Viigipuu sordid</h1>
+<div class="nav-home">
+    <a href="index.html">← Avalehele</a>
+</div>
 
 <div class="info-box">
 Puud on kõrgusega ~50–80 cm, kohanenud loomuliku päikesevalgusega.<br>
@@ -133,7 +154,6 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <div style="margin-bottom:20px">
 <button id="kandnudBtn">Näita ka sorte, mis pole veel kandnud</button>
 <button id="saadavusBtn">Näita ka sorte, mis pole hetkel saadaval</button>
-<a href="index.html"><button>Avalehele</button></a>
 </div>
 
 <table id="figTable">
@@ -164,11 +184,11 @@ function hasPhotos(fig){
     if(Array.isArray(fig.images)){
         if(fig.images.length === 0) return false
 
-        // folder based images
+        // If folder path like "../images/cotentin/"
         if(fig.images[0].endsWith("/")) return true
 
-        // file based images
-        return fig.images.length > 0
+        // If actual image files listed
+        if(fig.images.length > 0) return true
     }
 
     return false
@@ -230,6 +250,40 @@ const orderVarasus = {
 "keskmine":4,
 "":5,
 "hiline":6
+}
+
+const orderMaitsev = {
+"erakordselt":1,
+"jah":2,
+"":3
+}
+
+const orderSuurus = {
+"mega":1,
+"suur":2,
+"keskmine":3,
+"vöiksepoolne":4,
+"väike":5,
+"":6
+}
+
+const orderKulm = {
+"kõige külmakindlam":1,
+"jah":2,
+"":3,
+"ei":4
+}
+
+const orderBreba = {
+"jah":1,
+"mõningane":2,
+"":3,
+"ei":4
+}
+
+const orderSaadavus = {
+"jah":1,
+"ei":2
 }
 
 function sortTable(n){
