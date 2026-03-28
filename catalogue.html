@@ -51,7 +51,6 @@ button{
     cursor:pointer;
 }
 
-/* INFO BOX */
 .info-box{
     background:white;
     padding:18px;
@@ -60,12 +59,10 @@ button{
     line-height:1.5em;
 }
 
-/* TABLE */
 table{
     border-collapse:collapse;
     width:100%;
     background:white;
-    transition:background 0.3s;
 }
 
 th, td{
@@ -79,18 +76,12 @@ th{
     cursor:pointer;
     position:sticky;
     top:0;
-    z-index:5;
-}
-
-th:hover{
-    background:#dfe6da;
 }
 
 tr:hover{
     background:#f5f5f5;
 }
 
-/* FIG ICON */
 .fig-icon{
     width:18px;
     height:18px;
@@ -98,39 +89,28 @@ tr:hover{
     margin-left:6px;
 }
 
-/* DARK MODE */
 @media (prefers-color-scheme: dark){
 body{
     background:#121212;
     color:#e0e0e0;
 }
-
 table{
     background:#1e1e1e;
 }
-
 th{
     background:#2a2a2a;
 }
-
 td{
     border:1px solid #333;
 }
-
-a{
-    color:#81c784;
-}
-
 .info-box{
     background:#1e1e1e;
 }
-
 tr:hover{
     background:#2a2a2a;
 }
 }
 </style>
-
 </head>
 
 <body>
@@ -148,7 +128,7 @@ Samal aastal kandmine on sobilikes tingimustes garanteeritud.<br><br>
 Huvi korral kirjuta <b>mats.ploompuu@gmail.com</b> või Messengeris.<br><br>
 
 Tabelis toodud omadused on subjektiivsed.<br>
-"Suhteline külmakindlus" tähendab külmakindlust võrreldes teiste sortidega ja ei tähenda, et nad Eesti talve ilma korralikult katmata kahjustusteta üle elaks.
+"Suhteline külmakindlus" tähendab külmakindlust võrreldes teiste sortidega.
 </div>
 
 <div style="margin-bottom:20px">
@@ -177,34 +157,41 @@ Tabelis toodud omadused on subjektiivsed.<br>
 let filterKandnud=true
 let filterSaadavus=true
 let figsData=[]
+let photoCache={}
 
-function hasPhotos(fig){
-    if(!fig.images) return false
+/* CHECK IF IMAGE EXISTS */
+function checkImage(folder){
+    return new Promise(resolve=>{
+        if(!folder) return resolve(false)
 
-    if(Array.isArray(fig.images)){
-        if(fig.images.length === 0) return false
+        if(photoCache[folder] !== undefined){
+            return resolve(photoCache[folder])
+        }
 
-        // If folder path like "../images/cotentin/"
-        if(fig.images[0].endsWith("/")) return true
-
-        // If actual image files listed
-        if(fig.images.length > 0) return true
-    }
-
-    return false
+        let img = new Image()
+        img.onload = ()=>{ photoCache[folder]=true; resolve(true) }
+        img.onerror = ()=>{ photoCache[folder]=false; resolve(false) }
+        img.src = folder + "1.jpg"
+    })
 }
 
-function renderTable(data){
+async function renderTable(data){
 const body=document.getElementById("figBody")
 body.innerHTML=""
 
 data=[...data].sort((a,b)=>a.name.localeCompare(b.name,'et'))
 
-data.forEach(fig=>{
-if(filterKandnud && fig.kandnud!=="jah") return
-if(filterSaadavus && fig.saadavus!=="jah") return
+for(const fig of data){
 
-let photoIcon = hasPhotos(fig)
+if(filterKandnud && fig.kandnud!=="jah") continue
+if(filterSaadavus && fig.saadavus!=="jah") continue
+
+let hasPhoto=false
+if(fig.images && fig.images[0] && fig.images[0].endsWith("/")){
+    hasPhoto = await checkImage(fig.images[0])
+}
+
+let photoIcon = hasPhoto
     ? '<img src="images/ui/fig-icon.png" class="fig-icon">'
     : ''
 
@@ -223,68 +210,33 @@ row.innerHTML=`
 `
 
 body.appendChild(row)
-})
+}
 }
 
 fetch("figs.json")
 .then(res=>res.json())
-.then(data=>{
+.then(async data=>{
 figsData=data
-renderTable(figsData)
+await renderTable(figsData)
 })
 
-document.getElementById("kandnudBtn").onclick=()=>{
+document.getElementById("kandnudBtn").onclick=async ()=>{
 filterKandnud=!filterKandnud
-renderTable(figsData)
+await renderTable(figsData)
 }
 
-document.getElementById("saadavusBtn").onclick=()=>{
+document.getElementById("saadavusBtn").onclick=async ()=>{
 filterSaadavus=!filterSaadavus
-renderTable(figsData)
+await renderTable(figsData)
 }
 
-const orderVarasus = {
-"kõige varasem":1,
-"väga varane":2,
-"varane":3,
-"keskmine":4,
-"":5,
-"hiline":6
-}
-
-const orderMaitsev = {
-"erakordselt":1,
-"jah":2,
-"":3
-}
-
-const orderSuurus = {
-"mega":1,
-"suur":2,
-"keskmine":3,
-"vöiksepoolne":4,
-"väike":5,
-"":6
-}
-
-const orderKulm = {
-"kõige külmakindlam":1,
-"jah":2,
-"":3,
-"ei":4
-}
-
-const orderBreba = {
-"jah":1,
-"mõningane":2,
-"":3,
-"ei":4
-}
-
-const orderSaadavus = {
-"jah":1,
-"ei":2
-}
+/* SORT ORDERS */
+const orderVarasus = {"kõige varasem":1,"väga varane":2,"varane":3,"keskmine":4,"":5,"hiline":6}
+const orderMaitsev = {"erakordselt":1,"jah":2,"":3}
+const orderSuurus = {"mega":1,"suur":2,"keskmine":3,"väiksepoolne":4,"väike":5,"":6}
+const orderKulm = {"kõige külmakindlam":1,"jah":2,"":3,"ei":4}
+const orderBreba = {"jah":1,"mõningane":2,"":3,"ei":4}
+const orderSaadavus = {"jah":1,"ei":2}
 
 function sortTable(n){
 const table=document.getElementById("figTable")
@@ -296,6 +248,11 @@ let y=b.cells[n].innerText.toLowerCase().trim()
 
 if(n===0) return x.localeCompare(y)
 if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
+if(n===2) return (orderMaitsev[x]||99)-(orderMaitsev[y]||99)
+if(n===3) return (orderSuurus[x]||99)-(orderSuurus[y]||99)
+if(n===4) return (orderKulm[x]||99)-(orderKulm[y]||99)
+if(n===6) return (orderBreba[x]||99)-(orderBreba[y]||99)
+if(n===8) return (orderSaadavus[x]||99)-(orderSaadavus[y]||99)
 
 return x.localeCompare(y)
 })
