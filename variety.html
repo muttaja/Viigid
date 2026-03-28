@@ -101,6 +101,23 @@ body{
     background:#555;
 }
 
+.nav-links{
+    margin-top:20px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    max-width:320px;
+}
+
+.nav-links a{
+    color:var(--green);
+    text-decoration:none;
+}
+
+.nav-links a:hover{
+    text-decoration:underline;
+}
+
 /* FULLSCREEN */
 .fullscreen{
     position:fixed;
@@ -265,10 +282,10 @@ function buildPage(f){
             </div>
         </div>
 
-        <div class="buttons">
-            <a class="btn" href="catalogue.html">← Tagasi kataloogi</a>
-            <a class="btn" href="index.html">← Tagasi avalehele</a>
-        </div>
+        <div class="nav-links">
+        <a href="index.html">← Avalehele</a>
+        <a href="catalogue.html">Kataloogi →</a>
+    </div>
     `
 
     setupSlider()
