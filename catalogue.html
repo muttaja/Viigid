@@ -157,24 +157,16 @@ Tabelis toodud omadused on subjektiivsed.<br>
 let filterKandnud=true
 let filterSaadavus=true
 let figsData=[]
-let photoCache={}
+let slideVarieties=[]
 
-/* CHECK IF IMAGE EXISTS */
-function checkImage(folder){
-    return new Promise(resolve=>{
-        if(!folder) return resolve(false)
-
-        if(photoCache[folder] !== undefined){
-            return resolve(photoCache[folder])
-        }
-
-        let img = new Image()
-        img.onload = ()=>{ photoCache[folder]=true; resolve(true) }
-        img.onerror = ()=>{ photoCache[folder]=false; resolve(false) }
-        img.src = folder + "1.jpg"
-    })
+/* LOAD SLIDE VARIETIES LIST */
+async function loadSlideList(){
+    const txt = await fetch("../for_slides/for_slides.txt")
+    const text = await txt.text()
+    slideVarieties = text.split("\n").map(s=>s.trim())
 }
 
+/* RENDER TABLE */
 async function renderTable(data){
 const body=document.getElementById("figBody")
 body.innerHTML=""
@@ -186,12 +178,7 @@ for(const fig of data){
 if(filterKandnud && fig.kandnud!=="jah") continue
 if(filterSaadavus && fig.saadavus!=="jah") continue
 
-let hasPhoto=false
-if(fig.images && fig.images[0] && fig.images[0].endsWith("/")){
-    hasPhoto = await checkImage(fig.images[0])
-}
-
-let photoIcon = hasPhoto
+let photoIcon = slideVarieties.includes(fig.id)
     ? '<img src="images/ui/fig-icon.png" class="fig-icon">'
     : ''
 
@@ -213,21 +200,26 @@ body.appendChild(row)
 }
 }
 
-fetch("figs.json")
-.then(res=>res.json())
-.then(async data=>{
-figsData=data
-await renderTable(figsData)
-})
+/* LOAD DATA */
+async function init(){
+    await loadSlideList()
 
-document.getElementById("kandnudBtn").onclick=async ()=>{
-filterKandnud=!filterKandnud
-await renderTable(figsData)
+    const res = await fetch("figs.json")
+    figsData = await res.json()
+
+    renderTable(figsData)
 }
 
-document.getElementById("saadavusBtn").onclick=async ()=>{
+init()
+
+document.getElementById("kandnudBtn").onclick=()=>{
+filterKandnud=!filterKandnud
+renderTable(figsData)
+}
+
+document.getElementById("saadavusBtn").onclick=()=>{
 filterSaadavus=!filterSaadavus
-await renderTable(figsData)
+renderTable(figsData)
 }
 
 /* SORT ORDERS */
