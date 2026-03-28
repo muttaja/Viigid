@@ -41,6 +41,15 @@ body{
     padding:20px;
 }
 
+h1{
+    margin-bottom:5px;
+}
+
+p{
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
 /* IMAGE SLIDER */
 .image-slider{
     position:relative;
@@ -56,6 +65,7 @@ body{
     justify-content:center;
     border-radius:10px;
     overflow:hidden;
+    touch-action: pan-y;
 }
 
 .image-frame img{
@@ -101,12 +111,20 @@ body{
     background:#555;
 }
 
+.img-counter{
+    text-align:center;
+    font-size:13px;
+    opacity:0.7;
+    margin-top:3px;
+}
+
+/* NAV LINKS */
 .nav-links{
-    margin-top:20px;
+    margin-top:25px;
     font-weight:bold;
     display:flex;
-    justify-content:space-between;
-    max-width:320px;
+    justify-content:center;
+    gap:40px;
 }
 
 .nav-links a{
@@ -154,22 +172,6 @@ body{
 
 .info-col div{
     margin-bottom:6px;
-}
-
-/* BUTTONS */
-.buttons{
-    margin-top:20px;
-}
-
-.btn{
-    display:inline-block;
-    padding:10px 16px;
-    margin-right:10px;
-    background:var(--green);
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-    font-weight:bold;
 }
 
 @media (max-width:700px){
@@ -264,6 +266,7 @@ function buildPage(f){
             </div>
 
             <div class="img-dots" id="dots"></div>
+            <div class="img-counter" id="counter"></div>
         </div>
 
         <div class="info-grid">
@@ -283,9 +286,9 @@ function buildPage(f){
         </div>
 
         <div class="nav-links">
-        <a href="index.html">← Avalehele</a>
-        <a href="catalogue.html">Kataloogi →</a>
-    </div>
+            <a href="index.html">← Avalehele</a>
+            <a href="catalogue.html">Kataloogi →</a>
+        </div>
     `
 
     setupSlider()
@@ -359,6 +362,9 @@ function updateDots(){
     const dots = document.querySelectorAll(".img-dot")
     dots.forEach(d=>d.classList.remove("active"))
     if(dots[currentImg]) dots[currentImg].classList.add("active")
+
+    document.getElementById("counter").innerText =
+        (currentImg+1) + " / " + images.length
 }
 
 /* FULLSCREEN */
