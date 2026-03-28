@@ -44,6 +44,7 @@ h1{
     position:relative;
     margin:auto;
     max-width:900px;
+    touch-action: pan-y;
 }
 
 .slide{
@@ -53,16 +54,13 @@ h1{
     overflow:hidden;
 }
 
-/* IMAGE */
 .slide img{
     width:100%;
     height:500px;
     object-fit:cover;
     transform:scale(0.85);
-    transform-origin:center;
 }
 
-/* CONTENT */
 .slide-content{
     padding:20px;
     text-align:left;
@@ -106,11 +104,6 @@ h1{
 
 .arrow img{
     width:95px;
-    transition:0.25s;
-}
-
-.arrow img:hover{
-    transform:scale(1.15);
 }
 
 .arrow-right{ left:-120px; }
@@ -118,11 +111,9 @@ h1{
 
 /* MOBILE */
 @media (max-width:900px){
-.arrow-left{ left:-10px; }
-.arrow-right{ right:-10px; }
 
-.arrow img{
-    width:55px;
+.arrow{
+    display:none;
 }
 
 .slide img{
@@ -177,16 +168,6 @@ h1{
     max-width:750px;
 }
 
-.fb-banner img{
-    width:100%;
-    display:block;
-    transition:0.2s;
-}
-
-.fb-banner img:hover{
-    transform:scale(1.02);
-}
-
 /* CONTACT */
 .contact{
     margin-top:10px;
@@ -200,11 +181,12 @@ h1{
 <div class="container">
 <h1>Viigipuud Eestis</h1>
 
-<div class="slider">
+<div class="slider" id="slider">
 
 <button class="arrow arrow-right" onclick="prevSlide()">
     <img src="images/ui/leaf-right.png">
 </button>
+
 <button class="arrow arrow-left" onclick="nextSlide()">
     <img src="images/ui/leaf-left.png">
 </button>
@@ -322,13 +304,15 @@ function updateDots(){
     if(dots[current]) dots[current].classList.add("active")
 }
 
-/* SWIPE */
-document.addEventListener("touchstart", e=>{
+/* SWIPE ONLY ON SLIDER */
+const slider = document.getElementById("slider")
+
+slider.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX
     startY = e.touches[0].clientY
 })
 
-document.addEventListener("touchend", e=>{
+slider.addEventListener("touchend", e=>{
     let endX = e.changedTouches[0].clientX
     let endY = e.changedTouches[0].clientY
 
@@ -339,19 +323,6 @@ document.addEventListener("touchend", e=>{
         if(diffX > 50) prevSlide()
         if(diffX < -50) nextSlide()
     }
-})
-
-/* PAUSE ON HOVER */
-window.addEventListener("DOMContentLoaded", ()=>{
-    const slider = document.querySelector(".slider")
-    slider.addEventListener("mouseenter", ()=> clearInterval(slideTimer))
-    slider.addEventListener("mouseleave", ()=> slideTimer = setInterval(nextSlide, 6000))
-})
-
-/* KEYBOARD */
-document.addEventListener("keydown", function(e){
-    if(e.key === "ArrowLeft") prevSlide()
-    if(e.key === "ArrowRight") nextSlide()
 })
 
 loadSlides()
