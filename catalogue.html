@@ -6,84 +6,109 @@
 
 <style>
 body{
-font-family:Arial;
-background:#f3f6f2;
-padding:40px;
-color:#333;
-transition:background 0.3s, color 0.3s;
+    font-family:Arial;
+    background:#f3f6f2;
+    padding:40px;
+    color:#333;
+    transition:background 0.3s, color 0.3s;
 }
 
 a{
-color:#2e7d32;
-text-decoration:none;
-font-weight:bold;
+    color:#2e7d32;
+    text-decoration:none;
+    font-weight:bold;
 }
 
 a:hover{
-text-decoration:underline;
+    text-decoration:underline;
 }
 
 button{
-padding:8px 14px;
-margin-right:8px;
-border-radius:6px;
-border:none;
-background:#2e7d32;
-color:white;
-cursor:pointer;
+    padding:8px 14px;
+    margin-right:8px;
+    border-radius:6px;
+    border:none;
+    background:#2e7d32;
+    color:white;
+    cursor:pointer;
 }
 
+/* INFO BOX */
+.info-box{
+    background:white;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:25px;
+    line-height:1.5em;
+}
+
+/* TABLE */
 table{
-border-collapse:collapse;
-width:100%;
-background:white;
-transition:background 0.3s;
+    border-collapse:collapse;
+    width:100%;
+    background:white;
+    transition:background 0.3s;
 }
 
 th, td{
-border:1px solid #ddd;
-padding:8px;
-text-align:left;
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:left;
 }
 
 th{
-background:#e9eee7;
-cursor:pointer;
+    background:#e9eee7;
+    cursor:pointer;
+    position:sticky;
+    top:0;
+    z-index:5;
 }
 
 th:hover{
-background:#dfe6da;
+    background:#dfe6da;
+}
+
+tr:hover{
+    background:#f5f5f5;
 }
 
 /* FIG ICON */
 .fig-icon{
-width:18px;
-height:18px;
-vertical-align:middle;
-margin-left:6px;
+    width:18px;
+    height:18px;
+    vertical-align:middle;
+    margin-left:6px;
 }
 
 /* DARK MODE */
 @media (prefers-color-scheme: dark){
 body{
-background:#121212;
-color:#e0e0e0;
+    background:#121212;
+    color:#e0e0e0;
 }
 
 table{
-background:#1e1e1e;
+    background:#1e1e1e;
 }
 
 th{
-background:#2a2a2a;
+    background:#2a2a2a;
 }
 
 td{
-border:1px solid #333;
+    border:1px solid #333;
 }
 
 a{
-color:#81c784;
+    color:#81c784;
+}
+
+.info-box{
+    background:#1e1e1e;
+}
+
+tr:hover{
+    background:#2a2a2a;
 }
 }
 </style>
@@ -94,9 +119,21 @@ color:#81c784;
 
 <h1>Viigipuu sordid</h1>
 
+<div class="info-box">
+Puud on kõrgusega ~50–80 cm, kohanenud loomuliku päikesevalgusega.<br>
+Samal aastal kandmine on sobilikes tingimustes garanteeritud.<br><br>
+
+Ühe puu hind 50 €, kolm puud 120 €.  
+Huvi korral kirjuta <b>mats.ploompuu@gmail.com</b> või Messengeris.<br><br>
+
+Tabelis toodud omadused on subjektiivsed.<br>
+"Suhteline külmakindlus" tähendab külmakindlust võrreldes teiste sortidega ja ei tähenda, et nad Eesti talve ilma korralikult katmata kahjustusteta üle elaks.
+</div>
+
 <div style="margin-bottom:20px">
 <button id="kandnudBtn">Näita ka sorte, mis pole veel kandnud</button>
 <button id="saadavusBtn">Näita ka sorte, mis pole hetkel saadaval</button>
+<a href="index.html"><button>Avalehele</button></a>
 </div>
 
 <table id="figTable">
@@ -121,6 +158,22 @@ let filterKandnud=true
 let filterSaadavus=true
 let figsData=[]
 
+function hasPhotos(fig){
+    if(!fig.images) return false
+
+    if(Array.isArray(fig.images)){
+        if(fig.images.length === 0) return false
+
+        // folder based images
+        if(fig.images[0].endsWith("/")) return true
+
+        // file based images
+        return fig.images.length > 0
+    }
+
+    return false
+}
+
 function renderTable(data){
 const body=document.getElementById("figBody")
 body.innerHTML=""
@@ -131,10 +184,9 @@ data.forEach(fig=>{
 if(filterKandnud && fig.kandnud!=="jah") return
 if(filterSaadavus && fig.saadavus!=="jah") return
 
-let photoIcon = ""
-if(fig.images && fig.images.length>0){
-photoIcon = '<img src="images/ui/fig-icon.png" class="fig-icon">'
-}
+let photoIcon = hasPhotos(fig)
+    ? '<img src="images/ui/fig-icon.png" class="fig-icon">'
+    : ''
 
 const row=document.createElement("tr")
 
