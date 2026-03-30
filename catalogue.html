@@ -94,7 +94,7 @@ tr:hover{
     margin-left:6px;
 }
 
-/* QUESTION MARK */
+/* QUESTION MARK TOOLTIP */
 .q{
     display:inline-block;
     width:14px;
@@ -105,8 +105,24 @@ tr:hover{
     font-size:10px;
     line-height:14px;
     text-align:center;
-    text-decoration:none;
     margin-left:4px;
+    position:relative;
+    cursor:help;
+}
+
+.q:hover::after{
+    content: attr(data-text);
+    position:absolute;
+    left:18px;
+    top:-5px;
+    background:#333;
+    color:white;
+    padding:8px;
+    border-radius:6px;
+    width:220px;
+    font-size:12px;
+    line-height:1.4em;
+    z-index:100;
 }
 
 @media (prefers-color-scheme: dark){
@@ -160,14 +176,14 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <thead>
 <tr>
 <th onclick="sortTable(0)">Sort</th>
-<th onclick="sortTable(1)">Varasus <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(2)">Maitsev <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(3)">Suurus <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(4)">Suhteline külmakindlus <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(5)">Värvus <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(6)">Breba <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(7)">Riik <a href="legend.html" class="q">?</a></th>
-<th onclick="sortTable(8)">Saadavus <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(1)">Varasus <span class="q" data-text="Viljade valmimise kiirus pärast moodustumist. Varased sobivad paremini Eesti kliimasse.">?</span></th>
+<th onclick="sortTable(2)">Maitsev <span class="q" data-text="Subjektiivne hinnang vilja maitsele Eesti tingimustes.">?</span></th>
+<th onclick="sortTable(3)">Suurus <span class="q" data-text="Viljade keskmine kaal võrreldes teiste sortidega.">?</span></th>
+<th onclick="sortTable(4)">Suhteline külmakindlus <span class="q" data-text="Külmakindlus võrreldes teiste sortidega, ei tähenda talvekindlust ilma katmata.">?</span></th>
+<th onclick="sortTable(5)">Värvus <span class="q" data-text="Vilja koore värvus küpsena.">?</span></th>
+<th onclick="sortTable(6)">Breba <span class="q" data-text="Kas sort annab saaki eelmise aasta võrsetelt.">?</span></th>
+<th onclick="sortTable(7)">Riik <span class="q" data-text="Sordi päritoluriik või piirkond.">?</span></th>
+<th onclick="sortTable(8)">Saadavus <span class="q" data-text="Kas istikuid on hetkel saadaval või lähiajal tulemas.">?</span></th>
 </tr>
 </thead>
 <tbody id="figBody"></tbody>
@@ -179,14 +195,12 @@ let filterSaadavus=true
 let figsData=[]
 let slideVarieties=[]
 
-/* LOAD SLIDE VARIETIES LIST */
 async function loadSlideList(){
     const txt = await fetch("../for_slides/for_slides.txt")
     const text = await txt.text()
     slideVarieties = text.split("\n").map(s=>s.trim())
 }
 
-/* RENDER TABLE */
 async function renderTable(data){
 const body=document.getElementById("figBody")
 body.innerHTML=""
@@ -220,13 +234,10 @@ body.appendChild(row)
 }
 }
 
-/* LOAD DATA */
 async function init(){
     await loadSlideList()
-
     const res = await fetch("figs.json")
     figsData = await res.json()
-
     renderTable(figsData)
 }
 
