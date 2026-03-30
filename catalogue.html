@@ -94,6 +94,21 @@ tr:hover{
     margin-left:6px;
 }
 
+/* QUESTION MARK */
+.q{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#2e7d32;
+    color:white;
+    font-size:10px;
+    line-height:14px;
+    text-align:center;
+    text-decoration:none;
+    margin-left:4px;
+}
+
 @media (prefers-color-scheme: dark){
 body{
     background:#121212;
@@ -145,14 +160,14 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <thead>
 <tr>
 <th onclick="sortTable(0)">Sort</th>
-<th onclick="sortTable(1)">Varasus</th>
-<th onclick="sortTable(2)">Maitsev</th>
-<th onclick="sortTable(3)">Suurus</th>
-<th onclick="sortTable(4)">Suhteline külmakindlus</th>
-<th onclick="sortTable(5)">Värvus</th>
-<th onclick="sortTable(6)">Breba</th>
-<th onclick="sortTable(7)">Riik</th>
-<th onclick="sortTable(8)">Saadavus</th>
+<th onclick="sortTable(1)">Varasus <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(2)">Maitsev <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(3)">Suurus <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(4)">Suhteline külmakindlus <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(5)">Värvus <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(6)">Breba <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(7)">Riik <a href="legend.html" class="q">?</a></th>
+<th onclick="sortTable(8)">Saadavus <a href="legend.html" class="q">?</a></th>
 </tr>
 </thead>
 <tbody id="figBody"></tbody>
