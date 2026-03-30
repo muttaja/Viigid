@@ -54,6 +54,38 @@ p{
     margin-bottom:15px;
 }
 
+/* TOOLTIP ? */
+.q{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#2e7d32;
+    color:white;
+    font-size:10px;
+    line-height:14px;
+    text-align:center;
+    margin-left:4px;
+    position:relative;
+    cursor:help;
+    text-decoration:none;
+}
+
+.q:hover::after{
+    content: attr(data-text);
+    position:absolute;
+    left:18px;
+    top:-5px;
+    background:#333;
+    color:white;
+    padding:8px;
+    border-radius:6px;
+    width:200px;
+    font-size:12px;
+    line-height:1.4em;
+    z-index:100;
+}
+
 /* IMAGE SLIDER */
 .image-slider{
     position:relative;
@@ -275,17 +307,17 @@ function buildPage(f){
 
         <div class="info-grid">
             <div class="info-col">
-                <div><b>Varasus:</b> ${f.varasus}</div>
-                <div><b>Suurus:</b> ${f.suurus}</div>
-                <div><b>Värvus:</b> ${f.varvus}</div>
-                <div><b>Maitsev:</b> ${f.maitsev}</div>
+                <div><b>Varasus</b> <a href="legend.html#varasus" class="q" data-text="Viljade valmimise kiirus pärast moodustumist.">?</a>: ${f.varasus}</div>
+                <div><b>Suurus</b> <a href="legend.html#suurus" class="q" data-text="Viljade keskmine suurus võrreldes teiste sortidega.">?</a>: ${f.suurus}</div>
+                <div><b>Värvus</b> <a href="legend.html#varvus" class="q" data-text="Vilja koore värvus küpsena.">?</a>: ${f.varvus}</div>
+                <div><b>Maitsev</b> <a href="legend.html#maitsev" class="q" data-text="Subjektiivne hinnang vilja maitsele.">?</a>: ${f.maitsev}</div>
             </div>
 
             <div class="info-col">
-                <div><b>Külmakindlus:</b> ${f.kulmakindlus}</div>
-                <div><b>Breba:</b> ${f.breba}</div>
-                <div><b>Riik:</b> ${f.riik}</div>
-                <div><b>Saadavus:</b> ${f.saadavus}</div>
+                <div><b>Külmakindlus</b> <a href="legend.html#kulmakindlus" class="q" data-text="Külmakindlus võrreldes teiste sortidega.">?</a>: ${f.kulmakindlus}</div>
+                <div><b>Breba</b> <a href="legend.html#breba" class="q" data-text="Kas sort annab saaki eelmise aasta võrsetelt.">?</a>: ${f.breba}</div>
+                <div><b>Riik</b> <a href="legend.html#riik" class="q" data-text="Sordi päritoluriik.">?</a>: ${f.riik}</div>
+                <div><b>Saadavus</b> <a href="legend.html#saadavus" class="q" data-text="Kas istikuid on hetkel saadaval.">?</a>: ${f.saadavus}</div>
             </div>
         </div>
 
