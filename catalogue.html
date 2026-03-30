@@ -15,7 +15,6 @@ body{
     background:#f3f6f2;
     padding:40px;
     color:#333;
-    transition:background 0.3s, color 0.3s;
 }
 
 h1{
@@ -30,20 +29,6 @@ h1{
 .nav-home a{
     color:#2e7d32;
     text-decoration:none;
-}
-
-.nav-home a:hover{
-    text-decoration:underline;
-}
-
-a{
-    color:#2e7d32;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-a:hover{
-    text-decoration:underline;
 }
 
 button{
@@ -81,6 +66,7 @@ th{
     cursor:pointer;
     position:sticky;
     top:0;
+    z-index:2;
 }
 
 tr:hover{
@@ -94,7 +80,7 @@ tr:hover{
     margin-left:6px;
 }
 
-/* QUESTION MARK TOOLTIP */
+/* TOOLTIP */
 .q{
     display:inline-block;
     width:14px;
@@ -107,22 +93,27 @@ tr:hover{
     text-align:center;
     margin-left:4px;
     position:relative;
-    cursor:help;
+    cursor:pointer;
+    text-decoration:none;
 }
 
-.q:hover::after{
-    content: attr(data-text);
+.tooltip{
+    display:none;
     position:absolute;
-    left:18px;
+    left:20px;
     top:-5px;
     background:#333;
     color:white;
-    padding:8px;
+    padding:10px;
     border-radius:6px;
-    width:220px;
+    width:260px;
     font-size:12px;
     line-height:1.4em;
-    z-index:100;
+    z-index:999;
+}
+
+.q:hover .tooltip{
+    display:block;
 }
 
 @media (prefers-color-scheme: dark){
@@ -176,14 +167,81 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <thead>
 <tr>
 <th onclick="sortTable(0)">Sort</th>
-<th onclick="sortTable(1)">Varasus <span class="q" data-text="Viljade valmimise kiirus pärast moodustumist. Varased sobivad paremini Eesti kliimasse.">?</span></th>
-<th onclick="sortTable(2)">Maitsev <span class="q" data-text="Subjektiivne hinnang vilja maitsele Eesti tingimustes.">?</span></th>
-<th onclick="sortTable(3)">Suurus <span class="q" data-text="Viljade keskmine kaal võrreldes teiste sortidega.">?</span></th>
-<th onclick="sortTable(4)">Suhteline külmakindlus <span class="q" data-text="Külmakindlus võrreldes teiste sortidega, ei tähenda talvekindlust ilma katmata.">?</span></th>
-<th onclick="sortTable(5)">Värvus <span class="q" data-text="Vilja koore värvus küpsena.">?</span></th>
-<th onclick="sortTable(6)">Breba <span class="q" data-text="Kas sort annab saaki eelmise aasta võrsetelt.">?</span></th>
-<th onclick="sortTable(7)">Riik <span class="q" data-text="Sordi päritoluriik või piirkond.">?</span></th>
-<th onclick="sortTable(8)">Saadavus <span class="q" data-text="Kas istikuid on hetkel saadaval või lähiajal tulemas.">?</span></th>
+
+<th onclick="sortTable(1)">
+Varasus 
+<a href="legend.html#varasus" class="q">?
+<span class="tooltip">
+Viljade valmimine päevades alates viljade moodustumisest.
+Kõige varasemad sordid ~60 päeva, hilised üle 90 päeva.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(2)">
+Maitsev 
+<a href="legend.html#maitsev" class="q">?
+<span class="tooltip">
+Subjektiivne hinnang vilja maitsele Eesti tingimustes.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(3)">
+Suurus 
+<a href="legend.html#suurus" class="q">?
+<span class="tooltip">
+Viljade kaal: väike <20g, keskmine 30–50g, suur 50–80g, mega >80g.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(4)">
+Suhteline külmakindlus 
+<a href="legend.html#kulmakindlus" class="q">?
+<span class="tooltip">
+Külmakindlus võrreldes teiste sortidega,
+ei tähenda talvekindlust ilma katmata.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(5)">
+Värvus 
+<a href="legend.html#varvus" class="q">?
+<span class="tooltip">
+Vilja koore värvus küpsena.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(6)">
+Breba 
+<a href="legend.html#breba" class="q">?
+<span class="tooltip">
+Kas sort annab saaki eelmise aasta võrsetelt.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(7)">
+Riik 
+<a href="legend.html#riik" class="q">?
+<span class="tooltip">
+Sordi päritoluriik.
+</span>
+</a>
+</th>
+
+<th onclick="sortTable(8)">
+Saadavus 
+<a href="legend.html#saadavus" class="q">?
+<span class="tooltip">
+Kas istikuid on hetkel või lähiajal saadaval.
+</span>
+</a>
+</th>
+
 </tr>
 </thead>
 <tbody id="figBody"></tbody>
@@ -253,7 +311,7 @@ filterSaadavus=!filterSaadavus
 renderTable(figsData)
 }
 
-/* SORT ORDERS */
+/* SORT */
 const orderVarasus = {"kõige varasem":1,"väga varane":2,"varane":3,"keskmine":4,"":5,"hiline":6}
 const orderMaitsev = {"erakordselt":1,"jah":2,"":3}
 const orderSuurus = {"mega":1,"suur":2,"keskmine":3,"väiksepoolne":4,"väike":5,"":6}
