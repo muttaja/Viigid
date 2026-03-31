@@ -26,9 +26,16 @@ h1{
     font-weight:bold;
 }
 
-.nav-home a{
+/* FIX LINK COLORS */
+a,
+a:visited,
+a:active{
     color:#2e7d32;
     text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
 }
 
 button{
@@ -266,7 +273,7 @@ filterSaadavus=!filterSaadavus
 renderTable(figsData)
 }
 
-/* TOOLTIP FOLLOW MOUSE */
+/* TOOLTIP */
 const tooltip = document.getElementById("tooltip")
 
 document.addEventListener("mouseover", e=>{
