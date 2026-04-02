@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="icon" href="images/ui/fig-icon.png">
-<link rel="shortcut icon" href="images/ui/fig-icon.png">
-<link rel="apple-touch-icon" href="images/ui/fig-icon.png">
 
 <style>
 :root{
@@ -48,7 +46,6 @@ h1{
     position:relative;
     margin:auto;
     max-width:900px;
-    touch-action: pan-y;
 }
 
 .slide{
@@ -58,17 +55,28 @@ h1{
     overflow:hidden;
 }
 
-.slide img{
+/* IMAGE FRAME */
+.slide-image{
     width:100%;
     height:500px;
-    object-fit:cover;
-    transform:scale(0.85);
+    background:#00000010;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
+/* SHOW FULL IMAGE */
+.slide-image img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+}
+
+/* CONTENT */
 .slide-content{
     padding:20px;
     text-align:left;
-    min-height:160px;
+    min-height:150px;
 }
 
 .slide a{
@@ -115,12 +123,11 @@ h1{
 
 /* MOBILE */
 @media (max-width:900px){
-
 .arrow{
     display:none;
 }
 
-.slide img{
+.slide-image{
     height:300px;
 }
 }
@@ -153,7 +160,7 @@ h1{
 /* BUTTON */
 .button{
     display:inline-block;
-    margin:20px 0 10px 0;
+    margin:15px 0;
     padding:14px 26px;
     font-size:18px;
     color:white;
@@ -164,7 +171,7 @@ h1{
 
 /* FACEBOOK */
 .fb-banner{
-    margin:10px auto 15px auto;
+    margin:10px auto;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 6px 20px rgba(0,0,0,0.25);
@@ -173,15 +180,7 @@ h1{
 
 .fb-banner img{
     width:100%;
-    height:100%;
-    object-fit:cover;
     display:block;
-}
-
-/* CONTACT */
-.contact{
-    margin-top:10px;
-    font-size:15px;
 }
 </style>
 </head>
@@ -191,12 +190,11 @@ h1{
 <div class="container">
 <h1>Viigipuud Eestis</h1>
 
-<div class="slider" id="slider">
+<div class="slider">
 
 <button class="arrow arrow-right" onclick="prevSlide()">
     <img src="images/ui/leaf-right.png">
 </button>
-
 <button class="arrow arrow-left" onclick="nextSlide()">
     <img src="images/ui/leaf-left.png">
 </button>
@@ -217,9 +215,7 @@ Vaata kõiki saadaval sorte
 </div>
 </a>
 
-<div class="contact">
-Huvi korral kirjuta <b>mats.ploompuu@gmail.com</b> või Messengeris
-</div>
+<p>Huvi korral kirjuta mats.ploompuu@gmail.com või Messengeris</p>
 
 </div>
 
@@ -263,7 +259,9 @@ function showSlide(){
     document.getElementById("slideContainer").innerHTML = `
     <div class="slide">
         <a href="variety.html?id=${f.id}">
-            <img src="${imgPath}" loading="lazy">
+            <div class="slide-image">
+                <img src="${imgPath}" loading="lazy">
+            </div>
         </a>
         <div class="slide-content">
             <h2>
@@ -314,15 +312,13 @@ function updateDots(){
     if(dots[current]) dots[current].classList.add("active")
 }
 
-/* SWIPE ONLY ON SLIDER */
-const slider = document.getElementById("slider")
-
-slider.addEventListener("touchstart", e=>{
+/* SWIPE */
+document.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX
     startY = e.touches[0].clientY
 })
 
-slider.addEventListener("touchend", e=>{
+document.addEventListener("touchend", e=>{
     let endX = e.changedTouches[0].clientX
     let endY = e.changedTouches[0].clientY
 
