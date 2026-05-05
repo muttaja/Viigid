@@ -41,6 +41,7 @@ a:hover{
 button{
     padding:8px 14px;
     margin-right:8px;
+    margin-bottom:8px;
     border-radius:6px;
     border:none;
     background:#2e7d32;
@@ -56,10 +57,18 @@ button{
     line-height:1.5em;
 }
 
+/* TABLE WRAPPER FOR MOBILE SCROLL */
+.table-wrapper{
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 6px;
+}
+
 table{
     border-collapse:collapse;
     width:100%;
     background:white;
+    min-width: 800px; /* Tagab, et tabelit ei suruta liiga kokku */
 }
 
 th, td{
@@ -74,6 +83,7 @@ th{
     position:sticky;
     top:0;
     z-index:2;
+    user-select: none; /* Takistab teksti valimist topeltkliki korral */
 }
 
 tr:hover{
@@ -85,6 +95,14 @@ tr:hover{
     height:18px;
     vertical-align:middle;
     margin-left:6px;
+}
+
+/* SORT ICON */
+.sort-icon {
+    font-size: 11px;
+    margin-left: 4px;
+    color: #555;
+    display: inline-block;
 }
 
 /* QUESTION MARK */
@@ -118,6 +136,10 @@ tr:hover{
     pointer-events:none;
 }
 
+@media (max-width: 600px){
+    body { padding: 20px 10px; }
+}
+
 @media (prefers-color-scheme: dark){
 body{
     background:#121212;
@@ -136,7 +158,10 @@ td{
     background:#1e1e1e;
 }
 tr:hover{
-    background:#2a2a2a;
+    background:#333333; /* Muudetud veidi heledamaks parema kontrasti jaoks */
+}
+.sort-icon {
+    color: #aaa;
 }
 }
 </style>
@@ -165,47 +190,57 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <button id="saadavusBtn">Näita ka sorte, mis pole hetkel saadaval</button>
 </div>
 
+<div class="table-wrapper">
 <table id="figTable">
 <thead>
 <tr>
-<th onclick="sortTable(0)">Sort</th>
+<th onclick="sortTable(0)">Sort <span class="sort-icon"></span></th>
 
 <th onclick="sortTable(1)">Varasus 
 <a href="legend.html#varasus" class="q" data-tip="Viljade valmimine päevades alates viljade moodustumisest. Kõige varasemad sordid ~60 päeva, hilised üle 90 päeva.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(2)">Maitsev 
 <a href="legend.html#maitsev" class="q" data-tip="Subjektiivne hinnang vilja maitsele Eesti tingimustes.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(3)">Suurus 
 <a href="legend.html#suurus" class="q" data-tip="Viljade kaal: väike &lt;20g, keskmine 30–50g, suur 50–80g, mega &gt;80g.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(4)">Suhteline külmakindlus 
 <a href="legend.html#kulmakindlus" class="q" data-tip="Külmakindlus võrreldes teiste sortidega, ei tähenda talvekindlust ilma katmata.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(5)">Värvus 
 <a href="legend.html#varvus" class="q" data-tip="Vilja koore värvus küpsena.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(6)">Breba 
 <a href="legend.html#breba" class="q" data-tip="Kas sort annab saaki eelmise aasta võrsetelt.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(7)">Riik 
 <a href="legend.html#riik" class="q" data-tip="Sordi päritoluriik.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 <th onclick="sortTable(8)">Saadavus 
 <a href="legend.html#saadavus" class="q" data-tip="Kas istikuid on hetkel või lähiajal saadaval.">?</a>
+<span class="sort-icon"></span>
 </th>
 
 </tr>
 </thead>
 <tbody id="figBody"></tbody>
 </table>
+</div>
 
 <div class="tooltip-box" id="tooltip"></div>
 
@@ -215,62 +250,84 @@ let filterSaadavus=true
 let figsData=[]
 let slideVarieties=[]
 
+let sortCol = -1;
+let sortAsc = true;
+
 async function loadSlideList(){
     const txt = await fetch("../for_slides/for_slides.txt")
     const text = await txt.text()
     slideVarieties = text.split("\n").map(s=>s.trim())
 }
 
-async function renderTable(data){
-const body=document.getElementById("figBody")
-body.innerHTML=""
-
-data=[...data].sort((a,b)=>a.name.localeCompare(b.name,'et'))
-
-for(const fig of data){
-
-if(filterKandnud && fig.kandnud!=="jah") continue
-if(filterSaadavus && fig.saadavus!=="jah") continue
-
-let photoIcon = slideVarieties.includes(fig.id)
-    ? '<img src="images/ui/fig-icon.png" class="fig-icon">'
-    : ''
-
-const row=document.createElement("tr")
-
-row.innerHTML=`
-<td><a href="variety.html?id=${fig.id}">${fig.name}</a> ${photoIcon}</td>
-<td>${fig.varasus}</td>
-<td>${fig.maitsev}</td>
-<td>${fig.suurus}</td>
-<td>${fig.kulmakindlus}</td>
-<td>${fig.varvus}</td>
-<td>${fig.breba}</td>
-<td>${fig.riik}</td>
-<td>${fig.saadavus}</td>
-`
-
-body.appendChild(row)
+function updateBtnTexts() {
+    document.getElementById("kandnudBtn").innerText = filterKandnud 
+        ? "Näita ka sorte, mis pole veel kandnud" 
+        : "Peida sordid, mis pole veel kandnud";
+        
+    document.getElementById("saadavusBtn").innerText = filterSaadavus 
+        ? "Näita ka sorte, mis pole hetkel saadaval" 
+        : "Peida sordid, mis pole hetkel saadaval";
 }
+
+async function renderTable(data){
+    const body=document.getElementById("figBody")
+    body.innerHTML=""
+
+    // Algne sorteerimine on A-Z "name" põhjal
+    data=[...data].sort((a,b)=>a.name.localeCompare(b.name,'et'))
+
+    for(const fig of data){
+        if(filterKandnud && fig.kandnud!=="jah") continue
+        if(filterSaadavus && fig.saadavus!=="jah") continue
+
+        let photoIcon = slideVarieties.includes(fig.id)
+            ? '<img src="images/ui/fig-icon.png" class="fig-icon">'
+            : ''
+
+        const row=document.createElement("tr")
+
+        row.innerHTML=`
+        <td><a href="variety.html?id=${fig.id}">${fig.name}</a> ${photoIcon}</td>
+        <td>${fig.varasus}</td>
+        <td>${fig.maitsev}</td>
+        <td>${fig.suurus}</td>
+        <td>${fig.kulmakindlus}</td>
+        <td>${fig.varvus}</td>
+        <td>${fig.breba}</td>
+        <td>${fig.riik}</td>
+        <td>${fig.saadavus}</td>
+        `
+        body.appendChild(row)
+    }
+
+    // Kui meil oli mingi konkreetne veerg aktiivne, rakendame sorteerimise uuesti peale renderdamist
+    if(sortCol !== -1) {
+        // Ajutiselt keerame suuna tagasi, et sortTable funktsioon selle kohe õigeks pööraks
+        sortAsc = !sortAsc; 
+        sortTable(sortCol);
+    }
 }
 
 async function init(){
     await loadSlideList()
     const res = await fetch("figs.json")
     figsData = await res.json()
+    updateBtnTexts()
     renderTable(figsData)
 }
 
 init()
 
 document.getElementById("kandnudBtn").onclick=()=>{
-filterKandnud=!filterKandnud
-renderTable(figsData)
+    filterKandnud=!filterKandnud
+    updateBtnTexts()
+    renderTable(figsData)
 }
 
 document.getElementById("saadavusBtn").onclick=()=>{
-filterSaadavus=!filterSaadavus
-renderTable(figsData)
+    filterSaadavus=!filterSaadavus
+    updateBtnTexts()
+    renderTable(figsData)
 }
 
 /* TOOLTIP */
@@ -303,25 +360,52 @@ const orderBreba = {"jah":1,"mõningane":2,"":3,"ei":4}
 const orderSaadavus = {"jah":1,"ei":2}
 
 function sortTable(n){
-const table=document.getElementById("figTable")
-let rows=Array.from(table.rows).slice(1)
+    // Määrame sorteerimise suuna ja aktiivse veeru
+    if (sortCol === n) {
+        sortAsc = !sortAsc;
+    } else {
+        sortCol = n;
+        sortAsc = true;
+    }
 
-rows.sort((a,b)=>{
-let x=a.cells[n].innerText.toLowerCase().trim()
-let y=b.cells[n].innerText.toLowerCase().trim()
+    updateSortIcons();
 
-if(n===0) return x.localeCompare(y)
-if(n===1) return (orderVarasus[x]||99)-(orderVarasus[y]||99)
-if(n===2) return (orderMaitsev[x]||99)-(orderMaitsev[y]||99)
-if(n===3) return (orderSuurus[x]||99)-(orderSuurus[y]||99)
-if(n===4) return (orderKulm[x]||99)-(orderKulm[y]||99)
-if(n===6) return (orderBreba[x]||99)-(orderBreba[y]||99)
-if(n===8) return (orderSaadavus[x]||99)-(orderSaadavus[y]||99)
+    const table=document.getElementById("figTable")
+    let rows=Array.from(table.rows).slice(1) // Jätame thead rea välja
 
-return x.localeCompare(y)
-})
+    rows.sort((a,b)=>{
+        let x=a.cells[n].innerText.toLowerCase().trim()
+        let y=b.cells[n].innerText.toLowerCase().trim()
 
-rows.forEach(row=>table.appendChild(row))
+        let cmp = 0;
+        if(n===0) cmp = x.localeCompare(y, 'et')
+        else if(n===1) cmp = (orderVarasus[x]||99)-(orderVarasus[y]||99)
+        else if(n===2) cmp = (orderMaitsev[x]||99)-(orderMaitsev[y]||99)
+        else if(n===3) cmp = (orderSuurus[x]||99)-(orderSuurus[y]||99)
+        else if(n===4) cmp = (orderKulm[x]||99)-(orderKulm[y]||99)
+        else if(n===6) cmp = (orderBreba[x]||99)-(orderBreba[y]||99)
+        else if(n===8) cmp = (orderSaadavus[x]||99)-(orderSaadavus[y]||99)
+        else cmp = x.localeCompare(y, 'et')
+
+        return sortAsc ? cmp : -cmp;
+    })
+
+    // Lisame read tagasi õiges järjekorras
+    const tbody = document.getElementById("figBody");
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function updateSortIcons() {
+    document.querySelectorAll('th').forEach((th, i) => {
+        const icon = th.querySelector('.sort-icon');
+        if (icon) {
+            if (i === sortCol) {
+                icon.innerText = sortAsc ? ' ▲' : ' ▼';
+            } else {
+                icon.innerText = '';
+            }
+        }
+    });
 }
 </script>
 
