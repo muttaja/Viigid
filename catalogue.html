@@ -84,6 +84,7 @@ th{
     top:0;
     z-index:2;
     user-select: none; /* Takistab teksti valimist topeltkliki korral */
+    white-space: nowrap; /* Takistab pikkade pealkirjade murdumist */
 }
 
 tr:hover{
@@ -158,7 +159,7 @@ td{
     background:#1e1e1e;
 }
 tr:hover{
-    background:#333333; /* Muudetud veidi heledamaks parema kontrasti jaoks */
+    background:#333333;
 }
 .sort-icon {
     color: #aaa;
@@ -196,46 +197,21 @@ Tabelis toodud omadused on subjektiivsed.<br>
 <tr>
 <th onclick="sortTable(0)">Sort <span class="sort-icon"></span></th>
 
-<th onclick="sortTable(1)">Varasus 
-<a href="legend.html#varasus" class="q" data-tip="Viljade valmimine päevades alates viljade moodustumisest. Kõige varasemad sordid ~60 päeva, hilised üle 90 päeva.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(1)">Varasus&nbsp;<a href="legend.html#varasus" class="q" data-tip="Viljade valmimine päevades alates viljade moodustumisest. Kõige varasemad sordid ~60 päeva, hilised üle 90 päeva." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(2)">Maitsev 
-<a href="legend.html#maitsev" class="q" data-tip="Subjektiivne hinnang vilja maitsele Eesti tingimustes.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(2)">Maitsev&nbsp;<a href="legend.html#maitsev" class="q" data-tip="Subjektiivne hinnang vilja maitsele Eesti tingimustes." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(3)">Suurus 
-<a href="legend.html#suurus" class="q" data-tip="Viljade kaal: väike &lt;20g, keskmine 30–50g, suur 50–80g, mega &gt;80g.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(3)">Suurus&nbsp;<a href="legend.html#suurus" class="q" data-tip="Viljade kaal: väike &lt;20g, keskmine 30–50g, suur 50–80g, mega &gt;80g." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(4)">Suhteline külmakindlus 
-<a href="legend.html#kulmakindlus" class="q" data-tip="Külmakindlus võrreldes teiste sortidega, ei tähenda talvekindlust ilma katmata.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(4)">Suhteline külmakindlus&nbsp;<a href="legend.html#kulmakindlus" class="q" data-tip="Külmakindlus võrreldes teiste sortidega, ei tähenda talvekindlust ilma katmata." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(5)">Värvus 
-<a href="legend.html#varvus" class="q" data-tip="Vilja koore värvus küpsena.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(5)">Värvus&nbsp;<a href="legend.html#varvus" class="q" data-tip="Vilja koore värvus küpsena." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(6)">Breba 
-<a href="legend.html#breba" class="q" data-tip="Kas sort annab saaki eelmise aasta võrsetelt.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(6)">Breba&nbsp;<a href="legend.html#breba" class="q" data-tip="Kas sort annab saaki eelmise aasta võrsetelt." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(7)">Riik 
-<a href="legend.html#riik" class="q" data-tip="Sordi päritoluriik.">?</a>
-<span class="sort-icon"></span>
-</th>
+<th onclick="sortTable(7)">Riik&nbsp;<a href="legend.html#riik" class="q" data-tip="Sordi päritoluriik." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 
-<th onclick="sortTable(8)">Saadavus 
-<a href="legend.html#saadavus" class="q" data-tip="Kas istikuid on hetkel või lähiajal saadaval.">?</a>
-<span class="sort-icon"></span>
-</th>
-
+<th onclick="sortTable(8)">Saadavus&nbsp;<a href="legend.html#saadavus" class="q" data-tip="Kas istikuid on hetkel või lähiajal saadaval." onclick="event.stopPropagation()">?</a><span class="sort-icon"></span></th>
 </tr>
 </thead>
 <tbody id="figBody"></tbody>
@@ -300,9 +276,7 @@ async function renderTable(data){
         body.appendChild(row)
     }
 
-    // Kui meil oli mingi konkreetne veerg aktiivne, rakendame sorteerimise uuesti peale renderdamist
     if(sortCol !== -1) {
-        // Ajutiselt keerame suuna tagasi, et sortTable funktsioon selle kohe õigeks pööraks
         sortAsc = !sortAsc; 
         sortTable(sortCol);
     }
@@ -360,7 +334,6 @@ const orderBreba = {"jah":1,"mõningane":2,"":3,"ei":4}
 const orderSaadavus = {"jah":1,"ei":2}
 
 function sortTable(n){
-    // Määrame sorteerimise suuna ja aktiivse veeru
     if (sortCol === n) {
         sortAsc = !sortAsc;
     } else {
@@ -371,7 +344,7 @@ function sortTable(n){
     updateSortIcons();
 
     const table=document.getElementById("figTable")
-    let rows=Array.from(table.rows).slice(1) // Jätame thead rea välja
+    let rows=Array.from(table.rows).slice(1)
 
     rows.sort((a,b)=>{
         let x=a.cells[n].innerText.toLowerCase().trim()
@@ -390,7 +363,6 @@ function sortTable(n){
         return sortAsc ? cmp : -cmp;
     })
 
-    // Lisame read tagasi õiges järjekorras
     const tbody = document.getElementById("figBody");
     rows.forEach(row => tbody.appendChild(row));
 }
