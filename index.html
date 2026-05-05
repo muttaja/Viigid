@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<title>Viigipuud Eestis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="images/ui/fig-icon.png">
+
+<!-- OPEN GRAPH -->
+<meta property="og:title" content="Viigipuud Eestis">
+<meta property="og:description" content="Varased viigipuusordid Eesti tingimustesse. Vaata sorte ja pilte.">
+<meta property="og:image" content="https://raw.githubusercontent.com/muttaja/Viigid/main/images/preview/preview.jpg">
+<meta property="og:url" content="https://ficus.ee">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ficus.ee">
+
+<style>
+:root {
+    --bg: #f3f6f2;
+    --card: #ffffff;
+    --text: #333;
+    --green: #2e7d32;
+    --dot: #aaa;
+    --dot-active: #555;
+    --shadow: rgba(0,0,0,0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #121212;
+        --card: #1e1e1e;
+        --text: #e8e8e8;
+        --dot: #555;
+        --dot-active: #fff;
+        --shadow: rgba(0,0,0,0.4);
+    }
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    text-align: center;
+    line-height: 1.6;
+}
+
+.container {
+    padding: 20px 15px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 { margin-bottom: 20px; }
+
+/* SLIDER */
+.slider {
+    position: relative;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.slide {
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: 0 8px 25px var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.slide-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Hoiab pildid ühtses raamis */
+    background: #00000010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Täidab ala, kuna pildid on sarnase suhtega */
+}
+
+.slide-content {
+    padding: 25px;
+    text-align: left;
+}
+
+.slide-content h2 { margin-top: 0; }
+
+.slide a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.slide-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    font-size: 14px;
+    border-top: 1px solid rgba(128,128,128,0.2);
+    padding-top: 15px;
+}
+
+/* NOOLED */
+.arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 10px;
+    transition: opacity 0.2s;
+}
+
+.arrow:hover { opacity: 0.7; }
+.arrow img { width: 60px; height: auto; }
+
+.arrow-prev { left: -80px; }
+.arrow-next { right: -80px; }
+
+@media (max-width: 1100px) {
+    .arrow { display: none; } /* Peidab nooled kui ekraan kitsas, swipe jääb */
+}
+
+.dots { margin-top: 15px; }
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background: var(--dot);
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.dot.active { background: var(--dot-active); transform: scale(1.2); }
+
+.counter { margin-top: 5px; font-size: 13px; opacity: 0.6; }
+
+.button {
+    display: inline-block;
+    margin: 25px 0;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: var(--green);
+    text-decoration: none;
+    border-radius: 50px;
+    transition: filter 0.2s;
+}
+.button:hover { filter: brightness(1.1); }
+
+.fb-banner {
+    margin: 20px auto;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px var(--shadow);
+    max-width: 750px;
+}
+.fb-banner img { width: 100%; display: block; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Viigipuud Eestis</h1>
+
+    <div class="slider" id="sliderArea">
+        <button class="arrow arrow-prev" onclick="prevSlide()" aria-label="Eelmine">
+            <img src="images/ui/leaf-right.png" style="transform: scaleX(-1);">
+        </button>
+        <button class="arrow arrow-next" onclick="nextSlide()" aria-label="Järgmine">
+            <img src="images/ui/leaf-left.png">
+        </button>
+
+        <div id="slideContainer">Laadimine...</div>
+        <div class="dots" id="dots"></div>
+        <div class="counter" id="counter"></div>
+    </div>
+
+    <a class="button" href="catalogue.html">Vaata kõiki saadaval sorte</a>
+
+    <a href="https://www.facebook.com/groups/1096702358191767/" target="_blank">
+        <div class="fb-banner">
+            <img src="../images_fb/banner.png" alt="Facebook Grupp" fetchpriority="high">
+        </div>
+    </a>
+
+    <p>Huvi korral kirjuta <a href="mailto:mats.ploompuu@gmail.com" style="color:var(--green)">mats.ploompuu@gmail.com</a> või Messengeris.</p>
+    <p style="font-size: 0.9em; opacity: 0.8;">Taimetervise registri number nr 5455.</p>
+</div>
+
+<script>
+let figs = [];
+let current = 0;
+let slideTimer;
+let startX = 0;
+
+async function loadSlides() {
+    try {
+        // Laeb mõlemad failid paralleelselt
+        const [txtRes, jsonRes] = await Promise.all([
+            fetch("../for_slides/for_slides.txt"),
+            fetch("figs.json")
+        ]);
+
+        const text = await txtRes.text();
+        const data = await jsonRes.json();
+
+        const slideList = text.split("\n").map(s => s.trim()).filter(Boolean);
+        
+        // Filtreerib andmed vastavalt tekstifaili järjekorrale
+        figs = slideList.map(id => data.find(x => x.id === id)).filter(Boolean);
+
+        if (figs.length > 0) {
+            createDots();
+            showSlide();
+            startAutoSlide();
+        }
+    } catch (err) {
+        console.error("Viga laadimisel:", err);
+        document.getElementById("slideContainer").innerHTML = "Sisu laadimine ebaõnnestus.";
+    }
+}
+
+function showSlide() {
+    const f = figs[current];
+    const imgPath = `https://raw.githubusercontent.com/muttaja/Viigid/main/for_slides/img/${f.id}.jpg`;
+    
+    // Esimene pilt laeb kiiremini, järgmised laetakse taustal
+    const isFirst = current === 0;
+    const loadingAttr = isFirst ? 'fetchpriority="high"' : 'loading="lazy"';
+
+    document.getElementById("slideContainer").innerHTML = `
+        <div class="slide">
+            <a href="variety.html?id=${f.id}">
+                <div class="slide-image">
+                    <img src="${imgPath}" ${loadingAttr} alt="${f.name}">
+                </div>
+            </a>
+            <div class="slide-content">
+                <h2>
+                    <a href="variety.html?id=${f.id}">${f.name}</a>
+                    ${f.saadavus === "jah" ? '<span style="color:var(--green); font-size: 0.7em;"> (saadaval)</span>' : ''}
+                </h2>
+                <p class="slide-desc">${f.kirjeldus || ""}</p>
+                <div class="info-grid">
+                    <div><b>Varasus:</b> ${f.varasus}</div>
+                    <div><b>Maitse:</b> ${f.maitsev}</div>
+                    <div><b>Suurus:</b> ${f.suurus}</div>
+                    <div><b>Külm:</b> ${f.kulmakindlus}</div>
+                    <div><b>Värv:</b> ${f.varvus}</div>
+                    <div><b>Riik:</b> ${f.riik}</div>
+                </div>
+            </div>
+        </div>`;
+
+    updateDots();
+    document.getElementById("counter").innerText = `${current + 1} / ${figs.length}`;
+}
+
+function startAutoSlide() {
+    clearInterval(slideTimer);
+    slideTimer = setInterval(nextSlide, 6000);
+}
+
+function nextSlide() {
+    current = (current + 1) % figs.length;
+    showSlide();
+    startAutoSlide(); // Nullib ja alustab uut intervalli
+}
+
+function prevSlide() {
+    current = (current - 1 + figs.length) % figs.length;
+    showSlide();
+    startAutoSlide();
+}
+
+function createDots() {
+    const dotsDiv = document.getElementById("dots");
+    dotsDiv.innerHTML = figs.map(() => `<span class="dot"></span>`).join('');
+}
+
+function updateDots() {
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach((d, i) => d.classList.toggle("active", i === current));
+}
+
+// Swipe tugi
+const sliderArea = document.getElementById("sliderArea");
+sliderArea.addEventListener("touchstart", e => { startX = e.touches[0].clientX; }, {passive: true});
+sliderArea.addEventListener("touchend", e => {
+    const diffX = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diffX) > 50) {
+        if (diffX > 0) prevSlide(); else nextSlide();
+    }
+}, {passive: true});
+
+loadSlides();
+</script>
+
+</body>
+</html>
