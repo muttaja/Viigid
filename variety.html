@@ -43,6 +43,7 @@ body{
     border-radius:14px;
     box-shadow:0 8px 25px rgba(0,0,0,0.15);
     padding:20px;
+    position: relative;
 }
 
 h1{
@@ -52,6 +53,7 @@ h1{
 p{
     margin-top:5px;
     margin-bottom:15px;
+    line-height: 1.5em;
 }
 
 /* TOOLTIP */
@@ -78,12 +80,20 @@ p{
     top:-5px;
     background:#333;
     color:white;
-    padding:8px;
+    padding:10px;
     border-radius:6px;
     width:220px;
     font-size:12px;
     line-height:1.4em;
     z-index:100;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* VÄLDIB TOOLTIPI EKRAANILT VÄLJA MINEKUT PAREMAS VEERUS */
+.info-col:nth-child(2) .q:hover::after {
+    left: auto;
+    right: 18px;
 }
 
 /* IMAGE SLIDER */
@@ -107,7 +117,7 @@ p{
 .image-frame img{
     max-width:100%;
     max-height:100%;
-    cursor:pointer;
+    cursor:zoom-in;
 }
 
 /* ARROWS */
@@ -115,13 +125,19 @@ p{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    background:rgba(0,0,0,0.4);
+    background:rgba(0,0,0,0.5);
     color:white;
     border:none;
     font-size:26px;
     padding:8px 14px;
     cursor:pointer;
     border-radius:6px;
+    z-index: 10;
+    transition: background 0.2s;
+}
+
+.img-arrow:hover {
+    background:rgba(0,0,0,0.8);
 }
 
 .img-left{ left:10px; }
@@ -176,16 +192,18 @@ p{
 .fullscreen{
     position:fixed;
     inset:0;
-    background:black;
+    background:rgba(0,0,0,0.95);
     display:flex;
     align-items:center;
     justify-content:center;
-    z-index:999;
+    z-index:9999;
+    touch-action: none;
 }
 
 .fullscreen img{
     max-width:95%;
     max-height:95%;
+    object-fit: contain;
 }
 
 .close-full{
@@ -193,8 +211,10 @@ p{
     top:20px;
     right:25px;
     color:white;
-    font-size:30px;
+    font-size:35px;
     cursor:pointer;
+    z-index: 10000;
+    line-height: 1;
 }
 
 /* INFO GRID */
@@ -207,12 +227,21 @@ p{
 }
 
 .info-col div{
-    margin-bottom:6px;
+    margin-bottom:8px;
+}
+
+/* ERROR MESSAGE */
+.error-msg {
+    text-align: center;
+    padding: 40px 0;
 }
 
 @media (max-width:700px){
 .image-frame{
     height:260px;
+}
+.info-grid{
+    font-size: 14px;
 }
 }
 </style>
@@ -221,7 +250,9 @@ p{
 <body>
 
 <div class="container">
-<div class="card" id="varietyCard"></div>
+<div class="card" id="varietyCard">
+    <div style="text-align:center; padding:40px;">Laadimine...</div>
+</div>
 </div>
 
 <script>
@@ -229,6 +260,7 @@ let images = []
 let currentImg = 0
 let startX = 0
 let startY = 0
+let isFullscreenOpen = false;
 
 function getId(){
     const params = new URLSearchParams(window.location.search)
@@ -264,20 +296,45 @@ function loadImages(folder){
 
 async function loadVariety(){
     const id = getId()
+    const card = document.getElementById("varietyCard")
 
-    const res = await fetch("figs.json")
-    const data = await res.json()
-
-    const f = data.find(x => x.id === id)
-    if(!f) return
-
-    if(f.images && f.images[0].endsWith("/")){
-        images = await loadImages(f.images[0])
-    } else {
-        images = f.images || []
+    if(!id) {
+        showError("Sordi ID puudub URL-ist.");
+        return;
     }
 
-    buildPage(f)
+    try {
+        const res = await fetch("figs.json")
+        const data = await res.json()
+
+        const f = data.find(x => x.id === id)
+        
+        if(!f) {
+            showError("Sellist sorti ei leitud.");
+            return;
+        }
+
+        if(f.images && f.images[0].endsWith("/")){
+            images = await loadImages(f.images[0])
+        } else {
+            images = f.images || []
+        }
+
+        buildPage(f)
+    } catch(err) {
+        console.error("Viga andmete laadimisel:", err);
+        showError("Andmete laadimine ebaõnnestus.");
+    }
+}
+
+function showError(msg) {
+    document.getElementById("varietyCard").innerHTML = `
+        <div class="error-msg">
+            <h2>${msg}</h2>
+            <br>
+            <a href="catalogue.html" style="color:var(--green); text-decoration:none; font-weight:bold;">← Tagasi kataloogi</a>
+        </div>
+    `;
 }
 
 /* BUILD PAGE */
@@ -293,12 +350,12 @@ function buildPage(f){
 
         <p>${f.kirjeldus || ""}</p>
 
-        <div class="image-slider">
-            ${images.length>1 ? '<button class="img-arrow img-left" id="prevBtn">‹</button>' : ''}
-            ${images.length>1 ? '<button class="img-arrow img-right" id="nextBtn">›</button>' : ''}
+        <div class="image-slider" style="display: ${images.length > 0 ? 'block' : 'none'}">
+            ${images.length>1 ? '<button class="img-arrow img-left" id="prevBtn" aria-label="Eelmine">‹</button>' : ''}
+            ${images.length>1 ? '<button class="img-arrow img-right" id="nextBtn" aria-label="Järgmine">›</button>' : ''}
 
             <div class="image-frame" id="imageFrame">
-                <img id="varImg" src="${images[0] || ''}">
+                <img id="varImg" src="${images[0] || ''}" alt="${f.name}">
             </div>
 
             <div class="img-dots" id="dots"></div>
@@ -327,7 +384,7 @@ function buildPage(f){
         </div>
     `
 
-    setupSlider()
+    if(images.length > 0) setupSlider()
 }
 
 /* SLIDER */
@@ -348,6 +405,7 @@ function setupSlider(){
             currentImg = parseInt(dot.dataset.i)
             img.src = images[currentImg]
             updateDots()
+            syncFullscreenImage()
         }
     })
 
@@ -358,7 +416,7 @@ function setupSlider(){
     frame.addEventListener("touchstart", e=>{
         startX = e.touches[0].clientX
         startY = e.touches[0].clientY
-    })
+    }, {passive: true})
 
     frame.addEventListener("touchend", e=>{
         let endX = e.changedTouches[0].clientX
@@ -371,27 +429,23 @@ function setupSlider(){
             if(diffX > 50) prevImg()
             if(diffX < -50) nextImg()
         }
-    })
+    }, {passive: true})
 }
 
 function nextImg(){
-    if(currentImg < images.length-1){
-        currentImg++
-    } else {
-        currentImg = 0
-    }
+    if(images.length <= 1) return;
+    currentImg = (currentImg + 1) % images.length;
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
+    syncFullscreenImage()
 }
 
 function prevImg(){
-    if(currentImg > 0){
-        currentImg--
-    } else {
-        currentImg = images.length-1
-    }
+    if(images.length <= 1) return;
+    currentImg = (currentImg - 1 + images.length) % images.length;
     document.getElementById("varImg").src = images[currentImg]
     updateDots()
+    syncFullscreenImage()
 }
 
 function updateDots(){
@@ -405,19 +459,57 @@ function updateDots(){
 
 /* FULLSCREEN */
 function openFullscreen(){
+    if(images.length === 0) return;
+    isFullscreenOpen = true;
+
     const div = document.createElement("div")
     div.className = "fullscreen"
+    div.id = "fullscreenView"
     div.innerHTML = `
-        <div class="close-full" onclick="this.parentElement.remove()">✕</div>
-        <img src="${images[currentImg]}">
+        <div class="close-full" id="closeFsBtn">✕</div>
+        ${images.length>1 ? '<button class="img-arrow img-left" id="fsPrevBtn">‹</button>' : ''}
+        ${images.length>1 ? '<button class="img-arrow img-right" id="fsNextBtn">›</button>' : ''}
+        <img id="fsImg" src="${images[currentImg]}">
     `
     document.body.appendChild(div)
+
+    // Events for Fullscreen
+    document.getElementById("closeFsBtn").onclick = closeFullscreen;
+    
+    if(images.length > 1) {
+        document.getElementById("fsPrevBtn").onclick = (e) => { e.stopPropagation(); prevImg(); };
+        document.getElementById("fsNextBtn").onclick = (e) => { e.stopPropagation(); nextImg(); };
+    }
+
+    // Swipe for Fullscreen
+    let fsStartX = 0;
+    div.addEventListener("touchstart", e => fsStartX = e.touches[0].clientX, {passive: true});
+    div.addEventListener("touchend", e => {
+        let diffX = e.changedTouches[0].clientX - fsStartX;
+        if(Math.abs(diffX) > 50) {
+            if(diffX > 0) prevImg(); else nextImg();
+        }
+    }, {passive: true});
+}
+
+function closeFullscreen() {
+    isFullscreenOpen = false;
+    const fs = document.getElementById("fullscreenView");
+    if(fs) fs.remove();
+}
+
+function syncFullscreenImage() {
+    if(isFullscreenOpen) {
+        const fsImg = document.getElementById("fsImg");
+        if(fsImg) fsImg.src = images[currentImg];
+    }
 }
 
 /* KEYBOARD */
 document.addEventListener("keydown", function(e){
     if(e.key === "ArrowLeft") prevImg()
     if(e.key === "ArrowRight") nextImg()
+    if(e.key === "Escape" && isFullscreenOpen) closeFullscreen()
 })
 
 loadVariety()
