@@ -52,7 +52,29 @@ body{
 }
 
 h1{
-    margin-bottom:20px;
+    margin-bottom:10px; /* Vähendasin veidi vahet, et link mahuks ilusti alla */
+}
+
+/* UUE LINGI STIIL */
+.guide-link {
+    display: inline-block;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--green);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.guide-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+@media (prefers-color-scheme: dark){
+.guide-link {
+    color: #4caf50; /* Pimedas režiimis veidi heledam roheline parema loetavuse jaoks */
+}
 }
 
 /* SLIDER */
@@ -138,7 +160,6 @@ h1{
     width:95px;
 }
 
-/* KASUTAJA SOOVIL MUUTMATA NOOLTE LOOGIKA */
 .arrow-right{ left:-120px; }
 .arrow-left{ right:-120px; }
 
@@ -205,6 +226,9 @@ h1{
 <div class="container">
 <h1>Viigipuud Eestis</h1>
 
+<!-- LISATUD LINK -->
+<a href="figging.html" class="guide-link">Mis, miks? Kus, kuidas? Loe juhtnööre →</a>
+
 <div class="slider" id="sliderArea">
 
 <button class="arrow arrow-right" onclick="prevSlide()" aria-label="Eelmine">
@@ -224,7 +248,6 @@ h1{
 Vaata kõiki saadaval sorte
 </a>
 
-<!-- Lisatud rel="noopener noreferrer" turvalisuse parandamiseks -->
 <a href="https://www.facebook.com/groups/1096702358191767/" target="_blank" rel="noopener noreferrer">
 <div class="fb-banner">
 <img src="../images_fb/banner.png" fetchpriority="high">
@@ -257,7 +280,7 @@ async function loadSlides(){
         figs = slideList.map(id => data.find(x => x.id === id)).filter(Boolean);
 
         if(figs.length > 0) {
-            renderAllSlides(); // Koostame kogu HTML-i korraga
+            renderAllSlides(); 
             createDots();
             showSlide();
             resetTimer();
@@ -268,7 +291,6 @@ async function loadSlides(){
     }
 }
 
-// Uus funktsioon, mis laeb kõik slaidid korraga DOM-i
 function renderAllSlides() {
     const container = document.getElementById("slideContainer");
     let slidesHTML = '';
@@ -310,7 +332,6 @@ function renderAllSlides() {
 }
 
 function showSlide(){
-    // Leia kõik slaidid ja määra aktiivseks ainult õige indeksiga slaid
     const slides = document.querySelectorAll('.slide');
     slides.forEach((slide, index) => {
         if(index === current) {
@@ -356,7 +377,7 @@ const sliderArea = document.getElementById("sliderArea");
 sliderArea.addEventListener("touchstart", e => {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
-    resetTimer(); // Lähtestab taimeri kohe puudutuse alguses, et kerides leht ei hüppaks
+    resetTimer(); 
 }, {passive: true});
 
 sliderArea.addEventListener("touchend", e => {
