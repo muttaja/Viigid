@@ -52,7 +52,7 @@
     "images": [
       "../images/angelito/"
     ],
-    "saadavus": "ei",
+    "saadavus": "jah",
     "kirjeldus": "Ootan maitseelamust ja suuri vilju.",
     "kandnud": "ei"
   },
@@ -71,7 +71,7 @@
     "images": [
       "../images/atreano/"
     ],
-    "saadavus": "ei",
+    "saadavus": "jah",
     "kirjeldus": "Oma suuruse kohta valmib suhteliselt vara.",
     "kandnud": "ei"
   },
@@ -166,7 +166,7 @@
     "images": [
       "../images/enderud/"
     ],
-    "saadavus": "ei",
+    "saadavus": "jah",
     "kirjeldus": "Persistent caprifig, rohke tolmuga.",
     "kandnud": "ei"
   },
